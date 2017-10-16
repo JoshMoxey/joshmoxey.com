@@ -3,7 +3,6 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
-const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 const flash = require('connect-flash');
 const path = require('path');
@@ -29,12 +28,12 @@ if (reload === "true") {
 handlebars = require('express-handlebars').create({
   layoutsDir: path.join(__dirname, "views/layouts"),
   partialsDir: path.join(__dirname, "views/partials"),
-  defaultLayout: 'signedin',
+  defaultLayout: 'default',
   extname: 'hbs',
   helpers: helpers
 });
 
-app.use(favicon(path.join(__dirname, 'public', 'favicon', 'favicon.ico')))
+// app.use(favicon(path.join(__dirname, 'public', 'favicon', 'favicon.ico')))
 
 app.engine('hbs', handlebars.engine);
 app.set('view engine', 'hbs');
@@ -63,10 +62,6 @@ app.use(session({
   cookie: env !== "production" ? {} : { domain: '.joshmoxey.com'},
   secure: true
 }))
-
-// Passport init
-app.use(passport.initialize());
-app.use(passport.session());
 
 // Connect Flash
 app.use(flash());

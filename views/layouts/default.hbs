@@ -7,13 +7,16 @@
   {{>GA}}
   <link rel="stylesheet" type="text/css" href="/css/compiled/{{route}}.css">
   <link rel="stylesheet" type="text/css" href="/css/frameworks/swiper.min.css">
-  <script type="text/javascript" src="/js/libraries/jquery-3.1.1.min.js"></script>
-  <script type="text/javascript" src="/js/libraries/swiper.min.js"></script>
 </head>
 
 <body>
 
+{{>nav}}
+{{>more}}
 {{{body}}}
+<script type="text/javascript" src="/js/libraries/jquery-3.1.1.min.js"></script>
+<script type="text/javascript" src="/js/libraries/swiper.min.js"></script>
+<script src="/js/pages/{{route}}.js"></script>
 <script src="/js/partials/all.js"></script>
 
 </body>

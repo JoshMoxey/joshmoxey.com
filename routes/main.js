@@ -12,14 +12,18 @@ var title = " - JoshMoxey.com"
 router
   .get("/", function (req, res) {
     res.render("body/index", {
-      layout: 'noheader.hbs',
       title: "Josh Moxey",
       route: "index"
     })
   })
+  // .get("/more", function (req, res) {
+  //   res.render("body/index", {
+  //     title: "Josh Moxey",
+  //     route: "index"
+  //   })
+  // })
   .get("/jsdisabled", function (req, res, next) {
     res.render("body/error/jsdisabled", {
-      layout: 'noheader.hbs',
       title: 'Error: Javascript disabled | Internalize',
       route: "error"
     })

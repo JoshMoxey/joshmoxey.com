@@ -1,0 +1,112 @@
+@import "../partials/global";
+
+section.intro {
+  height: auto;
+  text-align: center;
+  .swiper-wrapper {
+    .swiper-slide {
+      .center;
+      height: auto;
+      padding: 16px;
+      .border-box;
+      color: white;
+      &.s1 {
+        //background-color: #a24f51;
+        .bio-preview {
+          p {
+            text-align: justify;
+            font-weight: 300;
+          }
+        }
+      }
+      &.s2 {
+        //background-color: #55af66;
+      }
+      &.s3 {
+        //background-color: #5c95cc;
+      }
+      > div {
+        border-radius: 6px;
+        padding: 24px;
+        background-color: #e06592;
+        height: 100%;
+        width: 100%;
+        .border-box;
+      }
+    }
+  }
+  //.swiper-button-prev {
+  //  height: 100px;
+  //  background-image: none;
+  //  div {
+  //    height: 100%;
+  //    background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2027%2044'%3E%3Cpath%20d%3D'M0%2C22L22%2C0l2.1%2C2.1L4.2%2C22l19.9%2C19.9L22%2C44L0%2C22L0%2C22L0%2C22z'%20fill%3D'%23007aff'%2F%3E%3C%2Fsvg%3E")
+  //  }
+  //}
+  .swiper-pagination-bullet {
+    background: rgba(255, 255, 255, 1);
+    opacity: .33;
+  }
+  .swiper-pagination-bullet-active {
+    background: rgba(255, 255, 255, 1);
+    opacity: 1;
+  }
+}
+
+section.test-1 {
+  .swiper-slide {
+    //width: 100%;
+    //height: 100%;
+    width: 100px;
+    height: 100px;
+    padding: 8px;
+    > div {
+      height: 100%;
+      width: 100%;
+      .border-box;
+      border-radius: 6px;
+    }
+    &.s1 { div { background-color: #cccccc; }}
+    &.s2 { div { background-color: #cca195; }}
+    &.s3 { div { background-color: #c7cc60; }}
+    &.s4 { div { background-color: #cc464f; }}
+    &.s5 { div { background-color: #7463cc; }}
+    &.s6 { div { background-color: #4db2cc; }}
+    &.s7 { div { background-color: #b9cc6f; }}
+    &.s8 { div { background-color: #7b7b7b; }}
+    &.s9 { div { background-color: #cc6aa5; }}
+  }
+}
+
+
+.nav {
+  .bottom {
+    position: fixed;
+    .flex;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 55px;
+    background-color: rgba(255,255,255,.93);
+    //background-color: rgba(230, 230, 230, 0.93);
+    z-index: 10;
+    a {
+      //.flex;
+      flex: 1;
+      .center;
+      img {
+        height: 25px;
+        width: auto;
+        opacity: .3;
+      }
+      span {
+        margin-top: 3px;
+        margin-bottom: -5px;
+        font-size: 10px;
+        font-weight: 300;
+        text-transform: capitalize;
+        opacity: .6;
+      }
+    }
+  }
+}
