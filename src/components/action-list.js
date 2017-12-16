@@ -9,13 +9,13 @@ class ActionList extends Component {
     super(props)
   }
   
-  render() {
+    render() {
+    if (!this.props.links) return
+    
     const arr = this.props.links.map((item, i) =>
       <li key={i}>
         <a href={item.href} target="_blank">
-          <Svg
-            icon={item.name}
-          />
+          <Svg icon={item.name}/>
           <span styleName="text">
             {item.name}
           </span>
@@ -27,7 +27,7 @@ class ActionList extends Component {
     
     return (
       <div styleName={`action-list ${isOpen}`}
-           onClick={this.props.onActionClick}>
+           onClick={this.props.onActionClick.bind(this)}>
         <div styleName="background"></div>
         <ul className="ul-unstyled" styleName="">
           {arr}

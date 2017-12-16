@@ -18,13 +18,25 @@ class Page extends Component {
     super()
     this.state = {
       actionListOpen: false,
-      actionListSource: 1
+      actionListSource: []
     }
+    this.toggleActionList = this.toggleActionList.bind(this)
   }
   
-  toggleActionList(e, ) {
-    console.log(e)
-    this.setState({actionListOpen: !this.state.actionListOpen})
+  toggleActionList(e) {
+    let num = e.target.name
+    let state = []
+
+    if (num == 1) {
+      state = this.props.page.content.listenLinks
+    } else if (num == 2) {
+      state = this.props.page.content.shareLinks
+    }
+
+    this.setState({
+      actionListOpen: !this.state.actionListOpen,
+      actionListSource: state
+    })
   }
   
   render() {
@@ -34,26 +46,24 @@ class Page extends Component {
       </div>
     )
     
-    
     const desc = this.props.page.content.description
       .map((text, i) =>
         <div key={i}>{text}</div>
       )
     
     const {content} = this.props.page;
-    console.log(content.listenLinks)
     
     return (
       <div styleName="body">
         <ActionList
-          onActionClick={this.toggleActionList.bind(this)}
+          onActionClick={this.toggleActionList}
           actionListOpen={this.state.actionListOpen}
-          links={this.props.page.content.shareLinks}
+          links={this.state.actionListSource}
         />
         <PageHero
-          onActionClick={this.toggleActionList.bind(this)}
+          onActionClick={this.toggleActionList}
+          actionListOpen={this.state.actionListOpen}
           data={this.props.page.header}
-          links={this.props.page.content.listenLinks}
         />
         <div styleName="contents">
           <div styleName="primary">

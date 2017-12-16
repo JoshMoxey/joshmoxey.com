@@ -47,11 +47,14 @@ class PageHero extends Component {
             <h6>{category}</h6>
             <h1 styleName={titleClass(title)}>{title}</h1>
             <div styleName="button-container">
-              <button id="1" name="1" onClick={this.props.onActionClick}>
+              {/*<button id="1" name="1" onClick={this.props.onActionClick.bind(this)}>*/}
+              <button name="1"
+                      onClick={this.props.onActionClick.bind(this)}>
                 Visit
                 {/*insert text here for CTA text from data*/}
               </button>
-              <button id="2" name="2" onClick={this.props.onActionClick}>
+              <button name="2"
+                      onClick={this.props.onActionClick.bind(this)}>
                 Share
               </button>
             </div>
