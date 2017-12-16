@@ -1,0 +1,66 @@
+{{#data}}
+  {{>overlay src=header.icon}}
+  <div class="body">
+
+    {{>page-header header=header}}
+    {{!content.whatsNew.version}}
+    {{#content}}
+      <div class="contents">
+        <div class="primary">
+          <section class="whats-new">
+            <h2>What's new</h2>
+            {{#last whatsNew}}
+              <h5>Version {{this.version}}, {{this.date}}</h5>
+            {{/last}}
+          </section>
+
+          <section class="preview">
+            <div class="shadow"></div>
+            <div class="swiper-container">
+              <div class="swiper-wrapper">
+                {{#each preview}}
+                  <div class="swiper-slide">
+                    <img src="{{this.src}}"
+                         alt="{{#each desc}}{{this}}{{/each}}">
+                  </div>
+                {{/each}}
+              </div>
+            </div>
+          </section>
+
+          <section class="desc" data-collapsed="true">
+            <h2>Overview</h2>
+            {{#description}}
+              <p>{{this}}</p>
+            {{/description}}
+            <span class="show">show</span>
+          </section>
+
+          <section class="projects">
+            <h2>Projects</h2>
+            {{#each projects}}
+              {{this.name}}
+            {{/each}}
+            {{#each projects}}
+              <a href="{{this.href}}">
+                <h4>{{this.name}}</h4>
+                {{#each desc}}
+                  <p>{{this}}</p>
+                {{/each}}
+              </a>
+            {{/each}}
+          </section>
+        </div>
+        <div class="secondary">
+          <section class="desc">
+            <h2>Overview</h2>
+            {{#description}}
+              <p>{{this}}</p>
+            {{/description}}
+            <span class="show">show</span>
+          </section>
+        </div>
+      </div>
+    {{/content}}
+  </div>
+{{/data}}

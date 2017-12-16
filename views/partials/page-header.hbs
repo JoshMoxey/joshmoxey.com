@@ -1,0 +1,25 @@
+{{#header}}
+  <div class="heading">
+    <div class="logo-container">
+      <div class="img-sim"></div>
+      <img src="{{icon}}" class="logo">
+    </div>
+    <div class="right">
+      {{#each category}}
+        <a href="/{{href}}"><h6>{{name}}</h6></a>
+      {{/each}}
+      <h1>{{title}}</h1>
+      <div class="button-container">
+        <button>
+          Visit
+        </button>
+        <button>
+          Share
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="divider">
+    <div></div>
+  </div>
+{{/header}}

@@ -397,3 +397,62 @@ exports.cleanDate = function (date, options) {
   }
   return date + hours + ":" + minutes + ampm
 }
+// exports.last = function (arr, options) {
+//   var array = arr[arr.length-1];
+//   console.log(array)
+//   console.log(array.length)
+//   var ret = ""
+//   for(var i=0, j=array.length; i<j; i++) {
+//     ret = ret + options.fn(array[i]);
+//   }
+//   console.log(ret)
+//   return ret
+// }
+// exports.last = function (arr, options) {
+//   var array = []
+//   array = arr[arr.length-1];
+//   var ret = ""
+//   for(var i=0, j=array.length; i<j; i++) {
+//     ret = ret + options.fn(array[i]);
+//   }
+//   console.log(ret)
+//   return ret
+// }
+// exports.last2 = function (array, options) {
+//   // console.log(array)
+//   var ret = ""
+//   ret = ret + array[array.length-1];
+//   // var ret = "" + options.fn(array[array.length-1]);
+//   return JSON.stringify(ret)
+// }
+// exports.shuffleEach = function (array, options) {
+//   var ret = "";
+//   var i = array.length;
+//   var j = 0;
+//
+//   for(var i=0, j=array.length; i<j; i++) {
+//     ret = ret + options.fn(array[i]);
+//   }
+//
+//   return ret;
+// };
+
+// exports.last = function(value, n) {
+//   n = n-1 || 0
+//   if (!Array.isArray(value) && typeof value !== 'string') {
+//     return '';
+//   }
+//   return value.slice(-Math.abs(n));
+// };
+exports.last = function(arr, options) {
+  // console.log(arr)
+  var ret = ""
+  for(var i = arr.length-1,j=arr.length; i<j; i++) {
+    ret = ret + options.fn(arr[i]);
+  }
+  // console.log(ret)
+  return ret
+};
+exports.simpledate = function(date, options) {
+  //
+}

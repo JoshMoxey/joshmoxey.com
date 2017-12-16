@@ -1,0 +1,95 @@
+@import "global";
+
+body {
+  .transition(.6s ease-in-out);
+  .more {
+    .transition(.6s ease-in-out);
+  }
+  .nav .bottom, .body {
+    .transform(translateX(0));
+    .transition(.6s ease-in-out);
+  }
+  &.more-open {
+    overflow: hidden;
+    .more {
+      .transform(translateX(0px));
+    }
+    .nav .bottom, .body {
+      .transform(translateX(-200px));
+    }
+    .custom-bp-min-width(960px, { overflow: auto; .more {
+      .transform(translateX(200px));
+    } .nav .bottom, .body {
+        .transform(translateX(0));
+      } });
+    //.custom-bp-min-width(960px, {
+    //  overflow: auto;
+    //});
+    //.more {
+    //  .transform(translateX(0px));
+    //  .custom-bp-min-width(960px, {
+    //    .transform(translateX(200px));
+    //  });
+    //}
+    //.nav .bottom, .body {
+    //  .transform(translateX(-200px));
+    //  .custom-bp-min-width(960px, { .transform(translateX(0)); });
+    //}
+  }
+}
+
+.custom-bp-min-width(960px, { body {
+  width: calc(~'100% - 200px');
+  float: left;
+  .more {
+    right: 200px;
+  }
+  .nav .bottom {
+    right: 200px;
+  }
+} });
+
+.more {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  background-color: #3f3f3f;
+  width: 200px;
+  overflow: auto;
+  .transform(translateX(200px));
+  .box-shadow(inset 10px 0px 10px -5px rgba(0, 0, 0, .15));
+  //overflow-y: scroll;
+  //-webkit-overflow-scrolling: touch;
+  //has to be scroll, not auto
+  //makes annoying scrollbar tho
+  h3, ul, li, p, a {
+    color: white;
+  }
+  .header-container {
+    .center;
+    height: auto;
+    a:first-child {
+      border-radius: 50%;
+    }
+    img {
+      width: 100px;
+      height: 100px;
+      height: auto;
+      border-radius: 50%;
+      margin-top: 20px;
+    }
+    h3 {
+      margin-top: 10px;
+      //letter-spacing: -1px;
+    }
+  }
+  ul {
+    .ul-unstyled;
+    padding: 10px;
+    li {
+      padding: 3px;
+    }
+  }
+}

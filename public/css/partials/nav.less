@@ -1,0 +1,114 @@
+@import "global";
+
+.body {
+  padding-top: 55px;
+  height: 100%;
+  .border-box;
+  section:last-child {
+    .border-box;
+    padding-bottom: 55px;
+  }
+}
+
+.nav {
+  .top {
+    border-bottom: 1px solid #eaeaea;
+    position: fixed;
+    .flex;
+    justify-content: space-between;
+    left: 0;
+    top: 0;
+    right: 0;
+    height: 50px;
+    background-color: rgba(255, 255, 255, .97);
+    z-index: 10;
+    .left {
+      .flex;
+      .center-vertical;
+      height: 100%;
+      .back {
+        height: 32px;
+        width: 40px;
+        stroke-width: 0;
+        stroke: currentColor;
+        fill: currentColor;
+        color: #717171;
+      }
+      .title {
+      
+      }
+    }
+    a.icon {
+      height: 100%;
+      //.flex;
+      flex: 1;
+      .center;
+      img {
+        height: 25px;
+        width: auto;
+        opacity: .3;
+      }
+      span {
+        margin-top: 3px;
+        margin-bottom: -5px;
+        font-size: 10px;
+        font-weight: 300;
+        text-transform: capitalize;
+        opacity: .6;
+      }
+    }
+  }
+  .bottom {
+    border-top: 1px solid #eaeaea;
+    position: fixed;
+    .flex;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 50px;
+    background-color: rgba(255, 255, 255, .95);
+    z-index: 10;
+    a {
+      flex: 1;
+      cursor: pointer;
+      .center;
+      &.active {
+        svg {
+          color: #1c81c3;
+          color: #717171;
+        }
+        span {
+          color: #1C81C3;
+          color: #595959;
+        }
+      }
+      .icon {
+        height: 23px;
+        width: 23px;
+      }
+      svg {
+        //display: inline-block;
+        //width: 1em;
+        //height: 1em;
+        //font-size: 20px;
+        stroke-width: 0;
+        stroke: currentColor;
+        fill: currentColor;
+        color: #a8a8a8;
+      }
+      img {
+        height: 25px;
+        width: auto;
+        opacity: .3;
+      }
+      span {
+        margin-top: 3px;
+        margin-bottom: -3px;
+        font-size: 10px;
+        font-weight: 300;
+        text-transform: capitalize;
+        opacity: .8;
+      }
+    }
+  }
+}

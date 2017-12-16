@@ -1,0 +1,102 @@
+@import "global";
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: @font-1;
+  outline: none;
+  text-decoration: none;
+  .no-tap-color
+}
+
+
+html, body {
+  width: 100%;
+  height: 100%;
+  color: @color-1;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+h4 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+p {
+  font-size: 18px;
+  line-height: 145%;
+}
+
+div {
+  font-size: 16px;
+}
+
+div[contenteditable="true"] {
+  outline: none;
+  cursor: text;
+}
+
+a {
+  text-decoration: none;
+  color: @color-1;
+}
+
+ul {
+
+}
+
+ol {
+
+}
+
+li {
+  line-height: 145%;
+  .border-box;
+}
+
+button, .button {
+  font-size: 12px;
+  padding: 12px;
+  border: 1px solid @color-1;
+  cursor: pointer;
+  display: inline-block;
+}
+
+::selection {
+  color: #ffffff;
+}
+
+::-moz-selection {
+  color: #ffffff;
+}
+
+::selection {
+  background: #ff7677;
+}
+
+::-moz-selection {
+  background: #FF7677;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+}

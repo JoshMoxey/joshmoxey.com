@@ -1,0 +1,127 @@
+@import "../partials/global";
+
+.body {
+  height: 100%;
+}
+
+.cover-photo {
+  height: 150px;
+  background: #9a485c;
+  background: linear-gradient(90deg, #ffe62a, #ff5e70);
+  height: 125px;
+}
+
+.profile-head {
+  .border-box;
+  padding: 0 12px;
+  margin-top: -100px;
+  .center;
+  height: auto;
+  .profile-picture {
+    width: 100%;
+    width: 170px;
+    height: 170px;
+    border: 10px solid #FFFFFF;
+    border: 3px solid rgba(255, 255, 255, .3);
+    border-radius: 50%;
+    position: relative;
+    width: 125px;
+    height: 125px;
+    .placeholder, img {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      border-radius: 50%;
+    }
+    .placeholder {
+      background-color: #d6d6d6;
+      height: 100%;
+      display: block;
+      .center;
+      .spinner {
+        display: inline-block;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+      }
+      .spinner div {
+        display: block;
+        position: absolute;
+        &:before {
+          content: "";
+          display: block;
+          width: 100px;
+          height: 100px;
+          position: absolute;
+          border-radius: 50%;
+          border: 5px solid rgb(255, 255, 255);
+        }
+        &:nth-child(1):before {
+          top: -5px;
+          left: -5px;
+          animation: spin-360 1s linear infinite;
+          border-top-color: transparent;
+        }
+        &:nth-child(2):before {
+          top: 5px;
+          left: 5px;
+          width: 80px;
+          height: 80px;
+          animation: spin-360 1.5s linear infinite;
+          border-right-color: transparent;
+        }
+        &:nth-child(3):before {
+          top: 15px;
+          left: 15px;
+          width: 60px;
+          height: 60px;
+          animation: spin-360 3s linear infinite;
+          border-bottom-color: transparent;
+        }
+      }
+  
+      @keyframes spin-360 {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    }
+    img {
+      opacity: 0;
+      //display: none;
+    }
+  }
+  h1 {
+    margin-top: 6px;
+    font-weight: 700;
+    font-size: 36px;
+    font-size: 30px;
+  }
+  p {
+    margin-top: 3px;
+    font-weight: 300;
+    font-size: 16px;
+    text-align: center;
+  }
+}
+
+section.story {
+  p {
+    text-align: left;
+    .drop {
+      font-size: 40px;
+      //display: block;
+      float: left;
+      //width: 72px;
+      margin-top: 7px;
+      padding-right: 8px;
+      //text-indent: -9000px;
+    }
+  }
+}

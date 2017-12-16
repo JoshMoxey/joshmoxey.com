@@ -2,8 +2,8 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto+Mono:300,500,700,900);
 
 // Make breakpoints
-@w600: ~"only screen and (min-width: 37.5em)";
-@w900: ~"only screen and (min-width: 56.25em)";
+//@w600: ~"only screen and (min-width: 37.5em)";
+//@w900: ~"only screen and (min-width: 56.25em)";
 
 .custom-bp-min-width(@width; @rules) {
   @media only screen and (min-width: @width) {
@@ -43,20 +43,28 @@
 @speed-1: 0.25s;
 @icon-opacity-2: .7;
 
+
+//RESETS and defaults
+
 * {
   margin: 0;
   padding: 0;
   font-family: @font-1;
-  //font-weight: 300;
   outline: none;
   text-decoration: none;
   .no-tap-color
 }
 
-
 html, body {
-  .full;
+  width: 100%;
+  height: 100%;
   color: @color-1;
+}
+
+body {
+  //.border-box;
+  //padding-right: 100px;
+  //position: relative;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -119,9 +127,39 @@ li {
 button, .button {
   font-size: 12px;
   padding: 12px;
-  border: 1px solid @color-1;
+  border: none;
   cursor: pointer;
   display: inline-block;
+}
+
+::selection {
+  color: #ffffff;
+}
+
+::-moz-selection {
+  color: #ffffff;
+}
+
+::selection {
+  background: #ff7677;
+}
+
+::-moz-selection {
+  background: #FF7677;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+}
+
+
+//helpers
+
+.ul-unstyled {
+  list-style: none;
+  li {
+    margin: 0;
+  }
 }
 
 .bg-color-image (@red, @green, @blue, @img, @opacity: .8) {
@@ -182,26 +220,6 @@ button, .button {
   height: 100%;
 }
 
-::selection {
-  color: #ffffff;
-}
-
-::-moz-selection {
-  color: #ffffff;
-}
-
-::selection {
-  background: #ff7677;
-}
-
-::-moz-selection {
-  background: #FF7677;
-}
-
-button::-moz-focus-inner {
-  border: 0;
-}
-
 .center {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -224,12 +242,32 @@ button::-moz-focus-inner {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
+  //-webkit-box-pack: center;
+  //-ms-flex-pack: center;
+  //-webkit-justify-content: center;
+  //justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  flex-direction: column;
+  //.full;
+}
+
+.center-vertical {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  //-webkit-box-pack: center;
+  //-ms-flex-pack: center;
+  //-webkit-justify-content: center;
+  //justify-content: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
   -webkit-align-items: center;
   align-items: center;
   flex-direction: row;
-  .full;
 }
 
 .inline-flex {
@@ -269,4 +307,3 @@ button::-moz-focus-inner {
   -ms-user-select: none;
   user-select: none;
 }
-
