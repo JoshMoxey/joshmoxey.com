@@ -7,6 +7,7 @@
   > * {
     max-width: 960px;
   }
+  padding-bottom: 50px;
 }
 
 .body-loading {
@@ -179,26 +180,7 @@
 }
 
 section.desc {
-  transition: height 0.3s ease-in-out;
-  overflow: hidden;
-  .show {
-    font-size: 14px;
-    position: absolute;
-    top: 73px;
-    right: 0;
-    margin-right: 16px;
-    opacity: 0;
-    display: none;
-    background-color: white;
-    .box-shadow(0px 0px 10px 8px rgb(255, 255, 255));
-  }
-  &[data-collapsed="true"] {
-    height: 93px;
-    .show {
-      display: block;
-      opacity: 1;
-    }
-  }
+  cursor: auto;
 }
 
 section.quote {
@@ -258,7 +240,6 @@ section.listen-links {
 section.share-links {
   color: #cccccc;
 }
-
 
 section.preview {
   //display: flex;
@@ -320,5 +301,14 @@ section.preview {
         //opacity: .82;
       }
     }
+  }
+}
+
+section.full-width {
+  padding-left: 0;
+  padding-right: 0;
+  > * {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 }

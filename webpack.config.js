@@ -131,6 +131,7 @@ module.exports = {
     historyApiFallback: true,
     contentBase: './',
     port: 1002,
+    hot: false
   }
 };
 

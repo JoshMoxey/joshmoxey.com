@@ -1,0 +1,36 @@
+.container span {
+  line-height: 145%;
+  display: inline-block;
+  font-size: 14px;
+  color: royalblue;
+  cursor: pointer;
+  transition: .5s;
+  opacity: 1;
+  pointer-events: auto;
+}
+.container span.open.fixed {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding-left: 50px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), white 50px);
+}
+.container span.open.close {
+  transition: .2s;
+  display: none;
+}
+.container {
+  position: relative;
+}
+.container.fixed span.inline {
+  display: none;
+}
+.container.inline span.fixed {
+  display: none;
+}
+.container.expanded .inline,
+.container.expanded .fixed {
+  pointer-events: none;
+  opacity: 0;
+  display: none;
+}

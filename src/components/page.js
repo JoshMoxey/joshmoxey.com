@@ -2,42 +2,34 @@ import React, {Component} from "react";
 import {connect} from "react-redux"
 import {Link} from "react-router-dom";
 import CSSModules from "react-css-modules";
+
 import styles from "../../style/page.css";
 import {fetchPage} from "../actions/index";
 
 import PageHero from "./page-hero"
-import PageDesc from "./page-desc"
 import ActionList from "./action-list"
+import Swiper from "./swiper"
+import TextClamp from "./text-clamp"
 
 class Page extends Component {
-  componentDidMount() {
-    this.props.fetchPage();
-  }
-  
   constructor() {
     super()
-    this.state = {
-      actionListOpen: false,
-      actionListSource: []
-    }
-    this.toggleActionList = this.toggleActionList.bind(this)
   }
   
-  toggleActionList(e) {
-    let num = e.target.name
-    let state = []
-
-    if (num == 1) {
-      state = this.props.page.content.listenLinks
-    } else if (num == 2) {
-      state = this.props.page.content.shareLinks
-    }
-
-    this.setState({
-      actionListOpen: !this.state.actionListOpen,
-      actionListSource: state
-    })
+  componentDidMount() {
+    document.title = "joshmoxey.com"
+    this.props.fetchPage();
+    // this.setState({props: this.props})
   }
+  
+  // componentDidUpdate(nextProps) {
+  //   if (nextProps.page !== this.props.page) {
+  //     console.log("my div")
+  //     this.descriptionContainer.style.backgroundColor = "red";
+  //     console.log(this.myDiv.width)
+  //     console.log(parseInt(window.getComputedStyle(this.myDiv).height))
+  //   }
+  // }
   
   render() {
     if (!this.props.page) return (
@@ -46,70 +38,69 @@ class Page extends Component {
       </div>
     )
     
-    const desc = this.props.page.content.description
-      .map((text, i) =>
-        <div key={i}>{text}</div>
-      )
+    const {body} = this.props.page;
     
-    const {content} = this.props.page;
     
     return (
       <div styleName="body">
-        <ActionList
-          onActionClick={this.toggleActionList}
-          actionListOpen={this.state.actionListOpen}
-          links={this.state.actionListSource}
-        />
         <PageHero
-          onActionClick={this.toggleActionList}
-          actionListOpen={this.state.actionListOpen}
           data={this.props.page.header}
+          links={this.props.page.links}
         />
         <div styleName="contents">
           <div styleName="primary">
-            <section styleName="quote">
-              <div styleName="symbol">
-                <div styleName="container">
-                  <svg viewBox="0 0 32 32">
-                    <path
-                      d="M19.495 1.659c-11.469 2.654-19.572 13.099-17.11 22.046 0.818 2.982 3.406 5.766 6.127 6.595 7.366 2.245 13.685-4.914 10.308-11.683-1.279-2.562-2.957-3.823-5.722-4.299l-0.723-0.125 0.048-0.406c0.509-4.299 2.503-7.119 7.17-10.135l0.903-0.583v-0.796c0-0.933 0.096-0.874-1.003-0.616z"></path>
-                  </svg>
-                  <svg viewBox="0 0 32 32">
-                    <path
-                      d="M19.495 1.659c-11.469 2.654-19.572 13.099-17.11 22.046 0.818 2.982 3.406 5.766 6.127 6.595 7.366 2.245 13.685-4.914 10.308-11.683-1.279-2.562-2.957-3.823-5.722-4.299l-0.723-0.125 0.048-0.406c0.509-4.299 2.503-7.119 7.17-10.135l0.903-0.583v-0.796c0-0.933 0.096-0.874-1.003-0.616z"></path>
-                  </svg>
-                </div>
-              </div>
-              <div styleName="raw">I'm sick of the fronting and the bullshit in 2017.</div>
-            </section>
-            <section styleName="desc" data-collapsed="true">
+            {/*<section styleName="quote">*/}
+              {/*<div styleName="symbol">*/}
+                {/*<div styleName="container">*/}
+                  {/*<svg viewBox="0 0 32 32">*/}
+                    {/*<path*/}
+                      {/*d="M19.495 1.659c-11.469 2.654-19.572 13.099-17.11 22.046 0.818 2.982 3.406 5.766 6.127 6.595 7.366 2.245 13.685-4.914 10.308-11.683-1.279-2.562-2.957-3.823-5.722-4.299l-0.723-0.125 0.048-0.406c0.509-4.299 2.503-7.119 7.17-10.135l0.903-0.583v-0.796c0-0.933 0.096-0.874-1.003-0.616z"></path>*/}
+                  {/*</svg>*/}
+                  {/*<svg viewBox="0 0 32 32">*/}
+                    {/*<path*/}
+                      {/*d="M19.495 1.659c-11.469 2.654-19.572 13.099-17.11 22.046 0.818 2.982 3.406 5.766 6.127 6.595 7.366 2.245 13.685-4.914 10.308-11.683-1.279-2.562-2.957-3.823-5.722-4.299l-0.723-0.125 0.048-0.406c0.509-4.299 2.503-7.119 7.17-10.135l0.903-0.583v-0.796c0-0.933 0.096-0.874-1.003-0.616z"></path>*/}
+                  {/*</svg>*/}
+                {/*</div>*/}
+              {/*</div>*/}
+              {/*<div styleName="raw">I'm sick of the fronting and the bullshit in 2017.</div>*/}
+            {/*</section>*/}
+            <section styleName="desc">
               <h2>Description</h2>
-              {desc}
-              <span styleName="show">show</span>
+              <TextClamp
+                text={this.props.page.body.description}
+              />
             </section>
-            <section styleName="embed">
-              <iframe frameBorder="0" height="200px" scrolling="no" seamless src={content.embed} width="100%"></iframe>
+            <section styleName="desc">
+              <h2>Description</h2>
+              <TextClamp
+                text={this.props.page.body.description}
+              />
             </section>
+            {/*<section styleName="embed">*/}
+              {/*<iframe frameBorder="0" height="200px" scrolling="no" seamless src={body.embed} width="100%"></iframe>*/}
+            {/*</section>*/}
           </div>
-          <div styleName="secondary">
-            <section styleName="listen-links">
-              <h2>Listen to this episode</h2>
-              <div styleName="container">
-              </div>
-            </section>
-            <section styleName="share-links">
-              <h2>Share this episode</h2>
-              <div styleName="container">
-              </div>
-            </section>
-          </div>
+          {/*<div styleName="secondary">*/}
+            {/*<section styleName="listen-links">*/}
+              {/*<h2>Listen to this episode</h2>*/}
+              {/*<div styleName="container">*/}
+              {/*</div>*/}
+            {/*</section>*/}
+            {/*<section styleName="share-links">*/}
+              {/*<h2>Share this episode</h2>*/}
+              {/*<div styleName="container">*/}
+              {/*</div>*/}
+            {/*</section>*/}
+            {/*<section styleName="full-width">*/}
+              {/*<h2>Related</h2>*/}
+              {/*<Swiper slides={body.related}/>*/}
+            {/*</section>*/}
+          {/*</div>*/}
         </div>
       </div>
     )
   }
 }
-
-// export default Page;
 
 function mapStateToProps(state) {
   return {

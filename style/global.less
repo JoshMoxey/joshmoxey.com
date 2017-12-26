@@ -1,0 +1,133 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,500,700,900);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Mono:300,500,700,900);
+
+
+// Colors
+@color-1: #585858;
+@color-2: #FFFFFF;
+@color-3: #b8b8b8;
+@color-4: #939393;
+@color-2a: #f9f9f9;
+@color-red: #ff4845;
+
+// Variables
+@font-1: Roboto, sans-serif;
+@border-radius: 3px;
+@speed-1: 0.25s;
+@icon-opacity-2: .7;
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: @font-1;
+  outline: none;
+  text-decoration: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  color: @color-1;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  color: @color-1;
+}
+
+body {
+  //.border-box;
+  //padding-right: 100px;
+  //position: relative;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+h1 {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+h4 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+p {
+  font-size: 18px;
+  line-height: 145%;
+}
+
+div {
+  font-size: 16px;
+  font-weight: 300;
+}
+
+div[contenteditable="true"] {
+  outline: none;
+  cursor: text;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+
+}
+
+ol {
+
+}
+
+li {
+  line-height: 145%;
+}
+
+button, .button {
+  font-size: 12px;
+  padding: 12px;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+}
+
+::selection {
+  color: #ffffff;
+}
+
+::-moz-selection {
+  color: #ffffff;
+}
+
+::selection {
+  background: #ff7677;
+}
+
+::-moz-selection {
+  background: #FF7677;
+}
+
+button::-moz-focus-inner {
+  border: 0;
+}
+
+
+//helpers
+
+.ul-unstyled {
+  list-style: none;
+  li {
+    margin: 0;
+  }
+}

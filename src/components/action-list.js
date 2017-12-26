@@ -9,7 +9,7 @@ class ActionList extends Component {
     super(props)
   }
   
-    render() {
+  render() {
     if (!this.props.links) return
     
     const arr = this.props.links.map((item, i) =>

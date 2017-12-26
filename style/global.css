@@ -1,0 +1,89 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,500,700,900);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Mono:300,500,700,900);
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Roboto, sans-serif;
+  outline: none;
+  text-decoration: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  color: #585858;
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  color: #585858;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+h1 {
+  font-size: 36px;
+  font-weight: 700;
+}
+h2 {
+  font-size: 30px;
+  font-weight: 700;
+}
+h3 {
+  font-size: 24px;
+  font-weight: 700;
+}
+h4 {
+  font-size: 20px;
+  font-weight: 700;
+}
+p {
+  font-size: 18px;
+  line-height: 145%;
+}
+div {
+  font-size: 16px;
+  font-weight: 300;
+}
+div[contenteditable="true"] {
+  outline: none;
+  cursor: text;
+}
+a {
+  text-decoration: none;
+}
+li {
+  line-height: 145%;
+}
+button,
+.button {
+  font-size: 12px;
+  padding: 12px;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+}
+::selection {
+  color: #ffffff;
+}
+::-moz-selection {
+  color: #ffffff;
+}
+::selection {
+  background: #ff7677;
+}
+::-moz-selection {
+  background: #FF7677;
+}
+button::-moz-focus-inner {
+  border: 0;
+}
+.ul-unstyled {
+  list-style: none;
+}
+.ul-unstyled li {
+  margin: 0;
+}
