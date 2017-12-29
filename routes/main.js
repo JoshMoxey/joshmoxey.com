@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const mongo = require("./db")
 const ObjectId = require('mongodb').ObjectID
-const passport = require("passport")
 const session = require('express-session')
 const bodyParser = require('body-parser')
 var flash = require("connect-flash")
@@ -41,36 +40,42 @@ router
       route: "section"
     })
   })
-  .get("/page/podcast", function (req, res) {
+  .get("/data/page/podcast", (req, res) => {
     //for simple "live" at time of podcast being live
     //check for live date of the page
     //if it's past that date, load it
     //else, next()
     
-    res.render("body/page-podcast", {
-      title: "page" + title,
-      route: "page",
-      data: {
-        url: [
-          "Why-I-Started-The-Podcast"
-        ]
-      },
+    // res.render("body/page-podcast", {
+    res.json({
       header: {
+        banner: {
+          hasBanner: true,
+          img: "http://fullhdwall.com/wp-content/uploads/2016/08/Widescreen-Space.jpg",
+          img: "",
+          gradient: "135deg, #333, #999",
+          color: "#333333",
+        },
         category: [
           {
             id: "",
             name: "The Josh Moxey Show",
             href: "podcast"
+          },
+          {
+            id: "",
+            name: "Test",
+            href: "podcast"
           }
         ],
         title: "An Introduction to Josh Moxey: Who I Am and Why I Started This Podcast",
-        icon: "/img/profile.jpg",
-        cta: [
-          // {
-          //   text: "",
-          //   url: ""
-          // }
-        ],
+        icon: "/public/img/profile.jpg",
+        // buttons: [
+        //   {
+        //     text: "Visit",
+        //     type: "button"
+        //   }
+        // ],
         detail: [ //podcast, shows, etc.
           //how do I render this  best?
           {
@@ -97,88 +102,19 @@ router
           },
         ],
       },
-      data: {
-        dates: {
-          dateCreated: new Date(),
-          lastDateModified: new Date(),
-          datesModified: [
-            new Date()
-          ],
-        },
-        tags: [
-          "Podcast",
-          "The Josh Moxey Show",
-          "Introduction",
-        ],
-        related: [
-          {
-            title: "",
-            category: "",
-            img: "/img/profile.png",
-            href: "",
-          }
-        ],
-        views: {
-          count: 0,
-        }
-      },
-      content: {
+      body: {
         description: [
-          "As I stare at the white screen and input the start date, and feel like it should say null or N/A. It’s always easy to look back. For me, music is arttttt. It’s a rollercoaster ride. It’s fuel for workouts. It’s entertainment for my ears. It’s such a powerful thing overall. To say the least, I’m a fan.",
+          // "Lorem ipsum dolor sit amet, vehicula nunc, non id ligula est aptent rutrum, maecenas. vehicula nunc, non id ligula est aptent rutrum, maecenas.",
+          "Lorem ipsum dolor sit amet, vehicula nunc, non id ligula est aptent rutrum, maecenas justo metus. Nam nec euismod, pellentesque mi urna mauris feugiat ut. Et dolor velit, condimentum sapien vulputate, vitae quam nulla odit eros tempor, curabitur euismod orci et. Mollis feugiat in pede libero, eros mi vehicula enim, sed imperdiet, a justo ut semper suspendisse gravida curae, purus turpis. Magna ornare auctor libero. Tortor elit in tincidunt facilisi, in ut id, praesent lobortis laoreet scelerisque suspendisse quis ornare.",
+          "Torquent semper, et dolor quis justo dui placerat eros, arcu hendrerit sociis, urna ad ut curae libero ut. Sapien tempor suscipit cras pede odio, nec sed a a consectetuer risus, ac nunc lacus quis ipsum. Ultricies proin ante integer, ut magna a et mi aenean, nisl wisi suscipit, vel quam accumsan et mi id aliquam. Et et. Odio sit dictumst, vitae eu quis dolores tellus, adipiscing duis enim eros nisl vestibulum, est etiam dui et nisl. Sed eu commodo ut erat proin, enim donec erat, sodales sit nisl, at et proin quam tempor ac senectus.",
+          "Tincidunt tempus mi, urna non. Interdum in et fringilla lobortis. Eget neque sed eget a, ac mi lorem non mauris nam volutpat. Cras per, mauris massa mi voluptatem. Erat maecenas in ligula vitae integer urna, scelerisque mauris tellus venenatis eget fermentum neque, aliquet egestas, mi ut nunc. Eget purus mauris, ipsum ante interdum tincidunt in, velit semper ullamcorper eget aliquam rhoncus.",
+          // "Ipsum aliquam sodales turpis nisl convallis. Luctus aenean ut lectus, turpis dictum. Nulla dolor et duis sed, magna id et. Iaculis praesent venenatis urna, risus dolor aliquam neque, sint consequat nulla velit, duis eget, quam est curabitur lectus a posuere ultrices. Ultrices sapien ipsum."
         ],
         embed: "https://embed.simplecast.com/b6b044af?color=f5f5f5",
-        listenLinks: [
-          {
-            name: "iTunes",
-            href: "itunes.apple.com/ca/podcast/the-josh-moxey-show/id1305500400?mt=2",
-          },
-          {
-            name: "Stitcher",
-            href: "https://www.stitcher.com/podcast/josh-moxey/the-josh-moxey-show",
-          },
-          {
-            name: "Google Play",
-            href: "https://play.google.com/music/m/I5n3a2frujlcypze4b4fh5v2jdi?t=The_Josh_Moxey_Show",
-          },
-          {
-            name: "TuneIn",
-            href: "https://tunein.com/radio/The-Josh-Moxey-Show-p1056867/",
-          },
-          {
-            name: "Facebook",
-            href: "itunes.apple.com/ca/podcast/the-josh-moxey-show/id1305500400?mt=2",
-          },
-          {
-            name: "YouTube",
-            href: "itunes.apple.com/ca/podcast/the-josh-moxey-show/id1305500400?mt=2",
-          },
-        ],
-        shareLinks: [
-          {
-            name: "Facebook",
-            icon: "/icon/facebook.svg",
-            href: "https://facebook.com/share",
-          },
-          {
-            name: "iTunes",
-            icon: "/icon/itunes.svg",
-            href: "https://apple.com/asdf",
-          },
-          {
-            name: "iTunes",
-            icon: "/icon/itunes.svg",
-            href: "https://apple.com/asdf",
-          },
-          {
-            name: "iTunes",
-            icon: "/icon/itunes.svg",
-            href: "https://apple.com/asdf",
-          },
-        ],
         // showNotes: [
         //   {
-        //     time: "iTunes",
-        //     icon: "/icon/itunes.svg",
+        //     time: "0:45",
+        //     text: ""
         //     href: "https://apple.com/asdf",
         //   }
         // ]
@@ -187,17 +123,124 @@ router
             href: "https://",
             title: "same"
           }
-        ]
+        ],
+        related: [
+          {
+            title: "Josh Moxey Radio 001",
+            category: "Josh Moxey Radio",
+            img: "/img/profile.png",
+            href: "",
+          },
+          {
+            title: "Josh Moxey Radio 002",
+            category: "Josh Moxey Radio",
+            img: "/img/profile.png",
+            href: "",
+          },
+          {
+            title: "Josh Moxey Radio 003",
+            category: "Josh Moxey Radio",
+            img: "/img/profile.png",
+            href: "",
+          }
+        ],
+      },
+      links: [
+        {
+          shortText: "Visit",
+          longerText: false,
+          priority: 1,
+          links: [
+            {
+              name: "iTunes",
+              href: "https://itunes.apple.com/ca/podcast/the-josh-moxey-show/id1305500400?mt=2",
+              type: "ext",
+            },
+            {
+              name: "Stitcher",
+              href: "https://www.stitcher.com/podcast/josh-moxey/the-josh-moxey-show",
+              type: "ext",
+            },
+            {
+              name: "Google Play",
+              href: "https://play.google.com/music/m/I5n3a2frujlcypze4b4fh5v2jdi?t=The_Josh_Moxey_Show",
+              type: "ext",
+            },
+            {
+              name: "TuneIn",
+              href: "https://tunein.com/radio/The-Josh-Moxey-Show-p1056867/",
+              type: "ext",
+            },
+            {
+              name: "Facebook",
+              href: "",
+              type: "ext",
+            },
+            {
+              name: "YouTube",
+              href: "",
+              type: "ext",
+            },
+          ],
+        },
+        {
+          shortText: "Share",
+          longerText: false,
+          priority: 1,
+          links: [
+            {
+              name: "Facebook",
+              href: "https://facebook.com/share",
+              type: "ext",
+            },
+          ],
+        },
+        {
+          shortText: "More",
+          longerText: false,
+          priority: 10,
+          text: "More",
+          links: [
+            {
+              name: "Facebook",
+              icon: "/icon/facebook.svg",
+              type: "int"
+            },
+          ],
+        }
+      ],
+      data: {
+        vanityUrl: [
+          "Why-I-Started-The-Podcast",
+        ],
+        dates: {
+          dateCreated: new Date(),
+          lastDateModified: new Date(),
+          datesModified: [
+            new Date()
+          ],
+        }
+        ,
+        tags: [
+          "Podcast",
+          "The Josh Moxey Show",
+          "Introduction",
+        ],
+        views: {
+          count: 0,
+        }
       }
+      ,
     })
   })
-  .get("/page/radio", function (req, res) {
+  .get("/data/page/radio", function (req, res) {
     //for simple "live" at time of podcast being live
     //check for live date of the page
     //if it's past that date, load it
     //else, next()
     
-    res.render("body/page-radio", {
+    // res.render("body/page-radio", {
+    res.json({
       title: "page" + title,
       route: "page",
       data: {
@@ -372,8 +415,9 @@ router
       }
     })
   })
-  .get("/page/skill", function (req, res) {
-    res.render("body/page-skill", {
+  .get("/data/page/skill", function (req, res) {
+    res.json({
+      // res.render("body/page-skill", {
       title: "page" + title,
       route: "page",
       data: {
@@ -511,8 +555,9 @@ router
       }
     })
   })
-  .get("/page/project", function (req, res) {
-    res.render("body/page-project", {
+  .get("/data/page/project", function (req, res) {
+    res.json({
+      // res.render("body/page-project", {
       title: "page" + title,
       route: "page",
       data: {
@@ -732,7 +777,8 @@ router
     })
   })
   .get("/page/past", function (req, res) {
-    res.render("body/page-project", {
+    res.json({
+      // res.render("body/page-project", {
       title: "page" + title,
       route: "page",
       data: {

@@ -22,15 +22,6 @@ class Page extends Component {
     // this.setState({props: this.props})
   }
   
-  // componentDidUpdate(nextProps) {
-  //   if (nextProps.page !== this.props.page) {
-  //     console.log("my div")
-  //     this.descriptionContainer.style.backgroundColor = "red";
-  //     console.log(this.myDiv.width)
-  //     console.log(parseInt(window.getComputedStyle(this.myDiv).height))
-  //   }
-  // }
-  
   render() {
     if (!this.props.page) return (
       <div styleName="body-loading">
@@ -44,7 +35,7 @@ class Page extends Component {
     return (
       <div styleName="body">
         <PageHero
-          data={this.props.page.header}
+          header={this.props.page.header}
           links={this.props.page.links}
         />
         <div styleName="contents">
@@ -64,12 +55,6 @@ class Page extends Component {
               {/*</div>*/}
               {/*<div styleName="raw">I'm sick of the fronting and the bullshit in 2017.</div>*/}
             {/*</section>*/}
-            <section styleName="desc">
-              <h2>Description</h2>
-              <TextClamp
-                text={this.props.page.body.description}
-              />
-            </section>
             <section styleName="desc">
               <h2>Description</h2>
               <TextClamp

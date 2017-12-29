@@ -1,4 +1,4 @@
-const debug = process.env.NODE_ENV !== "production";
+const dev = process.env.NODE_ENV !== "production";
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
@@ -12,7 +12,7 @@ const autoprefixer = require("autoprefixer")
 // }
 
 devServer = {
-  contentBase: path.resolve(__dirname, './endpoint'),
+  contentBase: path.resolve(__dirname, './endpoint'), //?
   colors: true,
   quiet: false,
   noInfo: false,
@@ -23,6 +23,19 @@ devServer = {
   port: 1002,
   hot: false
 };
+
+// var css = (dev === true) ? {
+//   test: /\.css$/,
+//   // loader: ExtractTextPlugin.extract('style', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]','postcss-loader')
+//   use: ExtractTextPlugin.extract('style-loader', 'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]')
+// } ? {
+//   test: /\.css$/,
+//     loaders: [
+//   'style-loader?sourceMap',
+//   'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+//   'postcss-loader'
+// ]
+// }
 
 
 module.exports = {
@@ -67,31 +80,58 @@ module.exports = {
       //   include: /node_modules/,
       //   use: ['style-loader', 'css-loader'],
       // }    ]
-      {
+      (dev === true) ? {
         test: /\.css$/,
         loaders: [
           'style-loader?sourceMap',
-          'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]'
-        ]      }
+          'css-loader?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+        ]
+      } : {
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract(
+          'style-loader',
+          'css?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+          'postcss-loader'
+        )
+      }
     ]
   },
-  plugins: [
-    // new autoprefixer({}),
-    // new ExtractTextPlugin({
-    //   filename: 'style.css',
-    //   allChunks: true
-    // }),
-    // new UglifyJSPlugin({
-    //   sourceMap: true
-    // }),
+  plugins: dev ? [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('ENV_VALUE')
+      }
+    })
+  ] : [
+    new autoprefixer(),
+    new ExtractTextPlugin({
+      filename: 'styles.css',
+      allChunks: true
+    }),
+    new UglifyJSPlugin({
+      sourceMap: true
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('ENV_VALUE')
+      }
+    })
   ],
+  // plugins: debug ? [] : [
+  //   new webpack.optimize.DedupePlugin(),
+  //   new webpack.optimize.OccurenceOrderPlugin(),
+  //   new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
+  //   new webpack.HotModuleReplacementPlugin(),
+  // ],
+  
   // resolve: {
   //   extensions: ['.js', '.jsx']
   // },
   devServer: {
     historyApiFallback: true,
     contentBase: './',
-    port: 1001,
+    port: 1002,
+    hot: false
   }
 };
 

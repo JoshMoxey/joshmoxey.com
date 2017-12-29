@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import CSSModules from "react-css-modules";
 import styles from "../../style/page-hero.css";
 import {Link} from "react-router-dom";
+import Banner from "./banner"
 
 class PageHero extends Component {
   constructor(props) {
@@ -13,8 +14,7 @@ class PageHero extends Component {
   }
   
   onActionClick(e) {
-    let num = e.target.name
-    let state = []
+    let num = e.target.name - 1
     
     if (num == 1) {
       state = this.props.page.content.listenLinks
@@ -29,8 +29,8 @@ class PageHero extends Component {
   }
   
   render() {
-    const imgSrc = this.props.data.icon;
-    const title = this.props.data.title
+    const imgSrc = this.props.header.icon;
+    const title = this.props.header.title
     const titleClass = (titleText) => {
       if (titleText.length > 60) {
         return 'long'
@@ -40,10 +40,10 @@ class PageHero extends Component {
         return 'short'
       }
     }
-  
+    
     // if (!this.props.links) return ''
     // const arr = this.props.links.map((item, i) => <div></div>)
-  
+    
     // const actionLists = this.props.links.map((list, i) =>
     //   <ActionList
     //     onActionClick={this.toggleActionList}
@@ -51,8 +51,9 @@ class PageHero extends Component {
     //     // links={this.state.actionListSource}
     //   />
     // )
+    console.log(this.props.header)
     
-    const category = this.props.data.category.map(function (cat, i) {
+    const category = this.props.header.category.map(function (cat, i) {
       if (i === 0) {
         return (<Link key={i} to={cat.href}>{cat.name}</Link>)
       } else {
@@ -60,17 +61,21 @@ class PageHero extends Component {
       }
     })
     
-    // this.props.data.heroBanner = true
-    const bannerClass = this.props.data.banner.hasBanner ? 'has-banner' : 'no-banner';
+    const buttons = this.props.links.map(function() {
+      //if
+      <button 
+        name="2"
+        // onClick={this.onActionClick.bind(this)}
+      >
+        
+      </button>
+    })
+    
+    console.log(styles)
     
     return (
-      <div styleName={'hero ' + bannerClass}>
-        {this.props.data.banner.hasBanner ?
-          <div styleName="hero-banner"
-               style={{
-                 backgroundImage: this.props.data.banner.img
-               }}></div>
-          : ''}
+      <div styleName="hero">
+        <Banner banner={this.props.header.banner} styles={styles}/>
         <div styleName="heading">
           <div styleName="logo-container">
             <div styleName="img-sim"></div>
@@ -84,7 +89,7 @@ class PageHero extends Component {
               <button name="1"
                       onClick={this.onActionClick.bind(this)}>
                 Visit
-                {/*insert text here for CTA text from data*/}
+                {/*insert text here for CTA text from header*/}
               </button>
               <button name="2"
                       onClick={this.onActionClick.bind(this)}>

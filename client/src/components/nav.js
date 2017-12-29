@@ -25,14 +25,14 @@ class Nav extends Component {
           {/*</div>*/}
         </div>
         <div styleName="bottom">
-          <a href="/" styleName="active">
+          <Link to="/" styleName="active">
             <div styleName="icon">
               <svg width="100%" height="100%" viewBox="0 0 32 32">
                 <path d="M32 19l-6-6v-9h-4v5l-6-6-16 16v1h4v10h10v-6h4v6h10v-10h4z"></path>
               </svg>
             </div>
             <span>Home</span>
-          </a>
+          </Link>
           <Link to="/content">
             <div styleName="icon">
               <svg width="100%" height="100%" viewBox="0 0 32 32">
@@ -44,7 +44,7 @@ class Nav extends Component {
             </div>
             <span>Content</span>
           </Link>
-          <Link to="/content">
+          <Link to="/projects">
             <div styleName="icon">
               <svg width="100%" height="100%" viewBox="0 0 32 32">
                 <path
@@ -53,7 +53,7 @@ class Nav extends Component {
             </div>
             <span>Projects</span>
           </Link>
-          <Link to="/content">
+          <Link to="/profile">
             <div styleName="icon">
               <svg width="100%" height="100%" viewBox="0 0 32 32">
                 <path
@@ -62,18 +62,19 @@ class Nav extends Component {
             </div>
             <span>Profile</span>
           </Link>
-          <Link to="/content" styleName="more-button">
+          <a>
             <div styleName="icon">
               <svg width="100%" height="100%" viewBox="0 0 32 32">
                 <path d="M2 6h28v6h-28zM2 14h28v6h-28zM2 22h28v6h-28z"></path>
               </svg>
             </div>
-            <span>More</span>
-          </Link>
+          </a>
         </div>
       </div>
     )
   }
 }
+
+
 
 export default CSSModules(Nav, styles);

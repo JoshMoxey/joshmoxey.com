@@ -12,6 +12,7 @@ import PostsShow from "./components/posts_show"
 
 import Index from "./components/index"
 import Nav from "./components/nav"
+import Page from "./components/page"
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
@@ -23,7 +24,8 @@ ReactDOM.render(
         <Switch>
           <Route path="/posts/new" component={PostsNew}/>
           <Route path="/posts/:id" component={PostsShow}/>
-          <Route path="/page/show" component={PostsIndex}/>
+          <Route path="/posts" component={PostsIndex}/>
+          <Route path="/content" component={Page}/>
           <Route path="/" component={Index}/>
         </Switch>
       </div>

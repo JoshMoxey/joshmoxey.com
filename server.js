@@ -3,7 +3,6 @@ const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const RedisStore = require('connect-redis')(session)
-const LocalStrategy = require('passport-local').Strategy
 const flash = require('connect-flash');
 const path = require('path');
 const ObjectId = require('mongodb').ObjectID
@@ -11,7 +10,6 @@ const favicon = require('serve-favicon')
 
 const mongo = require("./routes/db")
 const main = require('./routes/main')
-const helpers = require("./routes/helpers/hbshelpers")
 
 var env = process.env.NODE_ENV || "dev";
 var reload = process.env.RELOAD || "true";
@@ -24,21 +22,6 @@ if (reload === "true") {
   const lr = livereload.createServer();
   lr.watch([__dirname + "/"]);
 }
-
-handlebars = require('express-handlebars').create({
-  layoutsDir: path.join(__dirname, "views/layouts"),
-  partialsDir: path.join(__dirname, "views/partials"),
-  defaultLayout: 'default',
-  extname: 'hbs',
-  helpers: helpers
-});
-
-// app.use(favicon(path.join(__dirname, 'public', 'favicon', 'favicon.ico')))
-
-app.engine('hbs', handlebars.engine);
-app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, "views"));
-app.use(express.static(path.join(__dirname, 'public')));
 
 // BodyParser Middleware
 app.use(bodyParser.json());
