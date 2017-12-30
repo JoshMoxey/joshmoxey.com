@@ -28,6 +28,10 @@ class PageHero extends Component {
     })
   }
   
+  test(e) {
+    console.log(e.target.name)
+  }
+  
   render() {
     const imgSrc = this.props.header.icon;
     const title = this.props.header.title
@@ -51,7 +55,6 @@ class PageHero extends Component {
     //     // links={this.state.actionListSource}
     //   />
     // )
-    console.log(this.props.header)
     
     const category = this.props.header.category.map(function (cat, i) {
       if (i === 0) {
@@ -61,13 +64,13 @@ class PageHero extends Component {
       }
     })
     
-    const buttons = this.props.links.map(function() {
+    const buttons = this.props.links.map(function(button, i) {
       //if
-      <button 
-        name="2"
-        // onClick={this.onActionClick.bind(this)}
-      >
-        
+      
+      return <button
+        name={i}
+        onClick={this.test.bind(this)}
+      >{button.shortText}
       </button>
     })
     
@@ -85,16 +88,16 @@ class PageHero extends Component {
             <h6>{category}</h6>
             <h1 styleName={titleClass(title)}>{title}</h1>
             <div styleName="button-container">
-              {/*<button id="1" name="1" onClick={this.props.onActionClick.bind(this)}>*/}
-              <button name="1"
-                      onClick={this.onActionClick.bind(this)}>
-                Visit
-                {/*insert text here for CTA text from header*/}
-              </button>
-              <button name="2"
-                      onClick={this.onActionClick.bind(this)}>
-                Share
-              </button>
+              {buttons}
+              {/*<button name="1"*/}
+                      {/*onClick={this.onActionClick.bind(this)}>*/}
+                {/*Visit*/}
+                {/*/!*insert text here for CTA text from header*!/*/}
+              {/*</button>*/}
+              {/*<button name="2"*/}
+                      {/*onClick={this.onActionClick.bind(this)}>*/}
+                {/*Share*/}
+              {/*</button>*/}
             </div>
           </div>
         </div>
