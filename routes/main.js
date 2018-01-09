@@ -10,36 +10,36 @@ var title = " - JoshMoxey.com"
 var title = " - Josh Moxey"
 
 router
-  .get("/", function (req, res) {
-    res.render("body/index", {
-      title: "Home" + title,
-      route: "index"
-    })
-  })
-  .get("/content", function (req, res) {
-    res.render("body/content", {
-      title: "Content" + title,
-      route: "content"
-    })
-  })
-  .get("/projects", function (req, res) {
-    res.render("body/projects", {
-      title: "Projects" + title,
-      route: "projects"
-    })
-  })
-  .get("/profile", function (req, res) {
-    res.render("body/profile", {
-      title: "Profile" + title,
-      route: "profile"
-    })
-  })
-  .get("/section", function (req, res) {
-    res.render("body/section", {
-      title: "section" + title,
-      route: "section"
-    })
-  })
+  // .get("/", function (req, res) {
+  //   res.render("body/index", {
+  //     title: "Home" + title,
+  //     route: "index"
+  //   })
+  // })
+  // .get("/content", function (req, res) {
+  //   res.render("body/content", {
+  //     title: "Content" + title,
+  //     route: "content"
+  //   })
+  // })
+  // .get("/projects", function (req, res) {
+  //   res.render("body/projects", {
+  //     title: "Projects" + title,
+  //     route: "projects"
+  //   })
+  // })
+  // .get("/profile", function (req, res) {
+  //   res.render("body/profile", {
+  //     title: "Profile" + title,
+  //     route: "profile"
+  //   })
+  // })
+  // .get("/section", function (req, res) {
+  //   res.render("body/section", {
+  //     title: "section" + title,
+  //     route: "section"
+  //   })
+  // })
   .get("/data/page/podcast", (req, res) => {
     //for simple "live" at time of podcast being live
     //check for live date of the page
@@ -103,6 +103,9 @@ router
         ],
       },
       body: {
+        images: [
+
+        ],
         description: [
           // "Lorem ipsum dolor sit amet, vehicula nunc, non id ligula est aptent rutrum, maecenas. vehicula nunc, non id ligula est aptent rutrum, maecenas.",
           "Lorem ipsum dolor sit amet, vehicula nunc, non id ligula est aptent rutrum, maecenas justo metus. Nam nec euismod, pellentesque mi urna mauris feugiat ut. Et dolor velit, condimentum sapien vulputate, vitae quam nulla odit eros tempor, curabitur euismod orci et. Mollis feugiat in pede libero, eros mi vehicula enim, sed imperdiet, a justo ut semper suspendisse gravida curae, purus turpis. Magna ornare auctor libero. Tortor elit in tincidunt facilisi, in ut id, praesent lobortis laoreet scelerisque suspendisse quis ornare.",
@@ -154,32 +157,32 @@ router
             {
               name: "iTunes",
               href: "https://itunes.apple.com/ca/podcast/the-josh-moxey-show/id1305500400?mt=2",
-              type: "ext",
+              external: true,
             },
             {
               name: "Stitcher",
               href: "https://www.stitcher.com/podcast/josh-moxey/the-josh-moxey-show",
-              type: "ext",
+              external: true,
             },
             {
               name: "Google Play",
               href: "https://play.google.com/music/m/I5n3a2frujlcypze4b4fh5v2jdi?t=The_Josh_Moxey_Show",
-              type: "ext",
+              external: true,
             },
             {
               name: "TuneIn",
               href: "https://tunein.com/radio/The-Josh-Moxey-Show-p1056867/",
-              type: "ext",
+              external: true,
             },
             {
               name: "Facebook",
               href: "",
-              type: "ext",
+              external: true,
             },
             {
               name: "YouTube",
               href: "",
-              type: "ext",
+              external: true,
             },
           ],
         },
@@ -191,7 +194,7 @@ router
             {
               name: "Facebook",
               href: "https://facebook.com/share",
-              type: "ext",
+              external: true,
             },
           ],
         },
@@ -204,7 +207,7 @@ router
             {
               name: "Facebook",
               icon: "/icon/facebook.svg",
-              type: "int"
+              external: true,
             },
           ],
         }

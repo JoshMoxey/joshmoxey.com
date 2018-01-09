@@ -1,4 +1,4 @@
-.action-list {
+.action-list-pop-up {
   &.open {
     pointer-events: auto;
     ul {
@@ -62,5 +62,40 @@
     background: rgba(0,0,0, .5);
     opacity: 0;
     transition: 1s;
+  }
+}
+
+.action-list-static {
+  ul {
+    padding-top: 6px;
+    li {
+      //border-bottom: 1px solid lightgray;
+      //height: auto;
+      display: flex;
+      a {
+        box-sizing: border-box;
+        padding: 4px 0;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-content: center;
+        svg {
+          width: 25px;
+          height: 25px;
+          fill: grey;
+          padding-right: 12px;
+        }
+        .text {
+          display: block;
+          font-size: 18px;
+          font-weight: 300;
+          line-height: 100%;
+          align-self: center;
+        }
+        a {
+          color: black;
+        }
+      }
+    }
   }
 }

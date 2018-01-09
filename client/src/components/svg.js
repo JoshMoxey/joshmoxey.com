@@ -18,11 +18,20 @@ export default (props) => {
     googlePlay: "M1.628 0c-0.040 0.124-0.080 0.246-0.080 0.41v30.974c0 0.288 0.080 0.452 0.244 0.616l15.22-16.124-15.384-15.876zM18.040 16.944l3.936 4.060-5.62 3.2s-7.14 4.060-11.076 6.32l12.76-13.58zM19.106 15.836l4.224 4.39c0.66-0.37 5.826-3.324 6.564-3.734 0.78-0.45 0.7-1.066 0.040-1.394-0.614-0.34-5.78-3.3-6.56-3.78l-4.27 4.522zM18.038 14.77l3.98-4.226-5.68-3.24s-9.258-5.296-12.338-7.064l14.040 14.532z",
   }
   
-  //google play breaks it
-  
   const size = props.size || '100'
   const classId = props.classId || ''
-  
+
+  function camelCase(str) {
+    let strSplit = str.toLowerCase().split(' ')
+    if (strSplit.length === 1) {
+      return strSplit[0]
+    }
+    for (let i = 1; i < strSplit.length; i++) {
+      strSplit[i] = strSplit[i].charAt(0).toUpperCase() + strSplit[i].slice(1).toLowerCase();
+    }
+    return strSplit.join('')
+  }
+
   return (
     <svg
       viewBox="0 0 32 32"
@@ -30,7 +39,7 @@ export default (props) => {
       // height={`${size}px`}
       className={classId}
     >
-      <path d={icons[props.icon.toLowerCase()]}></path>
+      <path d={icons[camelCase(props.icon)]}></path>
     </svg>
   )
 }

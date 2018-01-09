@@ -10,10 +10,7 @@ const Banner = (props) => {
   //value: src, color(s)
   //priority: banner, gradient, color
   // throw new Error("What's in the fucking box")
-  
-  console.log(props)
-  console.log(props.styles)
-  
+
   const bannerClass = props.banner.hasBanner ? 'has-banner' : 'no-banner';
   const image = props.banner.img || false
   const gradient = props.banner.gradient || false

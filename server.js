@@ -11,17 +11,21 @@ const favicon = require('serve-favicon')
 const mongo = require("./routes/db")
 const main = require('./routes/main')
 
-var env = process.env.NODE_ENV || "dev";
-var reload = process.env.RELOAD || "true";
+const env = process.env.NODE_ENV || "dev";
+const reload = process.env.RELOAD || "true";
 
+//same
 // Init App
-var app = express();
+const app = express();
+let livereload = ""
+let lr = ""
 
 if (reload === "true") {
-  const livereload = require('livereload');
-  const lr = livereload.createServer();
+  livereload = require('livereload');
+  lr = livereload.createServer();
   lr.watch([__dirname + "/"]);
 }
+
 
 // BodyParser Middleware
 app.use(bodyParser.json());
@@ -57,6 +61,8 @@ app.use(function (req, res, next) {
   res.locals.user = req.user || null;
   next();
 });
+
+//refresh
 
 app.use(main);
 
