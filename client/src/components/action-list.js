@@ -13,6 +13,8 @@ class ActionList extends Component {
   render() {
     if (!this.props.links) return
 
+    //todo modify to just this.props.links.map and adjust all props to links={}
+
     const actions = this.props.links.links.map((item, i) =>
       <li key={i}>
         <LinkPlus external={item.external} href={item.href}>
@@ -24,7 +26,18 @@ class ActionList extends Component {
       </li>
     )
 
-    const isOpen = this.props.actionListOpen ? "open" : "";
+    const actionListOpen = this.props.actionListOpen || false
+    const actionListActive = this.props.actionListActive || false
+    const id = this.props.id || false
+
+    const isOpen = actionListOpen
+    && actionListActive == id
+      ? "open" : ""
+
+    //action list open somehow null
+    //== because it was treating i or actionListActive as different types
+
+    // console.log(this.props.actionListOpen)
 
     return (this.props.static || this.props.static === "true") ?
       <section styleName="action-list-static">
@@ -34,9 +47,10 @@ class ActionList extends Component {
         </ul>
       </section>
       : //else if pop up
-      <div styleName={`action-list-pop-up ${isOpen}`}
-           onClick={this.props.onActionClick.bind(this)}>
-        <div styleName="background"></div>
+      <div styleName={`action-list-pop-up ${isOpen}`}>
+        <div styleName="background"
+             onClick={this.props.onActionClick.bind(this)}></div>
+        {/*{console.log(this.props.actionListOpen)}*/}
         <ul className="ul-unstyled" styleName="">
           {actions}
         </ul>

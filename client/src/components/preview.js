@@ -4,35 +4,42 @@ import styles from "../../style/preview.css"
 import Swiper from "react-id-swiper"
 
 const Preview = (props) => {
-  const slides = this.props.slides.map((slide, i) =>
-    <Link key={i} to={slide.href} styleName="swiper-slide">
-      {/*<img src={slide.img}/>*/}
-      <div styleName="img-sim"></div>
-      <div styleName="title">{slide.title}</div>
-    </Link>
+  const slides = props.slides.map((slide, i) =>
+    <div
+      key={i}
+      to={slide.href}
+      styleName="swiper-slide"
+      // style={{height: "300px"}}
+    >
+      <img
+        src={slide.img}
+        style={{height: "100%"}}
+        alt={slide.caption.map( text => ( text + " " )).toString()}
+      />
+    </div>
   )
 
-  const navigation = this.props.navigation ?
+  props.navigation = true
+
+  const navigation = props.navigation ?
     { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
     : {}
 
   const params = {
-    // pagination: {
-    //   el: '.swiper-pagination',
-    //   type: 'bullets',
-    //   clickable: true
-    // },
     navigation: navigation,
-    spaceBetween: 20,
-    width: 130,
+    spaceBetween: 12,
     freeMode: true,
-    // slidesPerView: 2
+    slidesPerView: "auto",
   }
 
   return (
-    <Swiper {...params}>
-      {slides}
-    </Swiper>
+    <section styleName="preview">
+      <h2 style={{marginLeft: "32px"}}>Preview</h2>
+      <div styleName="fade"></div>
+      <Swiper {...params}>
+        {slides}
+      </Swiper>
+    </section>
   )
 }
 

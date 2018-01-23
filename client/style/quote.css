@@ -1,0 +1,36 @@
+section.quote {
+  display: flex;
+}
+section.quote .symbol {
+  height: 100%;
+  width: 45px;
+  position: absolute;
+  margin-top: 5px;
+}
+section.quote .symbol .container {
+  width: 100%;
+}
+section.quote .symbol .container svg {
+  display: inline-flex;
+  width: 50%;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+section.quote .symbol .container svg:first-child {
+  margin-right: -6px;
+}
+section.quote .symbol .container svg path {
+  color: #fec19f;
+  color: #c7c7c7;
+}
+section.quote .raw {
+  padding-left: 43px;
+  color: #1C81C3;
+  color: #464646;
+  font-weight: 300;
+  font-size: 18px;
+  position: relative;
+  font-style: italic;
+  line-height: 145%;
+}

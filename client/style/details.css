@@ -1,0 +1,10 @@
+.detail {
+  margin-bottom: 5px;
+}
+.detail .name {
+  font-size: 13px;
+  opacity: .5;
+}
+.detail .value {
+  font-size: 18px;
+}

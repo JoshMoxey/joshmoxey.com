@@ -138,6 +138,8 @@
 }
 .hero .heading .right {
   position: relative;
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -167,7 +169,9 @@
   font-size: 20px;
 }
 .hero .heading .right .button-container {
-  margin-top: 7px;
+  user-select: none;
+  padding-top: 7px;
+  margin-top: auto;
 }
 .hero .heading .right .button-container button {
   border-radius: 50px;
@@ -179,6 +183,25 @@
 }
 .hero .heading .right .button-container button:hover {
   background-color: #cccccc;
+}
+.hero .details {
+  padding: 0 16px 16px 16px;
+  display: flex;
+  justify-content: space-between;
+}
+.hero .details .detail .name {
+  font-size: 12px;
+  opacity: .6;
+  margin-bottom: 2px;
+}
+.hero .details .detail .value {
+  font-weight: 500;
+}
+.hero .details .detail.detail-middle .name {
+  text-align: center;
+}
+.hero .details .detail.detail-right .name {
+  text-align: right;
 }
 .divider {
   box-sizing: border-box;

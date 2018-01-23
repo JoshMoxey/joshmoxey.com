@@ -3,11 +3,7 @@ const mongo = require("./db")
 const ObjectId = require('mongodb').ObjectID
 const session = require('express-session')
 const bodyParser = require('body-parser')
-var flash = require("connect-flash")
-
-var title = " - joshmoxey.com"
-var title = " - JoshMoxey.com"
-var title = " - Josh Moxey"
+const flash = require("connect-flash")
 
 router
   // .get("/", function (req, res) {
@@ -103,8 +99,38 @@ router
         ],
       },
       body: {
-        images: [
-
+        preview: [
+          {
+            type: "img",
+            img: "http://via.placeholder.com/500x350",
+            caption: [
+              "Beautiful image of xyz",
+            ]
+          },
+          {
+            type: "img",
+            img: "http://via.placeholder.com/400x700",
+            caption: [
+              "Beautiful image of xyz",
+            ]
+          },
+          {
+            type: "img",
+            img: "http://via.placeholder.com/501",
+            caption: [
+              "Beautiful image of xyzuyvghbu",
+            ]
+          },
+          {
+            type: "img",
+            img: "http://via.placeholder.com/500x350",
+            caption: [
+              "Beautiful image of xyz",
+            ]
+          },
+          //Screenshot of adding a new item
+          //Screenshot of adding a new list
+          //Reshuffle gif
         ],
         description: [
           // "Lorem ipsum dolor sit amet, vehicula nunc, non id ligula est aptent rutrum, maecenas. vehicula nunc, non id ligula est aptent rutrum, maecenas.",
@@ -141,7 +167,7 @@ router
             href: "",
           },
           {
-            title: "Josh Moxey Radio 003",
+            title: "Josh Moxey Radio 004",
             category: "Josh Moxey Radio",
             img: "/img/profile.png",
             href: "",
