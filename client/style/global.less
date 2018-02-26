@@ -3,7 +3,8 @@
 
 
 // Colors
-@color-1: #585858;
+@title-color: #222;
+@color-1: #333333;
 @color-2: #FFFFFF;
 @color-3: #b8b8b8;
 @color-4: #939393;
@@ -39,6 +40,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
+  color: @title-color;
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
@@ -96,10 +98,12 @@ li {
 
 button, .button {
   font-size: 12px;
-  padding: 12px;
-  border: none;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
   cursor: pointer;
   display: inline-block;
+  border-radius: 50px;
+  background-color: white;
 }
 
 ::selection {
@@ -111,11 +115,11 @@ button, .button {
 }
 
 ::selection {
-  background: #ff7677;
+  background: #84a6ff;
 }
 
 ::-moz-selection {
-  background: #FF7677;
+  background: #84a6ff;
 }
 
 button::-moz-focus-inner {

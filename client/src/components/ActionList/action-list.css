@@ -1,0 +1,91 @@
+.action-list-pop-up {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  z-index: 50;
+  transition: 1s;
+}
+.action-list-pop-up.open {
+  pointer-events: auto;
+}
+.action-list-pop-up.open ul {
+  transform: translateY(0);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+}
+.action-list-pop-up.open .background {
+  opacity: 1;
+}
+.action-list-pop-up ul {
+  position: absolute;
+  max-height: 80%;
+  overflow: auto;
+  bottom: 0;
+  width: 100%;
+  background: #FFF;
+  transition: .7s;
+  transform: translateY(100%);
+  will-change: translateY;
+}
+.action-list-pop-up ul li {
+  border-bottom: 1px solid lightgray;
+}
+.action-list-pop-up ul li a {
+  box-sizing: border-box;
+  padding: 12px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-content: center;
+}
+.action-list-pop-up ul li a svg {
+  height: 25px;
+  fill: grey;
+  padding-right: 12px;
+}
+.action-list-pop-up ul li a .text {
+  display: block;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 100%;
+  align-self: center;
+}
+.action-list-pop-up .background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: 1s;
+}
+.action-list-static ul li {
+  display: flex;
+}
+.action-list-static ul li a {
+  box-sizing: border-box;
+  padding: 4px 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-content: center;
+}
+.action-list-static ul li a svg {
+  width: 25px;
+  height: 25px;
+  fill: grey;
+  padding-right: 12px;
+}
+.action-list-static ul li a .text {
+  display: block;
+  font-size: 18px;
+  font-weight: 300;
+  line-height: 100%;
+  align-self: center;
+}
+.action-list-static ul li a a {
+  color: black;
+}

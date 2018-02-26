@@ -6,30 +6,30 @@ const bodyParser = require('body-parser')
 const flash = require("connect-flash")
 
 router
-  // .get("/", function (req, res) {
-  //   res.render("body/index", {
-  //     title: "Home" + title,
-  //     route: "index"
-  //   })
-  // })
-  // .get("/content", function (req, res) {
-  //   res.render("body/content", {
-  //     title: "Content" + title,
-  //     route: "content"
-  //   })
-  // })
-  // .get("/projects", function (req, res) {
-  //   res.render("body/projects", {
-  //     title: "Projects" + title,
-  //     route: "projects"
-  //   })
-  // })
-  // .get("/profile", function (req, res) {
-  //   res.render("body/profile", {
-  //     title: "Profile" + title,
-  //     route: "profile"
-  //   })
-  // })
+// .get("/", function (req, res) {
+//   res.render("body/index", {
+//     title: "Home" + title,
+//     route: "index"
+//   })
+// })
+// .get("/content", function (req, res) {
+//   res.render("body/content", {
+//     title: "Content" + title,
+//     route: "content"
+//   })
+// })
+// .get("/projects", function (req, res) {
+//   res.render("body/projects", {
+//     title: "Projects" + title,
+//     route: "projects"
+//   })
+// })
+  .get("/profile", function (req, res) {
+    res.render("body/profile", {
+      title: "Profile",
+      route: "profile"
+    })
+  })
   // .get("/section", function (req, res) {
   //   res.render("body/section", {
   //     title: "section" + title,
@@ -41,14 +41,13 @@ router
     //check for live date of the page
     //if it's past that date, load it
     //else, next()
-    
+
     // res.render("body/page-podcast", {
     res.json({
       header: {
         banner: {
           hasBanner: true,
           img: "http://fullhdwall.com/wp-content/uploads/2016/08/Widescreen-Space.jpg",
-          img: "",
           gradient: "135deg, #333, #999",
           color: "#333333",
         },
@@ -60,41 +59,20 @@ router
           },
           {
             id: "",
-            name: "Test",
+            name: "Reflections",
             href: "podcast"
           }
         ],
         title: "An Introduction to Josh Moxey: Who I Am and Why I Started This Podcast",
         icon: "/public/img/profile.jpg",
-        // buttons: [
-        //   {
-        //     text: "Visit",
-        //     type: "button"
-        //   }
-        // ],
-        detail: [ //podcast, shows, etc.
-          //how do I render this  best?
+        detail: [
           {
-            type: "Episode",
+            name: "Episode",
             value: 0,
           },
           {
             type: "Status", //
             value: "active",
-          },
-          {
-            dates: [
-              // {
-              //   type: "duration",
-              //   start: new Date(),
-              //   end: null //active
-              // },
-              {
-                type: "date",
-                text: "Date published",
-                date: new Date(),
-              },
-            ],
           },
         ],
       },
@@ -128,16 +106,11 @@ router
               "Beautiful image of xyz",
             ]
           },
-          //Screenshot of adding a new item
-          //Screenshot of adding a new list
-          //Reshuffle gif
         ],
         description: [
-          // "Lorem ipsum dolor sit amet, vehicula nunc, non id ligula est aptent rutrum, maecenas. vehicula nunc, non id ligula est aptent rutrum, maecenas.",
           "Lorem ipsum dolor sit amet, vehicula nunc, non id ligula est aptent rutrum, maecenas justo metus. Nam nec euismod, pellentesque mi urna mauris feugiat ut. Et dolor velit, condimentum sapien vulputate, vitae quam nulla odit eros tempor, curabitur euismod orci et. Mollis feugiat in pede libero, eros mi vehicula enim, sed imperdiet, a justo ut semper suspendisse gravida curae, purus turpis. Magna ornare auctor libero. Tortor elit in tincidunt facilisi, in ut id, praesent lobortis laoreet scelerisque suspendisse quis ornare.",
           "Torquent semper, et dolor quis justo dui placerat eros, arcu hendrerit sociis, urna ad ut curae libero ut. Sapien tempor suscipit cras pede odio, nec sed a a consectetuer risus, ac nunc lacus quis ipsum. Ultricies proin ante integer, ut magna a et mi aenean, nisl wisi suscipit, vel quam accumsan et mi id aliquam. Et et. Odio sit dictumst, vitae eu quis dolores tellus, adipiscing duis enim eros nisl vestibulum, est etiam dui et nisl. Sed eu commodo ut erat proin, enim donec erat, sodales sit nisl, at et proin quam tempor ac senectus.",
           "Tincidunt tempus mi, urna non. Interdum in et fringilla lobortis. Eget neque sed eget a, ac mi lorem non mauris nam volutpat. Cras per, mauris massa mi voluptatem. Erat maecenas in ligula vitae integer urna, scelerisque mauris tellus venenatis eget fermentum neque, aliquet egestas, mi ut nunc. Eget purus mauris, ipsum ante interdum tincidunt in, velit semper ullamcorper eget aliquam rhoncus.",
-          // "Ipsum aliquam sodales turpis nisl convallis. Luctus aenean ut lectus, turpis dictum. Nulla dolor et duis sed, magna id et. Iaculis praesent venenatis urna, risus dolor aliquam neque, sint consequat nulla velit, duis eget, quam est curabitur lectus a posuere ultrices. Ultrices sapien ipsum."
         ],
         embed: "https://embed.simplecast.com/b6b044af?color=f5f5f5",
         // showNotes: [
@@ -239,17 +212,20 @@ router
         }
       ],
       data: {
+        active: true, //if inactive, show 404
         vanityUrl: [
           "Why-I-Started-The-Podcast",
         ],
+        category: "",
+        creator: "",
+        author: "Josh Moxey",
         dates: {
           dateCreated: new Date(),
           lastDateModified: new Date(),
           datesModified: [
             new Date()
           ],
-        }
-        ,
+        },
         tags: [
           "Podcast",
           "The Josh Moxey Show",
@@ -258,8 +234,134 @@ router
         views: {
           count: 0,
         }
-      }
-      ,
+      },
+    })
+  })
+  .get("/data/section/jms", (req, res) => {
+    //for simple "live" at time of podcast being live
+    //check for live date of the page
+    //if it's past that date, load it
+    //else, next()
+
+    // res.render("body/page-podcast", {
+    res.json({
+      header: {
+        banner: {
+          hasBanner: true,
+          img: "http://fullhdwall.com/wp-content/uploads/2016/08/Widescreen-Space.jpg",
+          gradient: "135deg, #333, #999",
+          color: "#333333",
+        },
+        title: "The Josh Moxey Show",
+        icon: "/public/img/profile.jpg",
+      },
+      body: {
+        description: [
+          "Lorem ipsum dolor sit amet, vehicula nunc, non id ligula est aptent rutrum, maecenas justo metus. Nam nec euismod, pellentesque mi urna mauris feugiat ut. Et dolor velit, condimentum sapien vulputate, vitae quam nulla odit eros tempor, curabitur euismod orci et. Mollis feugiat in pede libero, eros mi vehicula enim, sed imperdiet, a justo ut semper suspendisse gravida curae, purus turpis. Magna ornare auctor libero. Tortor elit in tincidunt facilisi, in ut id, praesent lobortis laoreet scelerisque suspendisse quis ornare.",
+          "Torquent semper, et dolor quis justo dui placerat eros, arcu hendrerit sociis, urna ad ut curae libero ut. Sapien tempor suscipit cras pede odio, nec sed a a consectetuer risus, ac nunc lacus quis ipsum. Ultricies proin ante integer, ut magna a et mi aenean, nisl wisi suscipit, vel quam accumsan et mi id aliquam. Et et. Odio sit dictumst, vitae eu quis dolores tellus, adipiscing duis enim eros nisl vestibulum, est etiam dui et nisl. Sed eu commodo ut erat proin, enim donec erat, sodales sit nisl, at et proin quam tempor ac senectus.",
+          "Tincidunt tempus mi, urna non. Interdum in et fringilla lobortis. Eget neque sed eget a, ac mi lorem non mauris nam volutpat. Cras per, mauris massa mi voluptatem. Erat maecenas in ligula vitae integer urna, scelerisque mauris tellus venenatis eget fermentum neque, aliquet egestas, mi ut nunc. Eget purus mauris, ipsum ante interdum tincidunt in, velit semper ullamcorper eget aliquam rhoncus.",
+        ],
+      },
+      links: [
+        {
+          shortText: "Visit",
+          longerText: false,
+          priority: 1,
+          links: [
+            {
+              name: "iTunes",
+              href: "https://itunes.apple.com/ca/podcast/the-josh-moxey-show/id1305500400?mt=2",
+              external: true,
+            },
+            {
+              name: "Stitcher",
+              href: "https://www.stitcher.com/podcast/josh-moxey/the-josh-moxey-show",
+              external: true,
+            },
+            {
+              name: "Google Play",
+              href: "https://play.google.com/music/m/I5n3a2frujlcypze4b4fh5v2jdi?t=The_Josh_Moxey_Show",
+              external: true,
+            },
+            {
+              name: "TuneIn",
+              href: "https://tunein.com/radio/The-Josh-Moxey-Show-p1056867/",
+              external: true,
+            },
+            {
+              name: "Facebook",
+              href: "",
+              external: true,
+            },
+            {
+              name: "YouTube",
+              href: "",
+              external: true,
+            },
+          ],
+        },
+        {
+          shortText: "Share",
+          longerText: false,
+          priority: 1,
+          links: [
+            {
+              name: "Facebook",
+              href: "https://facebook.com/share",
+              external: true,
+            },
+          ],
+        },
+        {
+          shortText: "More",
+          longerText: false,
+          priority: 10,
+          text: "More",
+          links: [
+            {
+              name: "Facebook",
+              icon: "/icon/facebook.svg",
+              external: true,
+            },
+          ],
+        }
+      ],
+      data: {
+        active: true, //if inactive, show 404
+        type: "section",
+        id: 1,
+        url: ["the-josh-moxey-show", "jms", "tjms", "show", "podcast"],
+        category: "",
+        creator: "",
+        author: "Josh Moxey",
+        dates: {
+          dateCreated: new Date(),
+          lastDateModified: new Date(),
+          datesModified: [
+            new Date()
+          ],
+        },
+        tags: [
+          "Podcast",
+          "The Josh Moxey Show",
+        ],
+        views: {
+          count: 0,
+        },
+      },
+      pages: [
+        {
+          title: "An Introduction to Josh Moxey: Who I Am And Why I Started A Podcast",
+          href: "",
+          detail: "Episode 1",
+          img: "/path/to/icon"
+        }
+      ]
+      //gather pages included
+      //map through and create arrays of all the info required
+      //append to data object
+      //have a main detail outlined by the section? ie. for jms, it's episode. Or date.
+
     })
   })
   .get("/data/page/radio", function (req, res) {
@@ -267,7 +369,7 @@ router
     //check for live date of the page
     //if it's past that date, load it
     //else, next()
-    
+
     // res.render("body/page-radio", {
     res.json({
       title: "page" + title,
@@ -794,7 +896,7 @@ router
               ]
             }
           ],
-          
+
           resources: [
             {
               href: "https://",
@@ -956,7 +1058,6 @@ router
               ]
             }
           ],
-          
           resources: [
             {
               href: "https://",
@@ -967,21 +1068,33 @@ router
       }
     })
   })
-  .get("/page/exp", function (req, res) {
-    res.render("body/page", {
-      title: "page" + title,
-      route: "page"
-    })
+  .get("/data/:main", function (req, res) {
+    mongo.db.collection("main")
+      .findOne({"data.href": req.params.main}, (err, result) => {
+        if (err) {
+          return console.log(err)
+        }
+        mongo.db.collection("main")
+          .find({"ACCESS.category": {$in: result.DATA.HERE}}).toArray()
+      })
+    //get
+
   })
-  .get("/page", function (req, res) {
-    res.render("body/page", {
-      title: "page" + title,
-      route: "page"
-    })
+  .get("/data/:section/:page", function (req, res) {
+    //if page === null/undefined, only search for section
+    //else, search for page too
+    //if no page
+
+
+    //check if main matches a page
+    //if it does, do a second request to grab the pages it references
+    //else if no match, next()
   })
-  // .get("/insta", function (req, res) {
-  //   res.redirect("https://instagram.com/joshmoxey")
-  // })
+  .get("/data/:section/", function (req, res) {
+    //check if main matches a page
+    //if it does, do a second request to grab the pages it references
+    //else if no match, next() and send 404 data
+  })
   .get("/:url", function (req, res, next) { //redirect system
     //potential:
     //get request to show loading...
@@ -993,23 +1106,15 @@ router
         res.redirect(result.output)
       })
   })
-  .get("asdf", function () {
-    console.log("same")
-  })
   .get("/jsdisabled", function (req, res, next) {
     res.render("body/error/jsdisabled", {
+      //todo make this an actual page
       title: 'Error: Javascript disabled | Internalize',
       route: "error"
     })
   })
   .use(function (req, res, next) {
-    res.status(404)
-    //.render("body/error/404", {
-    //layout: 'noheader.hbs',
-    //title: 'Error 404 | Internalize',
-    //route: "error"
-    //})
-      .send("error four o four")
+    res.status(404).send("error four o four")
   })
 
 module.exports = router;

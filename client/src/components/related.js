@@ -2,7 +2,7 @@ import React from "react"
 import Swiper from "react-id-swiper"
 import CSSModules from "react-css-modules"
 import styles from "../../style/related.css"
-import LinkPlus from "./link-plus"
+import LinkPlus from "./LinkPlus/link-plus"
 import {Link} from "react-router-dom"
 
 const Related = (props) => {
@@ -62,6 +62,7 @@ const Related = (props) => {
       }
     }
   ]
+
   const links = props.links.map((link, i) =>
     <div styleName="related-link" key={i}>
       <Link to={link.href} styleName="img-container">
@@ -74,10 +75,24 @@ const Related = (props) => {
     </div>
   )
 
+  let title = ""
+  switch (props.title) {
+    case false:
+      break;
+    case undefined:
+      title = <h2>Related</h2>
+      break;
+    default:
+      title = <h2>{props.title}</h2>
+  }
+
   return (
-    <div styleName="related">
-      {links}
-    </div>
+    <section>
+      {title}
+      <div styleName="related">
+        {links}
+      </div>
+    </section>
   )
 }
 

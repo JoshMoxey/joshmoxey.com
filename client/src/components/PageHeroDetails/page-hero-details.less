@@ -1,0 +1,113 @@
+.details {
+  .name {
+    font-size: 12px;
+    opacity: .6;
+    margin-bottom: 2px;
+  }
+  .value {
+    font-weight: 500;
+  }
+}
+
+//side by side, in theory
+.details {
+  display: flex;
+  box-sizing: border-box;
+  margin-top: auto;
+  justify-self: space-between;
+  padding: 0 0 16px 16px;
+  .detail {
+    padding-left: 24px;
+    width: auto;
+    &:first-child {
+      padding-left: 0;
+    }
+  }
+}
+
+.details.stack {
+  display: none;
+}
+
+@media only screen and (min-width: 600px) {
+
+}
+
+@media only screen and (min-width: 600px) {
+  //single panel, stacked
+  .details.stack {
+    padding: 0 0 0 32px;
+    width: 180px;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    .detail {
+      padding-left: 0;
+      padding-bottom: 8px;
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  //stacked w/ 2 rows
+  .details.stack {
+    width: 360px;
+    .detail {
+      width: 50%;
+      box-sizing: border-box;
+      &:nth-child(odd) {
+        padding-right: 4px;
+      }
+      &:nth-child(even) {
+        padding-left: 4px;
+      }
+      &:nth-last-child(2) {
+        padding-bottom: 0;
+      }
+    }
+  }
+}
+
+//.details {
+//  padding-left: 32px;
+//  display: inline-flex;
+//  width: 180px;
+//  box-sizing: border-box;
+//  justify-content: space-between;
+//  .detail {
+//    padding: 0 8px;
+//    padding-right: 0;
+//    padding-left: 0;
+//    padding-bottom: 8px;
+//    &:last-child {
+//      padding-bottom: 0;
+//    }
+//    &.detail-middle .name {
+//      text-align: center;
+//    }
+//    &.detail-right .name {
+//      text-align: right;
+//    }
+//  }
+//}
+.details.swiper {
+  padding-left: 0;
+  user-select: none;
+  > div {
+    margin: 0;
+    width: 100%;
+    > div {
+      width: 100%;
+    }
+  }
+  .detail {
+    &:first-child {
+      padding-left: 16px;
+    }
+    &:last-child {
+      padding-right: 16px;
+    }
+  }
+}

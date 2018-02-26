@@ -8,7 +8,9 @@ export const ROOT = "http://reduxblog.herokuapp.com/api"
 export const API_KEY = '?key=joshmoxey'
 
 export const FETCH_PAGE = 'fetch_page';
+export const FETCH_SECTION = 'fetch_section'
 export const ROOT_URL = 'http://localhost'
+export const TOGGLE_SIDEBAR = 'toggle_sidebar'
 
 export function fetchPosts(){
   const request = axios.get(`${ROOT}/posts${API_KEY}`);
@@ -56,5 +58,22 @@ export function fetchPage() {
   return {
     type: FETCH_PAGE,
     payload: request
+  }
+}
+
+export function fetchSection() {
+  const request = axios.get(
+    `http://localhost:1001/data/section/jms`
+  )
+
+  return {
+    type: FETCH_SECTION,
+    payload: request
+  }
+}
+
+export function toggleSidebar() {
+  return {
+    type: TOGGLE_SIDEBAR,
   }
 }

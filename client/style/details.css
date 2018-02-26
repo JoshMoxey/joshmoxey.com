@@ -1,10 +1,17 @@
-.detail {
-  margin-bottom: 5px;
+.details {
+  display: inline-flex;
+  width: 100%;
+  flex-wrap: wrap;
 }
-.detail .name {
-  font-size: 13px;
-  opacity: .5;
+.details .detail {
+  width: 50%;
+  margin-bottom: 12px;
 }
-.detail .value {
-  font-size: 18px;
+.details .detail .name {
+  font-size: 12px;
+  opacity: .65;
+  margin-bottom: 4px;
+}
+.details .detail .value {
+  font-size: 16px;
 }

@@ -10,6 +10,7 @@ const favicon = require('serve-favicon')
 
 const mongo = require("./routes/db")
 const main = require('./routes/main')
+// const helpers = require("./routes/helpers/hbshelpers")
 
 const env = process.env.NODE_ENV || "dev";
 const reload = process.env.RELOAD || "true";
@@ -25,6 +26,21 @@ if (reload === "true") {
   lr = livereload.createServer();
   lr.watch([__dirname + "/"]);
 }
+
+
+handlebars = require('express-handlebars').create({
+  layoutsDir: path.join(__dirname, "views/layouts"),
+  partialsDir: path.join(__dirname, "views/partials"),
+  defaultLayout: 'default',
+  extname: 'hbs',
+  // helpers: helpers
+});
+
+
+app.engine('hbs', handlebars.engine);
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, "views"));
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 // BodyParser Middleware

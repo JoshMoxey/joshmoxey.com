@@ -7,13 +7,13 @@
   outline: none;
   text-decoration: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  color: #585858;
+  color: #333333;
 }
 html,
 body {
   width: 100%;
   height: 100%;
-  color: #585858;
+  color: #333333;
 }
 h1,
 h2,
@@ -21,6 +21,7 @@ h3,
 h4,
 h5,
 h6 {
+  color: #222;
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
@@ -61,10 +62,12 @@ li {
 button,
 .button {
   font-size: 12px;
-  padding: 12px;
-  border: none;
+  padding: 5px 10px;
+  border: 1px solid #ddd;
   cursor: pointer;
   display: inline-block;
+  border-radius: 50px;
+  background-color: white;
 }
 ::selection {
   color: #ffffff;
@@ -73,10 +76,10 @@ button,
   color: #ffffff;
 }
 ::selection {
-  background: #ff7677;
+  background: #84a6ff;
 }
 ::-moz-selection {
-  background: #FF7677;
+  background: #84a6ff;
 }
 button::-moz-focus-inner {
   border: 0;

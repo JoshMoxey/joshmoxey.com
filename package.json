@@ -26,6 +26,7 @@
     "less": "^2.7.2",
     "mongodb": "^2.2.19",
     "path": "^0.12.7",
+    "react-lines-ellipsis": "^0.10.2",
     "redis": "^2.7.1",
     "serve-favicon": "^2.4.3",
     "swiper": "^3.4.2"
