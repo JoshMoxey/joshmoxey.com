@@ -5,15 +5,14 @@ import CSSModules from "react-css-modules";
 
 import styles from "./page.css";
 import {fetchPage} from "../../actions/index";
-import {toggleSidebar} from "../../actions/index";
 import PageHero from "../../components/PageHero/page-hero"
+import PageBody from "../../components/PageBody/page-body"
+
 import ActionList from "../../components/ActionList/action-list"
-import Swiper from "../../components/swiper"
 import Preview from "../../components/Preview/preview"
 import TextClamp from "../../components/TextClamp/text-clamp"
-import PageList from "../../components/PageList/page-list"
+import PageList from "../PageList/page-list"
 import Quote from "../../components/Quote/quote"
-import Details from "../../components/Details/details"
 import ImagePopUp from "../../components/ImagePopUp/image-pop-up"
 
 class Page extends Component {
@@ -27,7 +26,9 @@ class Page extends Component {
 
   componentDidMount() {
     document.title = "joshmoxey.com"
-    this.props.fetchPage();
+    const sectionId = this.props.match.params.section
+    const pageId = this.props.match.params.page
+    this.props.fetchPage(sectionId, pageId);
   }
 
   togglePopUp(e) {
@@ -49,16 +50,14 @@ class Page extends Component {
   }
 
   render() {
-    console.log(this.props)
     if (!this.props.page) return (
       <div styleName="body-loading">
         <div>Loading...</div>
       </div>
     )
 
-    const actionLists = this.props.page.links.map((link, i) =>
-      <ActionList key={i} static={true} links={link}/>
-    )
+    const Loader = () => <div></div>
+
 
     const {body} = this.props.page;
 
@@ -70,38 +69,24 @@ class Page extends Component {
           togglePopUp={this.togglePopUp.bind(this)}
         />
         <PageHero
-          header={this.props.page.header}
+          {... this.props.page}
+        />
+        <PageBody
+          type={this.props.page.type}
+          {... this.props.page.body}
           links={this.props.page.links}
         />
-        <div styleName="contents">
-          <div styleName="primary">
-            <Quote/>
-            <PageList title={"Related"}/>
-            <TextClamp
-              text={this.props.page.body.description}
-              title={"Okay okay"}
-            />
-            <Preview
-              slides={this.props.page.body.preview}
-              togglePopUp={this.togglePopUp.bind(this)}
-            />
-            {/*<section styleName="embed">*/}
-            {/*<iframe frameBorder="0" height="200px" scrolling="no" seamless src={body.embed} width="100%"></iframe>*/}
-            {/*</section>*/}
-          </div>
-          <div styleName="secondary">
-            {actionLists}
-          </div>
-        </div>
       </div>
     )
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({sidebar, pages}, ownProps) {
+  console.log("pages: ", {pages})
+  console.log("ownProps: ", ownProps)
   return {
-    page: state.page,
-    sidebar: state.sidebar
+    page: pages[`${ownProps.match.params.section}_${ownProps.match.params.page}`],
+    sidebar: sidebar
   };
 }
 

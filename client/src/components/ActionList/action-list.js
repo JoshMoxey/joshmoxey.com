@@ -13,8 +13,6 @@ class ActionList extends Component {
   render() {
     if (!this.props.links) return
 
-    //todo modify to just this.props.links.map and adjust all props to links={}
-
     const actions = this.props.links.links.map((item, i) =>
       <li key={i}>
         <LinkPlus external={item.external} href={item.href}>
@@ -34,12 +32,11 @@ class ActionList extends Component {
     && actionListActive == id
       ? "open" : ""
 
-    //action list open somehow null
-    //== because it was treating i or actionListActive as different types
+    //base speed of x + (y milliseconds for every link there is)
+    //6 = .75s
+    //3.5 + .5
 
-    console.log(this.props.links)
-    const transitionDuration = this.props.links.links.length/8 + "s"
-    console.log(transitionDuration)
+    const transitionDuration = .48 + (this.props.links.links.length * .043) + "s"
 
     return (this.props.static || this.props.static === "true") ?
       <section styleName="action-list-static">
@@ -51,8 +48,9 @@ class ActionList extends Component {
       : //else if pop up
       <div styleName={`action-list-pop-up ${isOpen}`}>
         <div styleName="background"
-             onClick={this.props.onActionClick.bind(this)}></div>
-        {/*{console.log(this.props.actionListOpen)}*/}
+             onClick={this.props.onActionClick.bind(this)}
+             style={{transitionDuration}}
+        ></div>
         <ul className="ul-unstyled" style={{transitionDuration: transitionDuration}}>
           {actions}
         </ul>

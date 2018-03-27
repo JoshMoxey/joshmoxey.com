@@ -1,6 +1,6 @@
 import React from "react"
 import CSSModules from "react-css-modules"
-import styles from "../../../style/details.css"
+import styles from "./details.css"
 
 const Details = (props) => {
   props.data = [

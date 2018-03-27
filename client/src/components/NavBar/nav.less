@@ -12,9 +12,13 @@
 
 .nav {
   .top {
+    transition-duration: .5s;
     border-bottom: 1px solid #eaeaea;
     position: fixed;
-    .flex;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     justify-content: space-between;
     left: 0;
     top: 0;
@@ -23,8 +27,10 @@
     background-color: rgba(255, 255, 255, .97);
     z-index: 10;
     .left {
-      .flex;
-      .center-vertical;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
       height: 100%;
       .back {
         height: 32px;
@@ -57,44 +63,68 @@
         opacity: .6;
       }
     }
+    .right {
+      display: flex;
+      flex-direction: row;
+      height: 100%;
+      a {
+        display: none;
+        height: 100%;
+        box-sizing: border-box;
+        padding: 6px;
+        &:last-child {
+          padding-right: 8px;
+        }
+      }
+    }
   }
   .bottom {
+    transition-duration: .5s;
     border-top: 1px solid #eaeaea;
     position: fixed;
-    .flex;
+    display: flex;
+    flex-direction: row;
+    //justify-content: center;
+    width: 100%;
+    height: 50px;
     left: 0;
     bottom: 0;
     right: 0;
-    height: 50px;
     background-color: rgba(255, 255, 255, .95);
     z-index: 10;
+  }
+  .top, .bottom {
     a {
+      width: 50px;
       flex: 1;
       cursor: pointer;
-      .center;
-      &.active {
-        svg {
-          color: #1c81c3;
-          color: #717171;
-        }
-        span {
-          color: #1C81C3;
-          color: #595959;
-        }
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #a5a5a5;
+      transition-duration: .15s;
+      &:hover {
+        color: #696969;
       }
       .icon {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         height: 23px;
         width: 23px;
+        color: inherit;
       }
       svg {
-        //display: inline-block;
-        //width: 1em;
-        //height: 1em;
-        //font-size: 20px;
         stroke-width: 0;
         stroke: currentColor;
         fill: currentColor;
         color: #a8a8a8;
+        color: inherit;
+        path {
+          color: inherit;
+        }
       }
       img {
         height: 25px;
@@ -107,8 +137,29 @@
         font-size: 10px;
         font-weight: 300;
         text-transform: capitalize;
-        opacity: .8;
+        color: inherit;
       }
+    }
+  }
+}
+
+.nav {
+  .top {
+    @media only screen and (min-width: 600px) {
+      .right a {
+        display: flex;
+      }
+    }
+    .right a:last-child {
+      display: flex !important;
+    }
+    @media only screen and (min-width: 900px) {
+      transform: translateY(-52px);
+    }
+  }
+  .bottom {
+    @media only screen and (min-width: 600px) {
+      transform: translateY(50px);
     }
   }
 }

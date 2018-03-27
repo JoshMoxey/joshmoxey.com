@@ -1,5 +1,8 @@
-import React, { Component} from "react"
+import React, {Component} from "react"
 import {connect} from "react-redux"
+import CSSModules from "react-css-modules"
+import styles from "./navigation.css"
+import {Route} from "react-router-dom"
 
 import {toggleSidebar} from "../../actions"
 
@@ -8,11 +11,127 @@ import NavBar from "../../components/NavBar/nav"
 
 class Navigation extends Component {
 
+
   render() {
+    const links = [
+      {
+        title: "Home",
+        icon: "home",
+        href: "/",
+        priority: 1,
+        children: []
+      },
+      {
+        title: "Work",
+        icon: "work",
+        href: "/work",
+        priority: 1,
+        children: [
+          {
+            title: "Services",
+            icon: "users",
+            href: "/services",
+            children: []
+          },
+          {
+            title: "Code",
+            icon: "code",
+            href: "/websites",
+            children: []
+          },
+          {
+            title: "Designs",
+            icon: "art",
+            href: "/designs",
+            children: []
+          },
+          {
+            title: "Video edits",
+            icon: "film",
+            href: "/edits",
+            children: []
+          },
+        ]
+      },
+      {
+        title: "Content",
+        icon: "play",
+        href: "/content",
+        priority: 1,
+        children: [
+          {
+            title: "Podcast",
+            icon: "podcast",
+            href: "/podcast",
+            children: []
+          },
+          {
+            title: "Films",
+            icon: "play",
+            href: "/films",
+            children: []
+          },
+          {
+            title: "Josh Moxey Radio",
+            icon: "music",
+            href: "/radio",
+            children: []
+          },
+          {
+            title: "Gems",
+            icon: "gem2",
+            href: "/gems",
+            children: []
+          },
+          {
+            title: "Articles",
+            icon: "note",
+            href: "/articles",
+            children: []
+          },
+          // {
+          //   title: "Photography",
+          //   icon: "photography",
+          //   href: "/photography",
+          //   children: []
+          // }
+        ]
+      },
+      {
+        title: "Profile",
+        icon: "profile",
+        href: "/profile",
+        priority: 1,
+        children: []
+      },
+      {
+        title: "Socials",
+        icon: "link2",
+        href: "/social",
+        priority: 2,
+        children: []
+      },
+    ]
+    console.log("this.props:", this.props)
+
     return (
-      <div onClick={this.props.toggleSidebar.bind(this)}>
-        <Sidebar sidebar={this.props.sidebar}/>
-        <NavBar sidebar={this.props.sidebar}/>
+      <div styleName="navigation">
+        <div
+          styleName={`overlay ${this.props.sidebar.open ? "open" : ""}`}
+          onClick={this.props.toggleSidebar.bind(this)}
+        ></div>
+        <Sidebar
+          sidebar={this.props.sidebar}
+          toggleSidebar={this.props.toggleSidebar}
+          links={links}
+        />
+        {console.log("links: ")}
+        {console.log(links)}
+        <NavBar
+          sidebar={this.props.sidebar}
+          toggleSidebar={this.props.toggleSidebar}
+          links={links}
+        />
       </div>
     )
   }
@@ -24,4 +143,5 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, {toggleSidebar})(Navigation);
+const ComponentWithCSS = CSSModules(Navigation, styles, {allowMultiple: true, handleNotFoundStyleName: "log"});
+export default connect(mapStateToProps, {toggleSidebar})(ComponentWithCSS);

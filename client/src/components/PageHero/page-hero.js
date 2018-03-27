@@ -31,9 +31,8 @@ class PageHero extends Component {
   }
 
   render() {
-    console.log(this.state)
-    const imgSrc = this.props.header.icon;
-    const title = this.props.header.title
+    const imgSrc = this.props.style.img;
+    const title = this.props.title
     const titleClass = (titleText) => {
       if (titleText.length > 60) {
         return 'long'
@@ -44,17 +43,16 @@ class PageHero extends Component {
       }
     }
 
-    const category = this.props.header.category.map(function (cat, i) {
-      if (i === 0) {
-        return (<Link key={i} to={cat.href}>{cat.name}</Link>)
-      } else {
-        return (<span key={i}>, <Link to={cat.href}>{cat.name}</Link></span>)
-      }
-    })
+    const sectionIds = this.props.sectionIds.map((section, i) =>
+      <span key={i}>
+        {i !== 0 ? ", " : ""}
+        <Link to={section.id}>{section.name}</Link>
+      </span>
+    )
 
     return (
       <div styleName="hero">
-        <Banner banner={this.props.header.banner} styles={styles}/>
+        <Banner banner={this.props.style.banner}/>
         <div styleName="heading">
           <div styleName="logo-container">
             <div styleName="img-sim"></div>
@@ -62,11 +60,9 @@ class PageHero extends Component {
           </div>
           <div styleName="right">
             <h1 styleName={titleClass(title)}>{title}</h1>
-            <h6>{category}</h6>
+            <h6>{sectionIds}</h6>
             <div styleName="bottom">
               <HeroButtons links={this.props.links}/>
-              {/*<PageHeroDetails/>*/}
-              {/*may want to put category too, in a container and margin everything in a way where it's all floating in opposite directions*/}
             </div>
           </div>
           <div styleName="hero-details">

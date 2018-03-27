@@ -7,7 +7,7 @@ import SidebarReducer from "./reducer_sidebar"
 const rootReducer = combineReducers({
   posts: PostsReducer,
   form: formReducer,
-  page: PageReducer,
+  pages: PageReducer,
   sidebar: SidebarReducer
 });
 

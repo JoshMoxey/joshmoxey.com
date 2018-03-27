@@ -85,6 +85,7 @@ class TextClamp extends Component {
       case false:
         break;
       case undefined:
+      case true:
         title = <h2>Description</h2>
         break;
       default:

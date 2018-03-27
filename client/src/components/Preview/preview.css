@@ -22,6 +22,7 @@ section.preview .swiper-slide {
   width: auto;
   user-select: none;
   cursor: pointer;
+  z-index: 2;
 }
 section.preview .swiper-slide:first-child {
   margin-left: 16px;

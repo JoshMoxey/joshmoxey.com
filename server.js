@@ -7,6 +7,7 @@ const flash = require('connect-flash');
 const path = require('path');
 const ObjectId = require('mongodb').ObjectID
 const favicon = require('serve-favicon')
+const cors = require('cors')
 
 const mongo = require("./routes/db")
 const main = require('./routes/main')
@@ -49,12 +50,18 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 
 app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Credentials', true);
+  // res.header('Access-Control-Allow-Credentials', true);
+  // res.header('Access-Control-Allow-Credentials', `${env ? "http://localhost:1002" : "https://joshmoxey.com/"}`);
+  // res.header('Access-Control-Allow-Origin', `${env ? "http://localhost:1002" : "https://joshmoxey.com"}`);
   res.header('Access-Control-Allow-Origin', "*");
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, authorization");
+  res.header("Access-Control-Allow-Headers", "*");
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS');
+  // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, authorization");
   next();
 });
+
+//cors to avoid the axios bs
+app.use(cors())
 
 // Express Session
 app.use(session({

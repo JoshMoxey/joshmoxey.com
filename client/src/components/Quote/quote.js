@@ -3,10 +3,14 @@ import CSSModules from "react-css-modules";
 import styles from "./quote.css"
 
 const Quote = (props) => {
+  if (!props || !props.text || !props.active) return ""
+
   return (
     <section styleName="quote">
       <div styleName="line"></div>
-      <div styleName="raw">I'm sick of the fronting and the bullshit in 2017, and I just want to be authentically me instead of an artificial Instagram version.</div>
+      <div styleName="raw">
+        {props.text.map((text, i) => <span key={i}>{text}<br/></span>)}
+      </div>
     </section>
   )
 }

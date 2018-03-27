@@ -1,0 +1,27 @@
+@import "../../../style/partials/variables";
+
+.nav-slider {
+  display: flex;
+  width: 100%;
+  //padding: 0 16px;
+  background: rgba(250, 250, 250, 1);
+  border-bottom: 1px solid #e2e2e2;
+  > div {
+    width: 100%;
+  }
+  .link {
+    display: flex;
+    padding: 12px 17px 9px 17px;
+    box-sizing: border-box;
+    font-size: 12px;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+    width: auto;
+    color: #828282;
+    border: 0 solid #7d7d7d;
+    transition-duration: 1s;
+    &:first-child {
+      margin-left: 16px;
+    }
+  }
+}

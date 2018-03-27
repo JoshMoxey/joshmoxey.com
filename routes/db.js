@@ -4,7 +4,7 @@ var env = process.env.NODE_ENV || "dev";
 var db;
 
 var type = env === "dev" ? "localhost" : "127.0.0.1"
-
+//
 MongoClient.connect("mongodb://" + type + ":27017/joshmoxeycom",
   function (err, connection) {
     if (err) {

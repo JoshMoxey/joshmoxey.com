@@ -2,14 +2,18 @@ import React from "react"
 import CSSModules from "react-css-modules"
 import styles from "./preview.css"
 import Swiper from "react-id-swiper"
+import Svg from "../Svg/svg"
 
 const Preview = (props) => {
+  //todo: add large option for height
+  //make images bigger when screen gets wider
 
   //onclick
   //export a click function
   //import ImagePopUp
   //setState of src
   //pass state up to ImagePopUp
+  if (!props || !props.slides) return ""
 
   const slides = props.slides.map((slide, i) =>
     <div
@@ -26,19 +30,23 @@ const Preview = (props) => {
     </div>
   )
 
-  props.navigation = true
-
   const navigation = props.navigation ?
-    { nextEl: '.swiper-button-next', prevEl: '.swiper-button-prev' }
-    : {}
+    { nextEl: '.swiper-arrow-next', prevEl: '.swiper-arrow-prev' } : {}
 
   const params = {
     navigation: navigation,
     spaceBetween: 12,
     freeMode: true,
     slidesPerView: "auto",
+    renderCustomPrevButton: () => <div className="swiper-arrow-prev">
+      <Svg icon="arrow circle left"></Svg>
+      <Svg icon="arrow circle inner left"></Svg>
+    </div>,
+    renderCustomNextButton: () => <div className="swiper-arrow-next">
+      <Svg icon="arrow circle right"></Svg>
+      <Svg icon="arrow circle inner right"></Svg>
+    </div>
   }
-
 
   let title = ""
   switch (props.title) {
@@ -52,9 +60,8 @@ const Preview = (props) => {
   }
 
   return (
-    <section styleName="preview">
+    <section styleName="preview" className="preview">
       {title}
-      {/*<h2 style={{marginLeft: "32px"}}>Preview</h2>*/}
       <div styleName="fade"></div>
       <Swiper {...params}>
         {slides}

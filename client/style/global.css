@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300,500,700,900);
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900);
 @import url(https://fonts.googleapis.com/css?family=Roboto+Mono:300,500,700,900);
 * {
   margin: 0;
@@ -7,7 +7,6 @@
   outline: none;
   text-decoration: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  color: #333333;
 }
 html,
 body {
@@ -55,6 +54,7 @@ div[contenteditable="true"] {
 }
 a {
   text-decoration: none;
+  color: #333333;
 }
 li {
   line-height: 145%;
@@ -96,4 +96,45 @@ button::-moz-focus-inner {
 }
 .swiper-button-disabled {
   opacity: 0 !important;
+}
+.swiper-arrow-next {
+  right: 10px;
+  left: auto;
+}
+.swiper-arrow-prev {
+  left: 10px;
+  right: auto;
+}
+.swiper-arrow-next,
+.swiper-arrow-prev {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 35px;
+  height: 35px;
+  margin: auto 0;
+  color: #ffffff;
+  transition-duration: .3s;
+  cursor: pointer;
+  z-index: 10;
+}
+.swiper-arrow-next svg:nth-child(1),
+.swiper-arrow-prev svg:nth-child(1) {
+  color: #FFF;
+  position: absolute;
+  border-radius: 50px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.swiper-arrow-next svg:nth-child(2),
+.swiper-arrow-prev svg:nth-child(2) {
+  position: absolute;
+  color: rgba(0, 0, 0, 0.15);
+}
+.swiper-arrow-next:first-child,
+.swiper-arrow-prev:first-child {
+  margin-left: 16px;
+}
+.swiper-arrow-next:last-child,
+.swiper-arrow-prev:last-child {
+  margin-right: 16px;
 }

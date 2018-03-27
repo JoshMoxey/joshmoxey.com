@@ -3,13 +3,22 @@
   top: 0;
   bottom: 0;
   left: 0;
+  right: 0;
   width: 200px;
   z-index: 50;
   box-sizing: border-box;
+  transition: .7s;
   background: #151515;
+  will-change: translateX;
+  transform: translateX(-200px);
 }
-.sidebar * {
-  color: lightgrey;
+@media only screen and (min-width: 900px) {
+  .sidebar {
+    transform: none;
+  }
+}
+.sidebar.open {
+  transform: none;
 }
 .sidebar .header-1 {
   padding: 16px;
@@ -30,6 +39,7 @@
   padding-top: 8px;
   font-size: 24px;
   text-align: center;
+  color: #fafafa;
 }
 .sidebar .header-2 {
   display: inline-flex;
@@ -49,22 +59,39 @@
   margin-left: 8px;
 }
 .sidebar .container {
-  padding: 0 16px;
+  padding: 0 0 0 16px;
 }
-.sidebar .detail {
+.sidebar .container .detail {
+  display: flex;
   width: 100%;
+  align-items: center;
+  padding: 8px 16px 8px 0;
+  box-sizing: border-box;
+  color: #b0b0b0;
+  font-weight: 300;
 }
-.sidebar .detail .icon {
-  height: 30px;
-  width: 30px;
-  display: none;
+.sidebar .container .detail * {
+  color: inherit;
+  font-weight: inherit;
+  transition-duration: .3s;
 }
-.sidebar .detail .icon svg {
+.sidebar .container .detail .icon {
+  height: 20px;
+  width: 20px;
+  padding-right: 10px;
+  transition-duration: 0s;
+}
+.sidebar .container .detail .icon svg {
   height: 100%;
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+  transition-duration: 0s;
 }
-.sidebar .detail .title {
-  line-height: 200%;
+.sidebar .container .detail .title {
+  font-size: 16px;
 }
-.sidebar .detail .title:hover {
+.sidebar .container .detail:hover {
+  color: #e4e4e4;
   font-weight: 500;
 }

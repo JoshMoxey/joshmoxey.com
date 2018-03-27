@@ -15,8 +15,8 @@ import TextClamp from "../../components/TextClamp/text-clamp"
 import Related from "../../components/related"
 import Quote from "../../components/Quote/quote"
 import Details from "../../components/Details/details"
-import PageList from "../../components/PageList/page-list"
-
+import PageList from "../PageList/page-list"
+import NavSlider from "../../components/NavSlider/nav-slider"
 
 class Section extends Component {
   constructor(props) {
@@ -62,7 +62,7 @@ class Section extends Component {
 
     const MostViewed = () =>
       <PageList
-        title={"Most reviewed"}
+        title={"Most Viewed"}
         focused={true}
       />
 
@@ -73,15 +73,19 @@ class Section extends Component {
     const {body} = this.props.page;
 
     return (
-      <div styleName="body">
-        <SectionHero
-          header={this.props.page.header}
-          links={this.props.page.links}
-          focused={false}
-        />
-        <div styleName="contents">
-          <div styleName="primary">
-            <Switch>
+      <Switch>
+        <div styleName="body">
+          <SectionHero
+            header={this.props.page.header}
+            links={this.props.page.links}
+            focused={false}
+          />
+          <NavSlider
+            location={this.props.location}
+            url={this.props.match.url}
+          />
+          <div styleName="contents">
+            <div styleName="primary">
               <Route
                 path={`${this.props.match.url}/recent`}
                 component={Recent}
@@ -94,13 +98,13 @@ class Section extends Component {
                 path={`${this.props.match.url}`}
                 component={Default}
               />
-            </Switch>
-          </div>
-          <div styleName="secondary">
-            {actionLists}
+            </div>
+            <div styleName="secondary">
+              {actionLists}
+            </div>
           </div>
         </div>
-      </div>
+      </Switch>
     )
   }
 }

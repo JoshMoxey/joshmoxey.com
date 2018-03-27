@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import Banner from "../Banner/banner"
 import ActionList from "../ActionList/action-list"
 import LinkPlus from "../LinkPlus/link-plus";
+import Svg from "../Svg/svg"
 
 class HeroButtons extends Component {
   constructor(props) {
@@ -17,11 +18,12 @@ class HeroButtons extends Component {
   }
 
   onActionClick(e) {
-    console.log("action click")
+    // console.log("action click")
     let id = e.target.name || 0
-    if (!id == 0 && !id == 1 && !id == 2) {
-      id = 0
-    }
+    console.log(id)
+    // if (!id == 0 && !id == 1 && !id == 2) {
+    //   id = 0
+    // }
 
     this.setState({
       actionListOpen: !this.state.actionListOpen,
@@ -30,7 +32,20 @@ class HeroButtons extends Component {
   }
 
   render() {
+    const white = this.props.white ? "white" : ""
     const buttons = this.props.links.map(function (button, i) {
+      if (button.shortText.toLowerCase() === "more") {
+        return (
+          <button
+            key={i}
+            name={i}
+            onClick={this.onActionClick.bind(this)}
+            styleName="more"
+          >
+            <Svg icon="triple dots"></Svg>
+          </button>
+        )
+      }
       if (button.links.length === 1) {
         return (
           <LinkPlus
@@ -42,10 +57,11 @@ class HeroButtons extends Component {
           </LinkPlus>
         )
       }
+      {console.log(button.shortText)}
       return (
         <button
-          name={i}
           key={i}
+          name={i}
           onClick={this.onActionClick.bind(this)}
         >
           {button.shortText}
@@ -78,7 +94,7 @@ class HeroButtons extends Component {
     return (
       <div>
         {actionLists}
-        <div styleName="button-container">{buttons}</div>
+        <div styleName={`button-container ${white}`}>{buttons}</div>
       </div>
     )
   }

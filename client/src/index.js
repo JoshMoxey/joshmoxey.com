@@ -11,6 +11,7 @@ import PostsNew from "./components/posts_new"
 import PostsShow from "./components/posts_show"
 import Home from "./containers/Home/home"
 import Section from "./containers/Section/section"
+import Sorter from "./components/Sorter/sorter"
 import Profile from "./containers/Profile/profile"
 
 import Index from "./components/index"
@@ -24,15 +25,17 @@ ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
       <div>
-        <Navigation/>
         <Switch>
-          <Route path="/posts/new" component={PostsNew}/>
-          <Route path="/posts/:id" component={PostsShow}/>
-          <Route path="/posts" component={PostsIndex}/>
-          <Route path="/content" component={Page}/>
-          <Route path="/projects" component={Section}/>
+          <Route path="/" component={Navigation}/>
+        </Switch>
+        <Switch>
+          {/*<Route path="/posts/new" component={PostsNew}/>*/}
+          {/*<Route path="/posts/:id" component={PostsShow}/>*/}
+          {/*<Route path="/posts" component={PostsIndex}/>*/}
           <Route path="/profile" component={Profile}/>
-          <Route path="/home" component={Home} />
+          <Route path="/:section/:page" component={Sorter} />
+          <Route path="/:section" component={Section} />
+          <Route path="/" component={Home} exact />
         </Switch>
       </div>
     </BrowserRouter>

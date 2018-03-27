@@ -69,10 +69,32 @@
 
 .action-list-static {
   ul {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    .test {
+      color: red;
+    }
+    .single {
+      min-width: 100%;
+      padding-right: 0 !important;
+      padding-left: 0 !important;
+    }
+    .double {
+      min-width: 50%;
+      &:nth-child(odd) {
+        padding-right: 8px;
+      }
+      &:nth-child(even) {
+        padding-left: 8px;
+      }
+    }
     li {
-      //border-bottom: 1px solid lightgray;
-      //height: auto;
-      display: flex;
+      box-sizing: border-box;
+      .double;
+      @media only screen and (min-width: 600px) and (max-width: 1149px) {
+        .single;
+      }
       a {
         box-sizing: border-box;
         padding: 4px 0;

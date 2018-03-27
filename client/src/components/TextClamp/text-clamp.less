@@ -1,8 +1,11 @@
+@import "../../../style/partials/variables";
+
 .container span {
   line-height: 145%;
   display: inline-block;
   margin-bottom: 3px;
-  color: royalblue;
+  color: @link-color;
+  //font-weight: 700;
   cursor: pointer;
   transition: .5s;
   opacity: 1;
@@ -38,8 +41,15 @@
   }
 }
 
-p {
-  padding-top: 0;
+
+.text-clamp {
+  h2 {
+    margin-bottom: 3px !important;
+  }
+  //.container p:first-child {
+  //  padding-top: 0;
+  //  //margin-top: -2px;
+  //}
 }
 
 //.fade {

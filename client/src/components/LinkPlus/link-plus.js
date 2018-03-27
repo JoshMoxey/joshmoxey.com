@@ -4,14 +4,21 @@ import {Link} from "react-router-dom"
 const LinkPlus = props => {
   const href = props.href || ""
   const style = props.style || {}
-  // console.log
+  const styleName = props.styleName || ""
 
   if (props.external) {
-    return (<a href={href} target="_blank" style={style}>
+    return (
+      <a href={href}
+         target="_blank"
+         style={style}
+      >
       {props.children}
     </a>)
   } else {
-    return (<Link to={href} style={style}>
+    return (
+      <Link to={href}
+            style={style}
+      >
       {props.children}
     </Link>)
   }

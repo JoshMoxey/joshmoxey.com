@@ -2,7 +2,7 @@
   line-height: 145%;
   display: inline-block;
   margin-bottom: 3px;
-  color: royalblue;
+  color: #577ae0;
   cursor: pointer;
   transition: .5s;
   opacity: 1;
@@ -34,6 +34,6 @@
   opacity: 0;
   display: none;
 }
-p {
-  padding-top: 0;
+.text-clamp h2 {
+  margin-bottom: 3px !important;
 }

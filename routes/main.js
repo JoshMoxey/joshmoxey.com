@@ -6,36 +6,76 @@ const bodyParser = require('body-parser')
 const flash = require("connect-flash")
 
 router
-// .get("/", function (req, res) {
-//   res.render("body/index", {
-//     title: "Home" + title,
-//     route: "index"
-//   })
-// })
-// .get("/content", function (req, res) {
-//   res.render("body/content", {
-//     title: "Content" + title,
-//     route: "content"
-//   })
-// })
-// .get("/projects", function (req, res) {
-//   res.render("body/projects", {
-//     title: "Projects" + title,
-//     route: "projects"
-//   })
-// })
+
   .get("/profile", function (req, res) {
     res.render("body/profile", {
       title: "Profile",
       route: "profile"
     })
   })
-  // .get("/section", function (req, res) {
-  //   res.render("body/section", {
-  //     title: "section" + title,
-  //     route: "section"
-  //   })
-  // })
+  .get("/data/page/:section/:page", function (req, res, next) {
+    mongo.db.collection("pages")
+      .findOne({
+        "sectionIds": {$elemMatch: {"id": req.params.section}},
+        "pageIds": req.params.page,
+        "active": true
+      }, (err, result) => {
+        //checks if it's inside of the array
+        if (err) {
+          return res.send(500) //server error
+        }
+        if (!result) {
+          return res.send(false)
+        }
+        res.send(result)
+      })
+  })
+  .get("/data/pages/:section", function (req, res, next) {
+    mongo.db.collection("pages")
+      .find({
+        sectionIds: {$elemMatch: {"id": req.params.section}},
+        active: true
+      }).toArray((err, result) => {
+      if (err)
+        return res.send(500) //server error
+      if (!result)
+        return res.send(false)
+      res.send(result)
+    })
+  })
+  .post("/data/pages-by-ids", function (req, res, next) {
+    const {ids} = req.body
+    const objectIds = ids.map((id) => new ObjectId(id))
+
+    mongo.db.collection("pages")
+      .find({
+        _id:{$in: objectIds},
+        active: true
+      }).toArray((err, result) => {
+      if (err)
+        return res.send(500) //server error
+      if (!result)
+        return res.send(false)
+      res.send(result)
+    })
+  })
+  .get("/data/pages-by-ids", function (req, res, next) {
+    console.log(req.body)
+    res.send("same")
+  })
+  .get("/data/section/:section", function (req, res, next) {
+    mongo.db.collection("sections")
+      .findOne({
+        "sectionIds": req.params.section,
+        "active": true
+      }, (err, result) => {
+        if (err)
+          return res.send(500) //server error
+        if (!result)
+          return res.send(false)
+        res.send(result)
+      })
+  })
   .get("/data/page/podcast", (req, res) => {
     //for simple "live" at time of podcast being live
     //check for live date of the page
@@ -127,6 +167,8 @@ router
           }
         ],
         related: [
+          "radio_1",
+          "podcast_an-introduction-to-who-i-am",
           {
             title: "Josh Moxey Radio 001",
             category: "Josh Moxey Radio",
@@ -195,6 +237,16 @@ router
               href: "https://facebook.com/share",
               external: true,
             },
+            {
+              name: "Twitter",
+              href: "https://facebook.com/share",
+              external: true,
+            },
+            {
+              name: "Instagram",
+              href: "https://facebook.com/share",
+              external: true,
+            },
           ],
         },
         {
@@ -213,12 +265,8 @@ router
       ],
       data: {
         active: true, //if inactive, show 404
-        vanityUrl: [
-          "Why-I-Started-The-Podcast",
-        ],
-        category: "",
-        creator: "",
-        author: "Josh Moxey",
+        category: ["reflections"],
+        url: "why-i-started-the-podcast",
         dates: {
           dateCreated: new Date(),
           lastDateModified: new Date(),
@@ -227,13 +275,13 @@ router
           ],
         },
         tags: [
-          "Podcast",
-          "The Josh Moxey Show",
-          "Introduction",
+          "podcast",
+          "the josh moxey show",
+          "introduction",
+          "intro",
+          "content"
         ],
-        views: {
-          count: 0,
-        }
+        views: 0,
       },
     })
   })
@@ -255,6 +303,24 @@ router
         title: "The Josh Moxey Show",
         icon: "/public/img/profile.jpg",
       },
+      filters: [
+        {
+          title: "Home",
+          href: "",
+        },
+        {
+          title: "Recent",
+          href: "/recent",
+        },
+        {
+          title: "Most Viewed",
+          href: "/most-viewed",
+        },
+        {
+          title: "Recent",
+          href: "recent",
+        }
+      ],
       body: {
         description: [
           "Lorem ipsum dolor sit amet, vehicula nunc, non id ligula est aptent rutrum, maecenas justo metus. Nam nec euismod, pellentesque mi urna mauris feugiat ut. Et dolor velit, condimentum sapien vulputate, vitae quam nulla odit eros tempor, curabitur euismod orci et. Mollis feugiat in pede libero, eros mi vehicula enim, sed imperdiet, a justo ut semper suspendisse gravida curae, purus turpis. Magna ornare auctor libero. Tortor elit in tincidunt facilisi, in ut id, praesent lobortis laoreet scelerisque suspendisse quis ornare.",
@@ -307,6 +373,16 @@ router
           links: [
             {
               name: "Facebook",
+              href: "https://facebook.com/share",
+              external: true,
+            },
+            {
+              name: "Twitter",
+              href: "https://facebook.com/share",
+              external: true,
+            },
+            {
+              name: "Instagram",
               href: "https://facebook.com/share",
               external: true,
             },
@@ -1113,6 +1189,9 @@ router
       route: "error"
     })
   })
+  // .options("/data/pages-by-ids", (req, res) => {
+  //   res.status(200)
+  // })
   .use(function (req, res, next) {
     res.status(404).send("error four o four")
   })

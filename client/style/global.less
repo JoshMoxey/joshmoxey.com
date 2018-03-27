@@ -1,21 +1,6 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:300,500,700,900);
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900);
 @import url(https://fonts.googleapis.com/css?family=Roboto+Mono:300,500,700,900);
-
-
-// Colors
-@title-color: #222;
-@color-1: #333333;
-@color-2: #FFFFFF;
-@color-3: #b8b8b8;
-@color-4: #939393;
-@color-2a: #f9f9f9;
-@color-red: #ff4845;
-
-// Variables
-@font-1: Roboto, sans-serif;
-@border-radius: 3px;
-@speed-1: 0.25s;
-@icon-opacity-2: .7;
+@import "./partials/variables";
 
 * {
   margin: 0;
@@ -24,13 +9,12 @@
   outline: none;
   text-decoration: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  color: @color-1;
 }
 
 html, body {
   width: 100%;
   height: 100%;
-  color: @color-1;
+  color: @body-color;
 }
 
 body {
@@ -40,7 +24,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: @title-color;
+  color: @heading-color;
   overflow-wrap: break-word;
   word-wrap: break-word;
 }
@@ -82,6 +66,10 @@ div[contenteditable="true"] {
 
 a {
   text-decoration: none;
+  color: @body-color;
+  &.color {
+    //blue?
+  }
 }
 
 ul {
@@ -136,7 +124,6 @@ button::-moz-focus-inner {
   }
 }
 
-
 .swiper-button-next, .swiper-button-prev {
   //background: ;
   transition: .2s;
@@ -144,4 +131,48 @@ button::-moz-focus-inner {
 
 .swiper-button-disabled {
   opacity: 0 !important;
+}
+
+.swiper-arrow-next {
+  right: 10px;
+  left: auto;
+}
+
+.swiper-arrow-prev {
+  left: 10px;
+  right: auto;
+}
+
+.swiper-arrow-next, .swiper-arrow-prev {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 35px;
+  height: 35px;
+  margin: auto 0;
+  color: rgba(255,255,255,1);
+  transition-duration: .3s;
+  cursor: pointer;
+  z-index: 10;
+  svg:nth-child(1) {
+    color: #FFF;
+    position: absolute;
+    border-radius: 50px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 8px 0 rgba(0, 0, 0, 0.20);
+  }
+  svg:nth-child(2) {
+    position: absolute;
+    color: rgba(0,0,0,.15);
+  }
+  &:first-child {
+    margin-left: 16px;
+  }
+  &:last-child {
+    margin-right: 16px;
+  }
+  //.preview {
+  //  .swiper-container, .swiper-wrapper {
+  //    z-index: auto !important;
+  //  }
+  //}
 }

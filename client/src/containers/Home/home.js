@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 import {fetchPage} from "../../actions/index";
 
 import Featured from "../../components/Featured/featured"
-import PageList from "../../components/PageList/page-list"
+import PageList from "../PageList/page-list"
 
 class Home extends Component {
   render() {

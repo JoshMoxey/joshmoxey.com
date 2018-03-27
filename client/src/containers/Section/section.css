@@ -4,9 +4,17 @@
   flex-direction: column;
   height: auto;
   padding-bottom: 50px;
+  position: relative;
+  transition: margin .7s ease;
 }
 .body > * {
   max-width: 1200px;
+}
+@media only screen and (min-width: 900px) {
+  .body {
+    margin-left: 200px;
+    box-sizing: border-box;
+  }
 }
 .body-loading {
   display: flex;
@@ -40,6 +48,18 @@
   font-weight: 300;
   padding: 5px 0;
 }
+.single-column .primary {
+  width: calc(100% - 180px);
+}
+.single-column .secondary {
+  width: 180px;
+}
+.double-column .primary {
+  width: calc(100% - 360px);
+}
+.double-column .secondary {
+  width: 360px;
+}
 @media only screen and (min-width: 600px) {
   .contents {
     display: flex;
@@ -51,7 +71,7 @@
     width: 180px;
   }
 }
-@media only screen and (min-width: 1000px) {
+@media only screen and (min-width: 1150px) {
   .contents .primary {
     width: calc(100% - 360px);
   }

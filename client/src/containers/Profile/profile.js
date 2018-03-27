@@ -5,7 +5,7 @@ import {connect} from "react-redux"
 import {Link} from "react-router-dom";
 import {fetchPage} from "../../actions/index";
 
-import PageList from "../../components/PageList/page-list"
+import PageList from "../PageList/page-list"
 import Banner from "../../components/Banner/banner"
 
 class Profile extends Component {
@@ -16,9 +16,17 @@ class Profile extends Component {
     }
 
     return (
-      <div>
+      <div styleName="body">
         <Banner banner={banner} />
-        <h1>Josh Moxey</h1>
+        <div styleName="header">
+          <div styleName="img">
+            {/*<img alt="Josh Moxey" src="http://www.comingsoon.net/assets/uploads/2017/07/spider-man-homecoming-df-24018-1.jpg"/>*/}
+            <img src="http://3.bp.blogspot.com/-XDG1vT6dcDA/UySFkvTNLzI/AAAAAAAAUIs/pvsK1eNh9Ws/s1600/Robert+Downey+Jr.+in+suit.jpg" alt=""/>
+          </div>
+          <h1>Josh Moxey</h1>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi corporis, cumque cupiditate dolore doloremque eligendi enim harum incidunt iste iusto nihil officia quibusdam sunt veniam voluptatum. Atque est minima vitae.</p>
+        </div>
+
       </div>
     )
   }

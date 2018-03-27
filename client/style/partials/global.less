@@ -1,13 +1,20 @@
 .body {
   display: flex;
   align-items: center;
-  //justify-content: center;
   flex-direction: column;
   height: auto;
   > * {
     max-width: 1200px;
   }
   padding-bottom: 50px;
+  //sidebar open
+  @media only screen and (min-width: 900px) {
+    margin-left: 200px;
+    box-sizing: border-box;
+  }
+  position: relative;
+  transition: margin .7s ease;
+  //transition durations are different between sidebar and body
 }
 
 .body-loading {
@@ -43,22 +50,29 @@
   }
 }
 
+.single-column {
+  .primary {
+    width: calc(~'100% - 180px');
+  }
+  .secondary {
+    width: 180px;
+  }
+}
+.double-column {
+  .primary {
+    width: calc(~'100% - 360px');
+  }
+  .secondary {
+    width: 360px;
+  }
+}
+
 .contents {
   @media only screen and (min-width: 600px) {
     display: flex;
-    .primary {
-      width: calc(~'100% - 180px');
-    }
-    .secondary {
-      width: 180px;
-    }
+    .single-column;
   }
-  @media only screen and (min-width: 1000px) {
-    .primary {
-      width: calc(~'100% - 360px');
-    }
-    .secondary {
-      width: 360px;
-    }
+  @media only screen and (min-width: 1150px) {
+    .double-column;
   }
 }
