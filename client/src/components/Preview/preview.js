@@ -3,6 +3,7 @@ import CSSModules from "react-css-modules"
 import styles from "./preview.css"
 import Swiper from "react-id-swiper"
 import Svg from "../Svg/svg"
+import {imgPathify} from "../../global/global";
 
 const Preview = (props) => {
   //todo: add large option for height
@@ -13,16 +14,25 @@ const Preview = (props) => {
   //import ImagePopUp
   //setState of src
   //pass state up to ImagePopUp
+
+  // {
+  //   img: "src",
+  //     caption: [
+  //     "caption here"
+  //   ]
+  // }
+
+
   if (!props || !props.slides) return ""
 
   const slides = props.slides.map((slide, i) =>
     <div
       key={i}
-      to={slide.href}
+      //to={slide.href}
       styleName="swiper-slide"
     >
       <img
-        src={slide.img}
+        src={imgPathify(slide.img)}
         style={{height: "100%"}}
         alt={slide.caption.map( text => ( text + " " )).toString()}
         onClick={props.togglePopUp}

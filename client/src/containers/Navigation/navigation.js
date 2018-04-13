@@ -10,8 +10,6 @@ import Sidebar from "../../components/Sidebar/sidebar"
 import NavBar from "../../components/NavBar/nav"
 
 class Navigation extends Component {
-
-
   render() {
     const links = [
       {
@@ -112,7 +110,6 @@ class Navigation extends Component {
         children: []
       },
     ]
-    console.log("this.props:", this.props)
 
     return (
       <div styleName="navigation">
@@ -125,21 +122,21 @@ class Navigation extends Component {
           toggleSidebar={this.props.toggleSidebar}
           links={links}
         />
-        {console.log("links: ")}
-        {console.log(links)}
         <NavBar
           sidebar={this.props.sidebar}
           toggleSidebar={this.props.toggleSidebar}
           links={links}
+          title={this.props.title}
         />
       </div>
     )
   }
 }
 
-function mapStateToProps(state) {
+function mapStateToProps({sidebar, title}) {
   return {
-    sidebar: state.sidebar
+    sidebar: sidebar,
+    title: title
   };
 }
 

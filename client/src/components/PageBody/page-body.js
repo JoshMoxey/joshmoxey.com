@@ -1,5 +1,5 @@
 import React from "react"
-import Podcast from "./Podcast/podcast"
+import Podcast from "./Layouts/podcast"
 
 const PageBody = (props) => {
   switch (props.type) {

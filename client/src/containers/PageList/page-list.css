@@ -1,3 +1,6 @@
+section {
+  position: relative;
+}
 .pages {
   padding-left: 16px;
 }

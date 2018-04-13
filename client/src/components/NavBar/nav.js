@@ -34,10 +34,10 @@ const Nav = (props) => {
     <div styleName="nav">
       <div styleName="top">
         <div styleName="left">
-          <a styleName="back">
-            <Svg icon="back arrow1"/>
-          </a>
-          <div styleName="title">{props.sidebar.open ? "Open" : "Closed"}</div>
+          {/*<a styleName="back">*/}
+            {/*<Svg icon="back arrow1"/>*/}
+          {/*</a>*/}
+          <div styleName="title">{props.title}</div>
         </div>
         <div styleName="right">
           {icons}

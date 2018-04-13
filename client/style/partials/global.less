@@ -7,14 +7,18 @@
     max-width: 1200px;
   }
   padding-bottom: 50px;
-  //sidebar open
-  @media only screen and (min-width: 900px) {
-    margin-left: 200px;
-    box-sizing: border-box;
+  @media only screen and (min-width: 600px) {
+    padding-bottom: 0;
   }
+
+  //sidebar open
   position: relative;
-  transition: margin .7s ease;
+  transition: margin .7s ease-in-out, padding .5s ease-in-out;
   //transition durations are different between sidebar and body
+  //@media only screen and (min-width: 900px) {
+  //  margin-left: 200px;
+  //  box-sizing: border-box;
+  //}
 }
 
 .body-loading {
@@ -30,7 +34,7 @@
   width: 100%;
   padding: 16px 0px;
   flex-direction: row;
-  .primary, .secondary {
+  .primary, .secondary, .main {
     width: 100%;
   }
   section {

@@ -1,18 +1,30 @@
 .hero-banner {
   width: 100%;
+  max-width: none !important;
 }
-.hero-banner > div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.hero-banner.has-banner {
-  height: 200px;
+.hero-banner > div > div {
+  height: 100%;
+  width: 100%;
 }
 .hero-banner.no-banner {
-  margin-top: 66px;
+  margin-top: 50px;
   height: 0;
 }
-.hero-banner .height {
+@media only screen and (min-width: 900px) {
+  .hero-banner.no-banner {
+    margin-top: 0;
+  }
+}
+.hero-banner .banner {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  left: -4px;
+  right: -4px;
+  background: no-repeat center;
+  background-size: cover;
+}
+.hero-banner .sizing {
+  width: 100%;
   height: 200px;
 }

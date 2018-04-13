@@ -1,19 +1,17 @@
 .hero {
   width: 100%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  //position: relative;
-  margin-top: 250px;
-  .background {
+  max-width: none;
+  > div > div {
+    height: 100%;
+    width: 100%;
+  }
+  .sizing {
+    width: 100%;
+    min-height: 200px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    min-height: 250px;
     .title-container {
       max-width: 1200px;
       margin-top: auto;
@@ -40,5 +38,12 @@
         }
       }
     }
+  }
+  .banner {
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    left: -4px;
+    right: -4px;
   }
 }

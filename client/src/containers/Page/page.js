@@ -4,9 +4,10 @@ import {Link} from "react-router-dom";
 import CSSModules from "react-css-modules";
 
 import styles from "./page.css";
-import {fetchPage} from "../../actions/index";
+import {fetchPage, updateTitle} from "../../actions/index";
 import PageHero from "../../components/PageHero/page-hero"
 import PageBody from "../../components/PageBody/page-body"
+import Status from "../../components/Error/error"
 
 import ActionList from "../../components/ActionList/action-list"
 import Preview from "../../components/Preview/preview"
@@ -14,6 +15,9 @@ import TextClamp from "../../components/TextClamp/text-clamp"
 import PageList from "../PageList/page-list"
 import Quote from "../../components/Quote/quote"
 import ImagePopUp from "../../components/ImagePopUp/image-pop-up"
+import Loading from "../../components/Loading/loading"
+import {togglePopUp, titlify} from "../../global/global";
+import Helmet from "react-helmet"
 
 class Page extends Component {
   constructor(props) {
@@ -25,10 +29,15 @@ class Page extends Component {
   }
 
   componentDidMount() {
-    document.title = "joshmoxey.com"
     const sectionId = this.props.match.params.section
     const pageId = this.props.match.params.page
     this.props.fetchPage(sectionId, pageId);
+  }
+
+  componentDidUpdate() {
+    // if (this.props) {
+      this.props.updateTitle(this.props.page.title)
+    // }
   }
 
   togglePopUp(e) {
@@ -50,19 +59,18 @@ class Page extends Component {
   }
 
   render() {
-    if (!this.props.page) return (
-      <div styleName="body-loading">
-        <div>Loading...</div>
-      </div>
-    )
+    console.log(this.props)
+    if (!this.props.page)
+      return <Loading/>
 
-    const Loader = () => <div></div>
-
-
-    const {body} = this.props.page;
+    if (this.props.page.status !== 200)
+      return <Status status={this.props.page.status}/>
 
     return (
-      <div styleName={`body ${ this.props.sidebar.open ? "sidebar-open" : "sidebar-closed"}`} >
+      <div styleName="body">
+        <Helmet>
+          <title>{titlify(this.props.page.title)}</title>
+        </Helmet>
         <ImagePopUp
           active={this.state.imagePopUpActive}
           src={this.state.imagePopUpSrc}
@@ -72,8 +80,8 @@ class Page extends Component {
           {... this.props.page}
         />
         <PageBody
-          type={this.props.page.type}
           {... this.props.page.body}
+          type={this.props.page.type}
           links={this.props.page.links}
         />
       </div>
@@ -81,14 +89,11 @@ class Page extends Component {
   }
 }
 
-function mapStateToProps({sidebar, pages}, ownProps) {
-  console.log("pages: ", {pages})
-  console.log("ownProps: ", ownProps)
+function mapStateToProps({pages}, ownProps) {
   return {
     page: pages[`${ownProps.match.params.section}_${ownProps.match.params.page}`],
-    sidebar: sidebar
   };
 }
 
 const ComponentWithCSS = CSSModules(Page, styles, {allowMultiple: true, handleNotFoundStyleName: "log"});
-export default connect(mapStateToProps, {fetchPage})(ComponentWithCSS);
+export default connect(mapStateToProps, {fetchPage, updateTitle})(ComponentWithCSS);

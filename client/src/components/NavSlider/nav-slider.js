@@ -21,19 +21,21 @@ const NavSlider = (props) => {
     },
   ]
 
+  console.log(props.sectionId)
+
   const details = props.details.map((detail, i) =>
     <NavLink
       exact
       key={i}
       styleName="link"
-      // to={`${props.url}${detail.href !== "" ? /${${detail.href}}}`}
-      to={i === 0 ? props.url : `${props.url}${detail.href}`}
+      to={i === 0 ? `/${props.sectionId}` : `/${props.sectionId}${detail.href}`}
       activeStyle={{
         color: "#4a4a4a",
         fontWeight: 500,
         borderBottomWidth: "3px"
       }}
     >
+      {console.log(detail.href)}
       {detail.title}
     </NavLink>
   )

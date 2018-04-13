@@ -18,12 +18,7 @@ class HeroButtons extends Component {
   }
 
   onActionClick(e) {
-    // console.log("action click")
     let id = e.target.name || 0
-    console.log(id)
-    // if (!id == 0 && !id == 1 && !id == 2) {
-    //   id = 0
-    // }
 
     this.setState({
       actionListOpen: !this.state.actionListOpen,
@@ -57,7 +52,6 @@ class HeroButtons extends Component {
           </LinkPlus>
         )
       }
-      {console.log(button.shortText)}
       return (
         <button
           key={i}
@@ -79,7 +73,6 @@ class HeroButtons extends Component {
 
     }, this)
 
-    console.log(this.props.links)
     const actionLists = this.props.links.map((list, i) =>
       <ActionList
         key={i}

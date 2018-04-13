@@ -2,6 +2,14 @@
 
 .hero {
   width: 100%;
+  max-width: none;
+  .heading {
+    max-width: 1200px;
+  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   &.has-banner {
     .hero-banner {
       position: absolute;
@@ -23,20 +31,23 @@
     width: 100%;
     .border-box;
     .logo-container {
+      transition-duration: .3s;
       height: 100px;
       width: 100px;
+      border-radius: 20px;
+      overflow: hidden;
       @media only screen and (min-width: 600px) {
         height: 120px;
         width: 120px;
+        border-radius: 24px;
       }
       flex-shrink: 0;
       .img-sim, img {
         height: 100%;
         width: 100%;
-        border-radius: 20px;
       }
       img {
-        display: none;
+        //display: none;
       }
       .img-sim {
         background: linear-gradient(-45deg, #fdf18e, #fe8bb2)
@@ -50,6 +61,7 @@
       //overflow: hidden;
       padding-left: 16px;
       h1 {
+        transition-duration: .3s;
         /* These are technically the same, but use both */
         overflow-wrap: break-word;
         word-wrap: break-word;

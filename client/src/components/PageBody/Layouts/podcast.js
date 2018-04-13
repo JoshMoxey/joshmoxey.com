@@ -11,8 +11,6 @@ import Embed from "../../../components/Embed/embed"
 
 const Podcast = (props) => {
   if (!props) return <div></div>
-  console.log("props")
-  console.log(props)
   return (
     <div styleName="contents">
       <div styleName="primary">
@@ -30,11 +28,14 @@ const Podcast = (props) => {
         />
         <PageList
           {...props.related}
+          // id="related"
+          id="related"
+          sectionId="podcast"
         />
       </div>
       <div styleName="secondary">
         <ActionLists
-          {...props.links}
+          links={props.links}
         />
       </div>
     </div>

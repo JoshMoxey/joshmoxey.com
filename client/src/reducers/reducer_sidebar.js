@@ -4,8 +4,6 @@ import {TOGGLE_SIDEBAR} from "../actions/index";
 export default function (state = {open: false}, action) {
   switch (action.type) {
     case TOGGLE_SIDEBAR:
-      console.log("toggling sidebar")
-      console.log(state)
       return {open: !state.open}
       break;
     default:

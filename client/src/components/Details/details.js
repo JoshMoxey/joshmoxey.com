@@ -3,20 +3,6 @@ import CSSModules from "react-css-modules"
 import styles from "./details.css"
 
 const Details = (props) => {
-  props.data = [
-    {
-      name: "Date created",
-      value: "December 30th, 2017"
-    },
-    {
-      name: "Last updated",
-      value: "January 12th, 7:30pm"
-    },
-    {
-      name: "Category",
-      value: "The Josh Moxey Show"
-    },
-  ]
 
   const details = props.data.map((detail, i) =>
     <div styleName="detail" key={i}>

@@ -1,43 +1,49 @@
 .hero {
   width: 100%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin-top: 250px;
+  max-width: none;
 }
-.hero .background {
+.hero > div > div {
+  height: 100%;
+  width: 100%;
+}
+.hero .sizing {
+  width: 100%;
+  min-height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  min-height: 250px;
 }
-.hero .background .title-container {
+.hero .sizing .title-container {
   max-width: 1200px;
   margin-top: auto;
   padding: 66px 16px 16px 16px;
   width: 100%;
   box-sizing: border-box;
 }
-.hero .background .title-container h1 {
+.hero .sizing .title-container h1 {
   color: #FFF;
   text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2), 0 0 80px rgba(0, 0, 0, 0.3);
   line-height: 110%;
 }
-.hero .background .title-container h2 {
+.hero .sizing .title-container h2 {
   color: #FFF;
   font-size: 16px;
   margin-top: 5px;
   font-weight: 500;
   display: none;
 }
-.hero .background .title-container .button-container {
+.hero .sizing .title-container .button-container {
   margin-top: 10px;
 }
-.hero .background .title-container .button-container button {
+.hero .sizing .title-container .button-container button {
   margin-right: 5px;
   border: 0;
+}
+.hero .banner {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  left: -4px;
+  right: -4px;
 }

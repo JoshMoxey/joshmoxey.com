@@ -1,0 +1,10 @@
+.main-switch {
+  transition: margin .7s ease;
+  box-sizing: border-box;
+  position: relative;
+}
+@media only screen and (min-width: 900px) {
+  .main-switch {
+    margin-left: 200px;
+  }
+}

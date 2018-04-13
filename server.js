@@ -60,7 +60,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-//cors to avoid the axios bs
+//cors to avoid the axios bullshit
 app.use(cors())
 
 // Express Session

@@ -1,10 +1,13 @@
 .nav-slider {
   display: flex;
   width: 100%;
+  max-width: none;
+  align-items: center;
   background: #fafafa;
   border-bottom: 1px solid #e2e2e2;
 }
 .nav-slider > div {
+  max-width: 1200px;
   width: 100%;
 }
 .nav-slider .link {

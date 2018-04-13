@@ -1,20 +1,31 @@
 .hero-banner {
   width: 100%;
-  > div {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  max-width: none !important;
+  > div > div {
+    height: 100%;
+    width: 100%;
   }
   &.has-banner {
-    height: 200px;
+    //height: 200px;
   }
   &.no-banner {
-    margin-top: 66px;
-    //add break here
+    margin-top: 50px;
+    @media only screen and (min-width: 900px) {
+      margin-top: 0;
+    }
     height: 0;
   }
-  .height {
+  .banner {
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    left: -4px;
+    right: -4px;
+    background: no-repeat center;
+    background-size: cover;
+  }
+  .sizing {
+    width: 100%;
     height: 200px;
   }
 }
-
