@@ -1,0 +1,41 @@
+section.socials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 16px 0 0 16px;
+}
+section.socials .link {
+  flex-shrink: 0;
+  user-select: none;
+  padding: 0 16px 16px 0;
+  box-sizing: border-box;
+}
+section.socials .link a {
+  display: flex;
+  border-radius: 100px;
+  box-sizing: border-box;
+  padding: 16px;
+  width: 100%;
+  background-color: #333;
+}
+@media only screen and (min-width: 600px) {
+  section.socials .link a {
+    padding: 20px;
+  }
+}
+section.socials .link a .icon {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  width: 30px;
+}
+@media only screen and (min-width: 600px) {
+  section.socials .link a .icon {
+    width: 38px;
+  }
+}
+section.socials .link a .icon svg {
+  color: #FFF;
+}

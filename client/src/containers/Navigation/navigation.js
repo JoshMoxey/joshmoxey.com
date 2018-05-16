@@ -20,88 +20,89 @@ class Navigation extends Component {
         children: []
       },
       {
-        title: "Work",
-        icon: "work",
-        href: "/work",
-        priority: 1,
-        children: [
-          {
-            title: "Services",
-            icon: "users",
-            href: "/services",
-            children: []
-          },
-          {
-            title: "Code",
-            icon: "code",
-            href: "/websites",
-            children: []
-          },
-          {
-            title: "Designs",
-            icon: "art",
-            href: "/designs",
-            children: []
-          },
-          {
-            title: "Video edits",
-            icon: "film",
-            href: "/edits",
-            children: []
-          },
-        ]
-      },
-      {
-        title: "Content",
-        icon: "play",
-        href: "/content",
-        priority: 1,
-        children: [
-          {
-            title: "Podcast",
-            icon: "podcast",
-            href: "/podcast",
-            children: []
-          },
-          {
-            title: "Films",
-            icon: "play",
-            href: "/films",
-            children: []
-          },
-          {
-            title: "Josh Moxey Radio",
-            icon: "music",
-            href: "/radio",
-            children: []
-          },
-          {
-            title: "Gems",
-            icon: "gem2",
-            href: "/gems",
-            children: []
-          },
-          {
-            title: "Articles",
-            icon: "note",
-            href: "/articles",
-            children: []
-          },
-          // {
-          //   title: "Photography",
-          //   icon: "photography",
-          //   href: "/photography",
-          //   children: []
-          // }
-        ]
-      },
-      {
         title: "Profile",
         icon: "profile",
         href: "/profile",
         priority: 1,
         children: []
       },
+
+      // {
+      //   title: "Work",
+      //   icon: "work",
+      //   href: "/work",
+      //   priority: 1,
+      //   children: [
+      //     {
+      //       title: "Services",
+      //       icon: "users",
+      //       href: "/services",
+      //       children: []
+      //     },
+      //     {
+      //       title: "Code",
+      //       icon: "code",
+      //       href: "/websites",
+      //       children: []
+      //     },
+      //     {
+      //       title: "Designs",
+      //       icon: "art",
+      //       href: "/designs",
+      //       children: []
+      //     },
+      //     {
+      //       title: "Video edits",
+      //       icon: "film",
+      //       href: "/edits",
+      //       children: []
+      //     },
+      //   ]
+      // },
+      // {
+      //   title: "Content",
+      //   icon: "play",
+      //   href: "/content",
+      //   priority: 1,
+      //   children: [
+          {
+            title: "Podcast",
+            icon: "podcast",
+            href: "/podcast",
+            children: []
+          },
+          // {
+          //   title: "Films",
+          //   icon: "play",
+          //   href: "/films",
+          //   children: []
+          // },
+          {
+            title: "Josh Moxey Radio",
+            icon: "music",
+            href: "/radio",
+            children: []
+          },
+          // {
+          //   title: "Gems",
+          //   icon: "gem2",
+          //   href: "/gems",
+          //   children: []
+          // },
+          // {
+          //   title: "Articles",
+          //   icon: "note",
+          //   href: "/articles",
+          //   children: []
+          // },
+          // {
+          //   title: "Photography",
+          //   icon: "photography",
+          //   href: "/photography",
+          //   children: []
+          // }
+      //   ]
+      // },
       {
         title: "Socials",
         icon: "link2",

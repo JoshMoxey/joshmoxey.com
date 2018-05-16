@@ -155,9 +155,8 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  width: 100%;
   box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
   padding-left: 16px;
 }
 .hero .heading .right h1 {
@@ -252,8 +251,7 @@
 }
 .divider {
   box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
+  max-width: 1200px;
   width: 100%;
   padding: 0 16px;
 }

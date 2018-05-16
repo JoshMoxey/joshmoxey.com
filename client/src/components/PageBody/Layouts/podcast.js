@@ -20,8 +20,10 @@ const Podcast = (props) => {
         <TextClamp
           {...props.description}
         />
+        {console.log(props)}
         <Preview
           {...props.preview}
+          togglePopUp={props.togglePopUp}
         />
         <Embed
           {...props.embed}

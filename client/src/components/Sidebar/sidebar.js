@@ -2,7 +2,7 @@ import React from "react"
 import CSSModules from "react-css-modules"
 import styles from "./sidebar.css"
 
-import { NavLink, Link } from "react-router-dom"
+import {NavLink, Link} from "react-router-dom"
 import Svg from "../../components/Svg/svg"
 
 const Sidebar = (props) => {
@@ -10,13 +10,12 @@ const Sidebar = (props) => {
   if (!props.links) return '';
 
   const detail = function (detail, i, main = false) {
-    let exact = i === 0 && main
-
     //todo
     //going into child components too which is a little annoying
     //I only want home to be "exact"
-
     //if first round, do the exact for the first element
+
+    let exact = i === 0 && main
 
     return (
       <div key={i}>

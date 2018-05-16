@@ -65,7 +65,7 @@ class HomeTiles extends Component {
           style={backgroundStyling(tile.background)}
           styleName="category">
           <div styleName="text">
-            <h2>{tile.title}</h2>
+            <h1>{tile.title}</h1>
             <ResponsiveEllipsis
               text={tile.description}
               maxLine={2}

@@ -1,14 +1,21 @@
 @import "../../../style/partials/variables";
 
+.hero-buttons {
+  width: 100%;
+}
 .button-container {
-  display: inline-flex;
+  display: flex;
+  @media only screen and (min-width: 600px) {
+    display: none;
+  }
   user-select: none;
   padding-top: 7px;
   margin-top: auto;
   button, a {
     font-size: 12px;
     border-radius: 50px;
-    padding: 5.5px 10px;
+    //padding: 5.5px 10px;
+    padding:  6.5px 10px;
     font-weight: 500;
     margin-right: 5px;
     transition-duration: .3s;
@@ -26,15 +33,35 @@
     //&:hover {
     //  background-color: #cccccc;
     //}
+    &:last-child {
+      margin-right: 0;
+    }
   }
   .more {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 10px;
+    padding: 0 6px;
     svg {
       color: inherit;
-      width: 17px;
+      width: 15px;
+      margin-top: auto;
+      margin-bottom: auto;
+      pointer-events: none;
+    }
+  }
+  .share {
+    margin-left: auto; //important
+    @media only screen and (min-width: 400px) {
+      margin-left: 0;
+    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 6px;
+    svg {
+      color: inherit;
+      width: 15px;
       margin-top: auto;
       margin-bottom: auto;
       pointer-events: none;

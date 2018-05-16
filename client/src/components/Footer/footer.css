@@ -1,0 +1,27 @@
+footer {
+  width: 100%;
+  max-width: none !important;
+  padding: 0px;
+  background: #222;
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+}
+footer .footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+footer .footer ul {
+  padding: 16px 24px;
+}
+footer .footer ul li {
+  color: #b2b2b2;
+  line-height: 170%;
+}
+footer .footer ul li:first-child {
+  font-weight: bold;
+}
+footer .footer ul li a {
+  color: inherit;
+}

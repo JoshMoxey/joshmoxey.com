@@ -18,9 +18,8 @@ const Radio = (props) => {
           {...props.description}
         />
         <Embed
-          id="apple_music"
-          src="https://tools.applemusic.com/embed/v1/playlist/pl.u-zPyLA2vudW4ePJ?country=ca"
-        >
+          {...props.embed}
+        />
         <PageList
           {...props.related}
           // id="related"

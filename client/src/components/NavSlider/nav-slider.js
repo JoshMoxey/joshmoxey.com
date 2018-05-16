@@ -5,40 +5,42 @@ import Swiper from "react-id-swiper"
 import {NavLink} from "react-router-dom"
 
 const NavSlider = (props) => {
-  console.log(props)
-  props.details = [
+  const filtersArray = props.filters
+  const sectionDefaultFilters = [
     {
       title: "Home",
-      href: ""
+      id: "home",
+      href: "",
+      important: true
     },
     {
       title: "Recent",
+      id: "recent",
       href: "/recent"
     },
     {
       title: "Most Viewed",
+      id: "most_viewed",
       href: "/most-viewed"
     },
   ]
 
-  console.log(props.sectionId)
-
-  const details = props.details.map((detail, i) =>
-    <NavLink
-      exact
-      key={i}
-      styleName="link"
-      to={i === 0 ? `/${props.sectionId}` : `/${props.sectionId}${detail.href}`}
-      activeStyle={{
-        color: "#4a4a4a",
-        fontWeight: 500,
-        borderBottomWidth: "3px"
-      }}
-    >
-      {console.log(detail.href)}
-      {detail.title}
-    </NavLink>
-  )
+  const sectionFilters = sectionDefaultFilters
+    .filter(filter => filtersArray.includes(filter.id) || filter.important)
+    .map((detail, i) =>
+      <NavLink
+        exact
+        key={i}
+        styleName="link"
+        to={i === 0 ? `/${props.sectionId}` : `/${props.sectionId}${detail.href}`}
+        activeStyle={{
+          color: "#4a4a4a",
+          fontWeight: 500,
+          borderBottomWidth: "3px"
+        }}>
+        {detail.title}
+      </NavLink>
+    )
 
   const params = {
     freeMode: true,
@@ -47,7 +49,7 @@ const NavSlider = (props) => {
 
   return (
     <div styleName="nav-slider">
-      <Swiper {...params}>{details}</Swiper>
+      <Swiper {...params}>{sectionFilters}</Swiper>
     </div>
   )
 }

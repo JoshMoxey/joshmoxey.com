@@ -29,13 +29,25 @@ class HeroButtons extends Component {
   render() {
     const white = this.props.white ? "white" : ""
     const buttons = this.props.links.map(function (button, i) {
+      if (button.shortText.toLowerCase() === "share") {
+        return (
+          <button
+            key={i}
+            name={i}
+            onClick={this.onActionClick.bind(this)}
+            styleName="icon share"
+          >
+            <Svg icon="ios share"></Svg>
+          </button>
+        )
+      }
       if (button.shortText.toLowerCase() === "more") {
         return (
           <button
             key={i}
             name={i}
             onClick={this.onActionClick.bind(this)}
-            styleName="more"
+            styleName="icon more"
           >
             <Svg icon="triple dots"></Svg>
           </button>
@@ -85,7 +97,7 @@ class HeroButtons extends Component {
     )
 
     return (
-      <div>
+      <div styleName="hero-buttons">
         {actionLists}
         <div styleName={`button-container ${white}`}>{buttons}</div>
       </div>

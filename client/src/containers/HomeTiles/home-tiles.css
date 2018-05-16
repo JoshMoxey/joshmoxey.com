@@ -13,7 +13,7 @@
   padding: 0 16px 16px 0;
   box-sizing: border-box;
 }
-@media only screen and (min-width: 500px) {
+@media only screen and (min-width: 600px) {
   .home-tiles .tile {
     width: 50%;
   }
@@ -44,10 +44,12 @@
 .home-tiles .tile .text * {
   color: #FFF;
 }
+.home-tiles .tile .text h1,
 .home-tiles .tile .text h2,
 .home-tiles .tile .text h3 {
   line-height: 110%;
-  letter-spacing: -0.5px;
+  font-size: 28px;
+  font-size: 30px;
 }
 .home-tiles .tile .text div {
   line-height: 150%;

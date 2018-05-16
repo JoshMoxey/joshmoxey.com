@@ -13,8 +13,8 @@ class ActionList extends Component {
   render() {
     if (!this.props.links) return
 
-    const actions = this.props.links.links.map((item, i) =>
-      <li key={i}>
+    let actions = this.props.links.links.map((item, i) =>
+      <li key={i} styleName={`${this.props.main ? "main" : "" }`}>
         <LinkPlus external={item.external} href={item.href}>
           <Svg icon={item.name}/>
           <span styleName="text">
@@ -38,23 +38,25 @@ class ActionList extends Component {
 
     const transitionDuration = .48 + (this.props.links.links.length * .043) + "s"
 
-    return (this.props.static || this.props.static === "true") ?
-      <section styleName="action-list-static">
-        <h2>{this.props.links.shortText}</h2>
-        <ul className="ul-unstyled" styleName="">
-          {actions}
-        </ul>
-      </section>
-      : //else if pop up
-      <div styleName={`action-list-pop-up ${isOpen}`}>
-        <div styleName="background"
-             onClick={this.props.onActionClick.bind(this)}
-             style={{transitionDuration}}
-        ></div>
-        <ul className="ul-unstyled" style={{transitionDuration: transitionDuration}}>
-          {actions}
-        </ul>
-      </div>
+    return (
+      this.props.static || this.props.static === "true" ?
+        <section styleName="action-list-static">
+          <h2>{this.props.links.shortText}</h2>
+          <ul className="unstyled" styleName="">
+            {actions}
+          </ul>
+        </section>
+        : //else if pop up
+        <div styleName={`action-list-pop-up ${isOpen}`}>
+          <div styleName="background"
+               onClick={this.props.onActionClick.bind(this)}
+               style={{transitionDuration}}
+          ></div>
+          <ul className="ul-unstyled" style={{transitionDuration: transitionDuration}}>
+            {actions}
+          </ul>
+        </div>
+    )
   }
 }
 

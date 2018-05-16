@@ -12,7 +12,7 @@ section.preview .fade {
   bottom: 0;
   z-index: 5;
   pointer-events: none;
-  background: linear-gradient(to right, #FFF, transparent 32px);
+  background: linear-gradient(to left, #FFF, transparent 16px);
 }
 section.preview h2 {
   margin-left: 16px;

@@ -3,17 +3,13 @@
   align-items: center;
   flex-direction: column;
   height: auto;
-  padding-bottom: 50px;
+  min-height: 100%;
+  padding-bottom: 0;
   position: relative;
   transition: margin 0.7s ease-in-out, padding 0.5s ease-in-out;
 }
 .body > * {
   max-width: 1200px;
-}
-@media only screen and (min-width: 600px) {
-  .body {
-    padding-bottom: 0;
-  }
 }
 .body-loading {
   display: flex;

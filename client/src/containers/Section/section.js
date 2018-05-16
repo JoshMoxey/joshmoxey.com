@@ -1,14 +1,15 @@
 import React, {Component} from "react";
 import { connect } from "react-redux"
 import { createSelector } from 'reselect'
-import {fetchSection, fetchPagesBySection, updateTitle} from "../../actions/index";
+import {fetchSection, fetchPagesBySection, updateTitle, resetSectionStatus} from "../../actions/index";
 
 import CSSModules from "react-css-modules"
 import styles from "./section.css"
 
-import {Route, Switch} from "react-router-dom"
+import {Route, Switch, Redirect} from "react-router-dom"
 import Helmet from "react-helmet"
 import {titlify} from "../../global/global";
+import ScrollMemory from 'react-router-scroll-memory';
 
 import SectionHero from "../../components/SectionHero/section-hero"
 import ActionList from "../../components/ActionList/action-list"
@@ -21,6 +22,7 @@ import Details from "../../components/Details/details"
 import PageList from "../PageList/page-list"
 import NavSlider from "../../components/NavSlider/nav-slider"
 import Loading from "../../components/Loading/loading"
+import Status from "../Status/status"
 
 
 class Section extends Component {
@@ -30,32 +32,50 @@ class Section extends Component {
 
   componentDidMount() {
     let section = this.props.match.params.section
-    this.props.fetchSection(section);
+    if (!this.props.section) {
+      this.props.resetSectionStatus()
+      this.props.fetchSection(section);
+    }
   }
 
   componentDidUpdate() {
-    this.props.updateTitle(this.props.section.title)
+    if (this.props.section) {
+      this.props.updateTitle(this.props.section.title)
+    }
+    if (!this.props.section) {
+      this.props.fetchSection(this.props.match.params.section);
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.props === nextProps || this.state === nextState
   }
 
   render() {
-    if (!this.props.section) return (
-      <Loading/>
-    )
+    const section = this.props.section
+
+    if (!section) {
+      if (this.props.status && this.props.status !== 200)
+        return <Status status={this.props.status}/>
+      if (this.props.redirect)
+        return <Redirect to={this.props.redirect}/>
+      return <Loading/>
+    }
 
     const Default = () =>
       <div>
         <TextClamp
-          text={this.props.section.body.description}
+          text={section.body.description}
           title={false}
         />
         <PageList
-          href={`${this.props.match.url}/most-viewed`}
+          href={`/${this.props.match.params.section}/recent`}
           id="recent"
           sectionId={this.props.match.params.section}
           limit={3}
         />
         <PageList
-          href={`${this.props.match.url}/most-viewed`}
+          href={`/${this.props.match.params.section}/most-viewed`}
           id="most_viewed"
           sectionId={this.props.match.params.section}
           limit={3}
@@ -76,27 +96,27 @@ class Section extends Component {
         focused={true}
       />
 
-    const actionLists = this.props.section.links.map((link, i) =>
+    const actionLists = section.links.map((link, i) =>
       <ActionList key={i} static={true} links={link}/>
     )
 
     return (
         <div styleName="body">
           <Helmet>
-            <title>{titlify(this.props.section.title)}</title>
+            <title>{titlify(section.title)}</title>
           </Helmet>
           <SectionHero
-            {... this.props.section}
+            {... section}
             focused={false}
           />
           <NavSlider
             location={this.props.location}
             url={this.props.match.url}
             sectionId={this.props.match.params.section}
+            filters={section.filters}
           />
           <div styleName="contents">
             <div styleName="primary">
-              {console.log("url:", this.props.match.url)}
               <Switch>
                 <Route
                   path={`/${this.props.match.params.section}/recent`}
@@ -121,54 +141,14 @@ class Section extends Component {
   }
 }
 
-// const sortPages = createSelector(
-//
-// )
-
-const sortPages = (obj, sectionId, property, reverse = true) => {
-  property = "date"
-
-  const checkSectionId = (page) => {
-    let idStatus = false
-    page.sectionIds.forEach(function(id) {
-      if (id.id === sectionId) idStatus = true
-    })
-    return idStatus
-  }
-
-  return Object.values(obj)
-    .filter(page => checkSectionId(page))
-    .sort(function(a, b) {
-      //define a & b w/ access to a property in details
-      //property is dynamically selected w/ props
-      //if reverse, the values are flipped around
-
-      a = reverse ? a.details[property] : b.details[property]
-      b = reverse ? b.details[property] : a.details[property]
-
-      switch(property) {
-        case "date":
-          return new Date(a) - new Date(b)
-          break;
-        default:
-          return (a) - (b)
-      }
-    })
-}
-
 function mapStateToProps({sections}, ownProps) {
   const sectionId = ownProps.match.params.section
   return {
-    section: sections[sectionId],
+    section: sections.sections[sectionId],
+    status: sections.status,
+    redirect: sections.redirect
   };
 }
 
-//object keys
-//loop through each key
-//if key.startsWith(sectionId)
-//add it to array that's returned for section
-//return full array
-//sort somewhere in here?
-
 const ComponentWithCSS = CSSModules(Section, styles, {allowMultiple: true, handleNotFoundStyleName: "log"});
-export default connect(mapStateToProps, {fetchSection, fetchPagesBySection, updateTitle})(ComponentWithCSS)
+export default connect(mapStateToProps, {fetchSection, fetchPagesBySection, updateTitle, resetSectionStatus})(ComponentWithCSS)

@@ -84,10 +84,10 @@ button,
 button::-moz-focus-inner {
   border: 0;
 }
-.ul-unstyled {
+ul.unstyled {
   list-style: none;
 }
-.ul-unstyled li {
+ul.unstyled li {
   margin: 0;
 }
 .swiper-button-next,

@@ -9,6 +9,7 @@ import PageHeroDetails from "../../components/PageHeroDetails/page-hero-details"
 import TextClamp from "../../components/TextClamp/text-clamp"
 import Preview from "../../components/Preview/preview"
 import {imgPathify, titlify} from "../../global/global";
+import ScrollMemory from 'react-router-scroll-memory';
 
 import PageList from "../PageList/page-list"
 import Banner from "../../components/Banner/banner"
@@ -30,7 +31,6 @@ class Profile extends Component {
       birthday: "April 10th, 1996",
       //age date - now?
       age: 22,
-      name: "Josh Moxey"
     }
 
     const textClampData = {
@@ -99,12 +99,13 @@ class Profile extends Component {
         <Helmet>
           <title>{titlify(title)}</title>
         </Helmet>
-        <Banner banner={banner}/>
+        <Banner banner={banner} height={200}/>
         <div styleName="header">
           <div styleName="img">
             <img
               src="http://www.comingsoon.net/assets/uploads/2017/07/spider-man-homecoming-df-24018-1.jpg"
               alt="Josh Moxey"
+              onClick={(e) => this.props.togglePopUp(e)}
             />
           </div>
           <div styleName="text">
@@ -126,6 +127,8 @@ class Profile extends Component {
             />
             <Preview
               {...previewData}
+              togglePopUp={this.props.togglePopUp}
+
             />
             <section>
               <h2>More coming soon...</h2>

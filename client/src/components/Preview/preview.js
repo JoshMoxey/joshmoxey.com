@@ -15,6 +15,14 @@ const Preview = (props) => {
   //setState of src
   //pass state up to ImagePopUp
 
+  // props.slides = [
+  //   {
+  //     img: "jms.jpg",
+  //       caption: [
+  //       "caption here"
+  //     ]
+  //   }
+  // ]
   // {
   //   img: "src",
   //     caption: [
@@ -22,7 +30,7 @@ const Preview = (props) => {
   //   ]
   // }
 
-
+  console.log(props)
   if (!props || !props.slides) return ""
 
   const slides = props.slides.map((slide, i) =>

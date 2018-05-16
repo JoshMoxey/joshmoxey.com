@@ -19,7 +19,6 @@ class PageHero extends Component {
   }
 
   onActionClick(e) {
-    console.log("action click")
     let id = e.target.name || 0
     if (!id == 0 && !id == 1 && !id == 2) {
       id = 0
@@ -53,7 +52,7 @@ class PageHero extends Component {
 
     return (
       <div styleName="hero">
-        <Banner banner={this.props.style.banner}/>
+        <Banner banner={this.props.style.banner} height={200}/>
         <div styleName="heading">
           <div styleName="logo-container">
             {/*<div styleName="img-sim"></div>*/}

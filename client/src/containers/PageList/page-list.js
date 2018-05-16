@@ -24,20 +24,37 @@ class PageList extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.props === nextProps || this.state === nextState
+  }
+
   componentDidMount() {
     let {ids, sectionId} = this.props
 
-    switch (this.props.id) {
-      case "recent":
-        this.props.fetchPagesBySection(sectionId)
-        break;
-      case "most_viewed":
-        this.props.fetchPagesBySection(sectionId)
-        break;
-      case "related":
-        this.props.fetchPagesByIds(ids)
-        break;
-    }
+    //todo conditional creates bug of no extra pages being loaded if there's already some pages there
+
+    // if (Object.keys(this.props.pages.pages).length === 0) {
+    //   return true
+    // }
+    // return JSON.stringify(this.props.pages.pages) === JSON.stringify(nextProps.pages)
+
+
+    // SET FETCHING/FETCHED STATUS IN REDUCER.
+
+
+    // if (!this.props.filteredPages.length) {
+      switch (this.props.id) {
+        case "recent":
+        case "most_viewed":
+          this.props.fetchPagesBySection(sectionId)
+          this.setState({fetched: true})
+          break;
+        case "related":
+          this.props.fetchPagesByIds(ids)
+          break;
+      }
+    // }
+
     //if it's a related component (ie. ids), fetchbyids
     //if it's a section component, fetchbysection w/ limit
     //if it's a section focused component, fetchbysection w/ limit & sort included
@@ -67,11 +84,9 @@ class PageList extends Component {
     const {id} = this.props
     if (!id) throw new Error("id property wasn't specified wherever this component was called")
 
-    let {title, property, reverse} = idObject[id]
-    this.props.property = property
-    this.props.reverse = reverse
+    let {title} = idObject[id]
 
-    const filteredPages = this.props.filtered[id]
+    const {filteredPages} = this.props
 
     let limit = ""
     if (this.props.limit === false) {
@@ -89,7 +104,6 @@ class PageList extends Component {
       || limit > filteredPages.length
       || !this.props.href
     ) {
-      // seeAll === ""
       if (this.props.title === false) {
         titleElement = ""
       } else if (this.props.title) {
@@ -228,14 +242,23 @@ const returnPagesBySection = createSelector(
     })
 })
 
-
 function mapStateToProps(state, ownProps) {
+  let returnPages
+  switch (ownProps.id) {
+    case "recent":
+    case "most_viewed":
+      returnPages = returnPagesBySection(state.pages, ownProps)
+      break;
+    case "related":
+      returnPages = returnPagesByIds(state.pages, ownProps)
+      break;
+    default:
+      throw new Error("No selector specified in PageList's filter in mapStateToProps")
+  }
+
   return {
-    filtered:{
-      recent: returnPagesBySection(state, ownProps),
-      most_viewed: returnPagesBySection(state, ownProps),
-      related: returnPagesByIds(state, ownProps),
-    }
+    filteredPages: returnPages,
+    pages: state.pages
   }
 }
 

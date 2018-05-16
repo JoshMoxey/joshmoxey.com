@@ -18,7 +18,6 @@ class SectionHero extends Component {
         return 'short'
       }
     }
-    console.log(this.props)
 
     this.props.image = "https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/02/10/104275412-Gary_Vaynerchuk.1910x1000.jpg"
     // setState of active

@@ -34,7 +34,7 @@ router
       })
   })
   .get("/data/pages-by-section/:section", function (req, res, next) {
-      // ?:filter/:current/:limit/reverse
+    // ?:filter/:current/:limit/reverse
     console.log(req.query)
 
     // if (!req.params.section) {
@@ -66,12 +66,15 @@ router
       .limit(limit)
       .skip(skip)
       .toArray((err, result) => {
-      if (err)
-        return res.send(500) //server error
-      if (!result)
-        return res.send(false)
-      res.send(result)
-    })
+        if (err) {
+          return res.send({status: 500}) //server error
+        }
+        if (!result) {
+          return res.send({status: 404})
+        }
+        // res.send({...result, ...{status: 200}})
+        res.send(result)
+      })
   })
   .post("/data/pages-by-ids", function (req, res, next) {
     if (!req.body.ids) {
@@ -82,42 +85,47 @@ router
 
     mongo.db.collection("pages")
       .find({
-        _id:{$in: objectIds},
+        _id: {$in: objectIds},
         active: true
       }).toArray((err, result) => {
       //
-      if (err)
-        return res.send(500) //server error
-      if (!result)
-        return res.send(false)
+      if (err) {
+        return res.send({status: 500}) //server error
+      }
+      if (!result) {
+        return res.send({status: 404})
+      }
+      // res.send({...result, ...{status: 200}})
       res.send(result)
     })
   })
-  .get("/data/section/:section", function (req, res, next) {
-    if (!req.params.section) {
+  .get("/data/wild-card/:id", function (req, res, next) {
+    if (!req.params.id) {
       return res.send(false)
     }
     mongo.db.collection("sections")
       .findOne({
-        "sectionIds": req.params.section,
+        "sectionIds": req.params.id,
         "active": true
-      }, (err, result) => {
-        if (err)
-          return res.send(500) //server error
-        if (!result)
-          return res.send(false)
-        res.send(result)
-      })
-  })
-  .get("/:url", function (req, res, next) { //redirect system
-    //potential:
-    //get request to show loading...
-    //if url found, redirect there
-    //else, render a 404 dynamically
-    mongo.db.collection("redirects")
-      .findOne({"input": req.params.url}, function (err, result) {
-        if (!result) return next()
-        res.redirect(result.output)
+      }, (err, section) => {
+        mongo.db.collection("redirects")
+          .findOne({"from": req.params.id},
+            (err2, redirect) => {
+              if (err || err2) {
+                return res.send({status: 500}) //server error
+              }
+              if (!section && !redirect) {
+                return res.send({status: 404})
+              }
+              const type = section ? "section" : "redirect"
+              // const data = section ? section : redirect
+              return res.send({
+                status: 200,
+                type,
+                redirect: redirect,
+                ...section
+              })
+            })
       })
   })
   .get("/jsdisabled", function (req, res, next) {

@@ -1,0 +1,41 @@
+section.socials {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 16px 0 0 16px;
+  .link {
+    flex-shrink: 0;
+    user-select: none;
+    padding: 0 16px 16px 0;
+    width: 50%;
+    box-sizing: border-box;
+    a {
+      display: flex;
+      background: grey;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+      box-sizing: border-box;
+      padding: 16px;
+      min-height: 200px;
+      background: no-repeat center;
+      background-size: cover;
+      width: 100%;
+      div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        &.icon {
+          flex-shrink: 0;
+          padding-right: 16px;
+          width: 75px;
+          svg {
+
+          }
+        }
+      }
+    }
+  }
+}

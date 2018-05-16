@@ -4,10 +4,12 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
     "server": "nodemon --ignore client/ server.js",
-    "client": "npm run start --prefix client",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+    "client-dev": "npm run dev --prefix client",
+    "client-start": "npm run start --prefix client",
+    "client-build": "npm run build --prefix client",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client-dev\"",
+    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client-start\""
   },
   "author": "Josh Moxey",
   "license": "ISC",
@@ -18,6 +20,7 @@
     "connect-redis": "^3.3.0",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
+    "cross-env": "^5.1.4",
     "express": "^4.14.0",
     "express-handlebars": "^3.0.0",
     "express-messages": "*",
@@ -27,14 +30,16 @@
     "less": "^2.7.2",
     "mongodb": "^2.2.19",
     "path": "^0.12.7",
-    "react-helmet": "^5.2.0",
-    "react-lines-ellipsis": "^0.10.2",
+    "postcss-loader": "^2.1.4",
+    "react-router-scroll-memory": "^1.0.1",
     "redis": "^2.7.1",
     "reselect": "^3.0.1",
     "serve-favicon": "^2.4.3",
-    "swiper": "^3.4.2"
+    "swiper": "^3.4.2",
+    "webpack": "^4.6.0"
   },
   "devDependencies": {
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "livereload": "^0.6.0",
     "nodemon": "^1.11.0"
   }

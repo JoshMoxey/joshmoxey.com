@@ -4,6 +4,7 @@ import {Provider} from 'react-redux';
 import {createStore, applyMiddleware} from 'redux';
 import {BrowserRouter, Router, Route, Switch} from 'react-router-dom';
 import promise from 'redux-promise';
+import thunk from 'redux-thunk';
 
 import reducers from './reducers';
 import Home from "./containers/Home/home"
@@ -13,7 +14,8 @@ import Profile from "./containers/Profile/profile"
 
 import Layout from "./containers/Layout/layout"
 
-const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+const middleware = [promise, thunk]
+const createStoreWithMiddleware = applyMiddleware(...middleware)(createStore);
 const store = createStoreWithMiddleware(reducers)
 ReactDOM.render(
   <Provider store={store}>
