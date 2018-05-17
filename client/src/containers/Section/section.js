@@ -23,6 +23,7 @@ import PageList from "../PageList/page-list"
 import NavSlider from "../../components/NavSlider/nav-slider"
 import Loading from "../../components/Loading/loading"
 import Status from "../Status/status"
+import Footer from "../../components/Footer/footer"
 
 
 class Section extends Component {
@@ -48,7 +49,13 @@ class Section extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.props === nextProps || this.state === nextState
+    if (JSON.stringify(this.props) !== JSON.stringify(nextProps)) {
+      return true;
+    }
+    if (JSON.stringify(this.state) !== JSON.stringify(nextState)) {
+      return true;
+    }
+    return false
   }
 
   render() {
@@ -136,6 +143,7 @@ class Section extends Component {
               {actionLists}
             </div>
           </div>
+          <Footer/>
         </div>
     )
   }

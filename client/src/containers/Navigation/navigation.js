@@ -10,6 +10,16 @@ import Sidebar from "../../components/Sidebar/sidebar"
 import NavBar from "../../components/NavBar/nav"
 
 class Navigation extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (JSON.stringify(this.props) !== JSON.stringify(nextProps)) {
+      return true;
+    }
+    if (JSON.stringify(this.state) !== JSON.stringify(nextState)) {
+      return true;
+    }
+    return false
+  }
+
   render() {
     const links = [
       {
@@ -134,12 +144,11 @@ class Navigation extends Component {
   }
 }
 
-function mapStateToProps({sidebar, title}) {
+function mapStateToProps({title}) {
   return {
-    sidebar: sidebar,
     title: title
   };
 }
 
 const ComponentWithCSS = CSSModules(Navigation, styles, {allowMultiple: true, handleNotFoundStyleName: "log"});
-export default connect(mapStateToProps, {toggleSidebar})(ComponentWithCSS);
+export default connect(mapStateToProps)(ComponentWithCSS);

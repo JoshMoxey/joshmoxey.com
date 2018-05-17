@@ -1,15 +1,17 @@
 footer {
-  width: 100%;
-  max-width: none !important;
-  padding: 0px;
-  background: #222;
   display: flex;
   justify-content: center;
   margin-top: auto;
+  width: 100%;
+  max-width: none !important;
+  padding: 8px;
+  box-sizing: border-box;
+  background: #222;
   .footer {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
+    max-width: 1200px;
     ul {
       padding: 16px 24px;
       li {
@@ -18,8 +20,10 @@ footer {
         }
         color: #b2b2b2;
         line-height: 170%;
+        font-size: 14px;
         a {
           color: inherit;
+          font-size: inherit;
         }
       }
     }

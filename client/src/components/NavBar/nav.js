@@ -6,7 +6,6 @@ import styles from './nav.css';
 import Svg from "../../components/Svg/svg"
 
 const Nav = (props) => {
-  //go back function
   if (!props.links) return '';
 
   const NavIconLink = (props) =>
@@ -66,9 +65,6 @@ const Nav = (props) => {
   // icon={icon.icon}
   // title={icon.title}
   // />
-
-
-  console.log("passed")
 
   return (
     <div styleName="nav">

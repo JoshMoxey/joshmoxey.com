@@ -20,7 +20,6 @@ const Podcast = (props) => {
         <TextClamp
           {...props.description}
         />
-        {console.log(props)}
         <Preview
           {...props.preview}
           togglePopUp={props.togglePopUp}
@@ -30,7 +29,6 @@ const Podcast = (props) => {
         />
         <PageList
           {...props.related}
-          // id="related"
           id="related"
           sectionId="podcast"
         />

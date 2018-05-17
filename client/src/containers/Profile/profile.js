@@ -9,6 +9,7 @@ import PageHeroDetails from "../../components/PageHeroDetails/page-hero-details"
 import TextClamp from "../../components/TextClamp/text-clamp"
 import Preview from "../../components/Preview/preview"
 import {imgPathify, titlify} from "../../global/global";
+import Footer from "../../components/Footer/footer"
 import ScrollMemory from 'react-router-scroll-memory';
 
 import PageList from "../PageList/page-list"
@@ -16,6 +17,15 @@ import Banner from "../../components/Banner/banner"
 import ActionLists from "../../components/ActionLists/action-lists";
 
 class Profile extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (JSON.stringify(this.props) !== JSON.stringify(nextProps)) {
+      return true;
+    }
+    if (JSON.stringify(this.state) !== JSON.stringify(nextState)) {
+      return true;
+    }
+    return false
+  }
 
   render() {
     const title = "About Josh Moxey: Creator, Entrepreneur, Designer"
@@ -28,17 +38,18 @@ class Profile extends Component {
 
     const details = {
       location: "Kitchener, ON",
+      age: 22,
       birthday: "April 10th, 1996",
       //age date - now?
-      age: 22,
     }
 
-    const textClampData = {
+    const about = {
       title: "About",
       text: [
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur cum delectus doloribus, ipsam nemo quaerat quam sapiente. Animi consectetur cupiditate itaque nam perferendis, quisquam quod sapiente sit suscipit veritatis voluptatum?",
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores at, beatae consectetur cupiditate distinctio eos facilis harum illo illum iste minus odit, officiis provident quas qui quisquam saepe voluptates voluptatibus!",
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aperiam aut deserunt dicta ea eius esse est, excepturi iure magnam minima molestias natus nesciunt officiis provident quasi, quibusdam quidem, soluta.",
+        "Josh is an entrepreneur and creative. From his earliest days, he’s been building and creating whatever he wants to see in the world. From LEGO as a boy, to video editing in high school, to web development & design most recently, he’s always been up to something interesting.",
+        "The 22 year old Canadian is also an obsessive learner. His craving for knowledge, mindset, skills, “success”, life hacking and more, lead him to fascinating places on his entrepreneurial journey. The man is absolutely obsessed with growing, improving, and applying that which he learns.",
+        "In addition, Josh is pumped to share his journey. On his podcast, The Josh Moxey Journey, and on his social media pages, he documents his journey to becoming world class in business and in life. Though it can be uncomfortable for him, at the end of the day he really loves sharing his thoughts, experiences, lessons, perspectives with the world in real time.",
+        "The thoughtful man is also an unconventionalist. He is all for doing things differently than the rest of society, to the point where many would label him as “eccentric”. He’s all for new paradigm shifts, modern wisdom, non traditional routes and is willing and eager to experiment his way to the top in a trailblazing manner."
       ]
     }
 
@@ -56,39 +67,39 @@ class Profile extends Component {
 
     const links = [
       {
-        "shortText" : "Socials",
-        "longerText" : false,
-        "priority" : 1,
-        "links" : [
+        "shortText": "Socials",
+        "longerText": false,
+        "priority": 1,
+        "links": [
           {
-            "name" : "Instagram",
-            "href" : "https://instagram.com/instagram",
-            "external" : true
+            "name": "Instagram",
+            "href": "https://instagram.com/instagram",
+            "external": true
           },
           {
-            "name" : "Facebook",
-            "href" : "https://facebook.com/joshmoxey.com",
-            "external" : true
+            "name": "Facebook",
+            "href": "https://facebook.com/joshmoxey.com",
+            "external": true
           },
           {
-            "name" : "YouTube",
-            "href" : "https://www.youtube.com/channel/UCJl0a8GmK6yX6gB5QHTkZiw",
-            "external" : true
+            "name": "YouTube",
+            "href": "https://www.youtube.com/channel/UCJl0a8GmK6yX6gB5QHTkZiw",
+            "external": true
           },
           {
-            "name" : "Twitter",
-            "href" : "https://twitter.com/joshmoxey",
-            "external" : true
+            "name": "Twitter",
+            "href": "https://twitter.com/joshmoxey",
+            "external": true
           },
           {
-            "name" : "Snapchat",
-            "href" : "https://snapchat.com/add/moxeyjosh",
-            "external" : true
+            "name": "Snapchat",
+            "href": "https://snapchat.com/add/moxeyjosh",
+            "external": true
           },
           {
-            "name" : "Soundcloud",
-            "href" : "https://soundcloud.com/joshmoxey",
-            "external" : true
+            "name": "Soundcloud",
+            "href": "https://soundcloud.com/joshmoxey",
+            "external": true
           },
         ]
       }
@@ -123,7 +134,7 @@ class Profile extends Component {
         <div styleName="contents">
           <div styleName="primary">
             <TextClamp
-              {...textClampData}
+              {...about}
             />
             <Preview
               {...previewData}
@@ -138,6 +149,7 @@ class Profile extends Component {
             <ActionLists links={links}/>
           </div>
         </div>
+        <Footer/>
       </div>
     )
   }

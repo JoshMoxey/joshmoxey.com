@@ -1,17 +1,18 @@
 import React, {Component} from "react";
 import {connect} from "react-redux"
 import CSSModules from "react-css-modules";
+import Helmet from "react-helmet"
+import ScrollMemory from 'react-router-scroll-memory';
 
 import styles from "./page.css";
 import {fetchPage, updateTitle, resetPageStatus} from "../../actions/index";
 import PageHero from "../../components/PageHero/page-hero"
 import PageBody from "../../components/PageBody/page-body"
 import Status from "../Status/status"
-
 import Loading from "../../components/Loading/loading"
+import Footer from "../../components/Footer/footer"
+
 import {togglePopUp, titlify} from "../../global/global";
-import Helmet from "react-helmet"
-import ScrollMemory from 'react-router-scroll-memory';
 
 class Page extends Component {
   constructor(props) {
@@ -38,7 +39,13 @@ class Page extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.props === nextProps || this.state === nextState
+    if (JSON.stringify(this.props) !== JSON.stringify(nextProps)) {
+      return true;
+    }
+    if (JSON.stringify(this.state) !== JSON.stringify(nextState)) {
+      return true;
+    }
+    return false
   }
 
   render() {
@@ -65,6 +72,7 @@ class Page extends Component {
           links={page.links}
           togglePopUp={this.props.togglePopUp}
         />
+        <Footer/>
       </div>
     )
   }

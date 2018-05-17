@@ -210,3 +210,11 @@ export const transformToGradientSyntax = (gradient, angle, effect = "linear-grad
 
   return `${effect}(${angle}deg, ${gradient})`
 }
+
+export const production = () => {
+  if (!process.env.NODE_ENV) {
+    throw new Error ("NODE_ENV is not defined")
+  }
+  return process.env.NODE_ENV.toLowerCase() === "production"
+    && !window.location.host.startsWith("localhost")
+}

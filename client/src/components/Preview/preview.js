@@ -30,7 +30,6 @@ const Preview = (props) => {
   //   ]
   // }
 
-  console.log(props)
   if (!props || !props.slides) return ""
 
   const slides = props.slides.map((slide, i) =>

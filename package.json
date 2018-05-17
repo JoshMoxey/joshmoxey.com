@@ -7,9 +7,9 @@
     "server": "nodemon --ignore client/ server.js",
     "client-dev": "npm run dev --prefix client",
     "client-start": "npm run start --prefix client",
-    "client-build": "npm run build --prefix client",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client-dev\"",
-    "start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client-start\""
+    "build": "cross-env NODE_ENV=production npm run build --prefix client",
+    "dev": "cross-env NODE_ENV=development concurrently --kill-others-on-fail \"npm run server\" \"npm run client-dev\"",
+    "start": "cross-env NODE_ENV=production concurrently --kill-others-on-fail \"npm run server\" \"npm run client-start\""
   },
   "author": "Josh Moxey",
   "license": "ISC",

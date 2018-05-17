@@ -1,7 +1,7 @@
 import axios from 'axios';
+import {production} from "../global/global";
 
-export const ROOT_URL = 'http://localhost:1001/data'
-//if production, joshmoxey.com/data/etc, else localhost
+export const ROOT_URL = production() ? "https://joshmoxey.com/data" : "http://localhost:1001/data"
 
 export const FETCH_PAGE = 'fetch_page';
 export const FETCH_PAGES = 'fetch_pages';
@@ -39,11 +39,8 @@ export function fetchPagesByIds(ids) {
 
 export function fetchPagesBySection(section) {
   const url = `${ROOT_URL}/pages-by-section/${section}`
-  // const request = axios.get(url)
-
   return (dispatch, getState) => {
     if (!checkRequestHistory(getState, url)) {
-
       dispatch({
         type: FETCH_PAGES_BY_SECTION,
         payload: axios.get(url)
@@ -77,14 +74,9 @@ export function fetchSectionsByIds(section) {
 
 export function checkRequestHistory(getState, id) {
   return getState().requests[id]
-  // if (getState().requests[id]) {
-  //   return true
-  // }
-  // return false
 }
 
 export function logRequestHistory(data) {
-  // console.log("data", data)
   return {
     type: LOG_REQUEST_HISTORY,
     payload: data
