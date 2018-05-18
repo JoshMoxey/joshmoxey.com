@@ -17,7 +17,9 @@ export default function (state = {
     //create a page entry for each sectionId
     array.reduce((obj, page) => {
       page.sectionIds.forEach((id, i) => {
-        obj[`${page[key1][i].id}_${page[key2][0]}`] = page
+        let key = `${page[key1][i].id}_${page[key2][0]}`
+        page.id = key
+        obj[key] = page
         return obj
       })
       return obj
@@ -26,9 +28,7 @@ export default function (state = {
   switch (action.type) {
     case FETCH_PAGE:
       if (action.payload.data.status === 200) {
-        let id = `${action.payload.data.sectionIds[0].id}_${action.payload.data.pageIds[0]}`
         let pages = arrayToObject([action.payload.data], "sectionIds", "pageIds")
-
         return {
           ...state,
           pages: {

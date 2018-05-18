@@ -43,16 +43,16 @@ class PageList extends Component {
 
 
     // if (!this.props.filteredPages.length) {
-      switch (this.props.id) {
-        case "recent":
-        case "most_viewed":
-          this.props.fetchPagesBySection(sectionId)
-          this.setState({fetched: true})
-          break;
-        case "related":
-          this.props.fetchPagesByIds(ids)
-          break;
-      }
+    switch (this.props.id) {
+      case "recent":
+      case "most_viewed":
+        this.props.fetchPagesBySection(sectionId)
+        this.setState({fetched: true})
+        break;
+      case "related":
+        this.props.fetchPagesByIds(ids)
+        break;
+    }
     // }
 
     //if it's a related component (ie. ids), fetchbyids
@@ -183,7 +183,7 @@ const returnPagesByIds = createSelector(
     if (!ids) return []
     //get keys of the object
     return Object.keys(pages)
-      //only return keys (ie. "podcast_001") to the pages which have have an (mongodb objectId) _id that is equal to one of the ids in the array "ids"
+    //only return keys (ie. "podcast_001") to the pages which have have an (mongodb objectId) _id that is equal to one of the ids in the array "ids"
       .filter((key) => {
         return ids.includes(pages[key]._id)
       })
@@ -198,49 +198,49 @@ const returnPagesBySection = createSelector(
   (state, props) => props.sectionId,
   (state, props) => props.id,
   (obj, sectionId, filterId) => {
-  const checkSectionId = (page) => {
-    let idStatus = false
-    page.sectionIds.forEach(function(id) {
-      if (id.id === sectionId) idStatus = true
-    })
-    return idStatus
-  }
 
-  const filters = {
-    recent: {
-      property: "date_published",
-      reverse: false,
-    },
-    most_viewed: {
-      property: "views",
-      reverse: false,
-    },
-  }
+    const filters = {
+      recent: {
+        property: "date_published",
+        reverse: false,
+      },
+      most_viewed: {
+        property: "views",
+        reverse: false,
+      },
+    }
 
-  if (!filters[filterId]) return []
-  let {property, reverse} = filters[filterId]
+    if (!filters[filterId]) return []
+    let {property, reverse} = filters[filterId]
 
-  if (!Object.values(obj)) return []
+    if (!Object.values(obj))
+      return []
 
-  return Object.values(obj)
-    .filter(page => checkSectionId(page))
-    .sort(function(x, y) {
-      //define a & b w/ access to a property in details
-      //property is dynamically selected w/ props
-      //if reverse, the values are flipped around
+    const arr = Object.keys(obj).reduce((array, id, i) => {
+      console.log(id)
+      if (id.startsWith(sectionId))
+      array[i] = obj[id]
+      return array
+    }, [])
 
-      let a = reverse ? x.details[property] : y.details[property]
-      let b = reverse ? y.details[property] : x.details[property]
+    return Object.values(arr)
+      .sort(function (x, y) {
+        //define a & b w/ access to a property in details
+        //property is dynamically selected w/ props
+        //if reverse, the values are flipped around
 
-      switch(property) {
-        case "date_published":
-          return new Date(a) - new Date(b)
-          break;
-        default:
-          return (a) - (b)
-      }
-    })
-})
+        let a = reverse ? x.details[property] : y.details[property]
+        let b = reverse ? y.details[property] : x.details[property]
+
+        switch (property) {
+          case "date_published":
+            return new Date(a) - new Date(b)
+            break;
+          default:
+            return (a) - (b)
+        }
+      })
+  })
 
 function mapStateToProps(state, ownProps) {
   let returnPages
