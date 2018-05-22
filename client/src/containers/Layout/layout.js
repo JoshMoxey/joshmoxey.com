@@ -31,16 +31,6 @@ class Layout extends Component {
     if (production()) ReactGA.initialize('UA-86454336-2')
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (JSON.stringify(this.props) !== JSON.stringify(nextProps)) {
-      return true;
-    }
-    if (JSON.stringify(this.state) !== JSON.stringify(nextState)) {
-      return true;
-    }
-    return false
-  }
-
   togglePopUp = (e) => {
     //if it's closed, check if it's clicking on img, then open it
     if (!this.state.imagePopUpActive && e.target.tagName === "IMG") {
@@ -72,17 +62,18 @@ class Layout extends Component {
             togglePopUp={this.togglePopUp.bind(this)}
           />
           <Route path="/" render={(props) =>
-            <Navigation {...props}
-                        toggleSidebar={this.toggleSidebar}
-                        sidebar={this.state.sidebar}/>}/>
+            <Navigation
+              {...props}
+              toggleSidebar={this.toggleSidebar}
+              sidebar={this.state.sidebar}/>}/>
           {production() ? <Route path="/" component={Analytics}/> : ""}
           <Switch>
             <Route path="/" component={Home} exact/>
-            <Route path="/profile" render={() => <Profile togglePopUp={this.togglePopUp}/>}/>
-            <Route path="/:section/:page"
-                   render={(props) => <Sorter active {...props} togglePopUp={this.togglePopUp}/>}/>
+            <Route path="/profile" render={() =>
+              <Profile togglePopUp={this.togglePopUp}/>}/>
+            <Route path="/:section/:page" render={(props) =>
+              <Sorter active {...props} togglePopUp={this.togglePopUp}/>}/>
             <Route path="/:section" component={Section}/>
-            <Route path="/" render={(props) => <Status status={404}/>}/>
           </Switch>
         </div>
       </BrowserRouter>

@@ -79,7 +79,7 @@ const Nav = (props) => {
           {/*{mainIcons}*/}
           <a onClick={props.toggleSidebar.bind(this)}>
             <div styleName="icon">
-              <Svg icon="hamburger2" viewBox="0 0 38 32"/>
+              <Svg icon="hamburger_2" viewBox="0 0 38 32"/>
             </div>
           </a>
         </div>
@@ -89,7 +89,7 @@ const Nav = (props) => {
           styleName="more"
           onClick={props.toggleSidebar.bind(this)}>
           <div styleName="icon">
-            <Svg icon="hamburger2" viewBox="0 0 38 32"/>
+            <Svg icon="hamburger_2" viewBox="0 0 38 32"/>
           </div>
         </a>
         <div styleName="scroll">

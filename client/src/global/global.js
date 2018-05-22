@@ -117,26 +117,41 @@ export const idify = (id) => {
   return id.toLowerCase().split(" ").join("_")
 }
 
-export const backgroundStyling = (style) => {
-  if (style.active === false) return {}
-  style = {
-    gradient: {
-      color: "select"
-    },
-    color: "grey"
+function camelCaseify(str) {
+  let strSplit = str.toLowerCase().split(' ')
+  if (strSplit.length === 1) {
+    return strSplit[0]
   }
+  for (let i = 1; i < strSplit.length; i++) {
+    strSplit[i] = strSplit[i].charAt(0).toUpperCase() + strSplit[i].slice(1).toLowerCase();
+  }
+  return strSplit.join('')
+}
+
+
+export const backgroundStyler = (style) => {
+  if (style.active === false) return {}
 
   let backgroundColor = style.color
   let gradient = style.gradient || false
   let img = style.img ? imgPathify(style.img) : false
+  let overlay = ""
   let backgroundImage = ""
 
+  console.log("grad", gradient)
   if (style.color === globals.random) {
     backgroundColor = generateRandomRGB()
   } else if (style.color === globals.select) {
     backgroundColor = getRandom(colors)
   } else if (!style.color) {
     backgroundColor = "#666"
+  }
+
+  if (style.overlay) {
+    let color = overlay.color || "34, 34, 34"
+    let opacity = overlay.opacity || .5
+    let rgba = `rgba(${color}, ${opacity})`
+    overlay = `linear-gradient(${rgba}, ${rgba})`
   }
 
   // gradientSchema = {
@@ -159,11 +174,11 @@ export const backgroundStyling = (style) => {
   }
 
   if (!gradient && img) {
-    backgroundImage = `url(${img})`
+    backgroundImage = `${overlay}, url(${img})`
   } else if (gradient && !img) {
-    backgroundImage = gradient
+    backgroundImage = `${overlay}, ${gradient}`
   } else if (gradient && img) {
-    backgroundImage = `url(${img}), ${gradient}`
+    backgroundImage = `${overlay}, url(${img}), ${gradient}`
   }
 
   console.log({backgroundColor, backgroundImage})
@@ -171,6 +186,23 @@ export const backgroundStyling = (style) => {
   return {
     backgroundColor,
     backgroundImage
+  }
+}
+
+export const overlayStyler = (overlay) => {
+  if (!overlay) return ""
+  let color = overlay.color || "#222"
+  let opacity = overlay.opacity || .5
+
+  console.log(color)
+  console.log({
+    backgroundColor: color,
+    opacity
+  })
+
+  return {
+    backgroundColor: color,
+    opacity
   }
 }
 
@@ -196,8 +228,6 @@ export const transformToGradientSyntax = (gradient, angle, effect = "linear-grad
     gradient = `${gradient[0]}, ${gradient[1]}`
   }
 
-  console.log("angle", angle)
-
   if (angle === globals.random) {
     angle = Math.floor(Math.random() * 360)
   } else if (angle) {
@@ -205,15 +235,14 @@ export const transformToGradientSyntax = (gradient, angle, effect = "linear-grad
   } else {
     angle = -45
   }
-
-  console.log(angle)
+  console.log(gradient, angle, effect)
 
   return `${effect}(${angle}deg, ${gradient})`
 }
 
 export const production = () => {
   if (!process.env.NODE_ENV) {
-    throw new Error ("NODE_ENV is not defined")
+    throw new Error("NODE_ENV is not defined")
   }
   return process.env.NODE_ENV.toLowerCase() === "production"
     && !window.location.host.startsWith("localhost")

@@ -76,12 +76,14 @@ class Section extends Component {
           title={false}
         />
         <PageList
+          seeAll={true}
           href={`/${this.props.match.params.section}/recent`}
           id="recent"
           sectionId={this.props.match.params.section}
           limit={3}
         />
         <PageList
+          seeAll={true}
           href={`/${this.props.match.params.section}/most-viewed`}
           id="most_viewed"
           sectionId={this.props.match.params.section}

@@ -2,9 +2,8 @@ import React, {Component} from "react";
 import CSSModules from "react-css-modules"
 import styles from "./banner.css"
 import {Parallax, Background} from 'react-parallax';
-import {
-  backgroundStyling,
-} from "../../global/global";
+import {backgroundStyler} from "../../global/global";
+import Overlay from "../Overlay/overlay";
 
 class Banner extends Component {
   constructor(props) {
@@ -32,9 +31,10 @@ class Banner extends Component {
             {this.props.children}
           </div>
           <Background>
+            <Overlay overlay={this.props.banner}/>
             <div
               styleName="banner"
-              style={backgroundStyling(this.props.banner)}
+              style={backgroundStyler(this.props.banner)}
             >
             </div>
           </Background>

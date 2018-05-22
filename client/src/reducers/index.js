@@ -4,7 +4,7 @@ import PageReducer from "./reducer_page"
 import SectionReducer from "./reducer_section"
 import SidebarReducer from "./reducer_sidebar"
 import TitleReducer from "./reducer_title"
-import RequestsReducer from "./reducer_requests"
+import HistoryReducer from "./reducer_history"
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   sections: SectionReducer,
   sidebar: SidebarReducer,
   title: TitleReducer,
-  requests: RequestsReducer,
+  history: HistoryReducer,
 });
 
 export default rootReducer;

@@ -6,9 +6,52 @@
     <link rel="stylesheet" href="/style/style.css">
     <link rel="stylesheet" href="/style/global.css">
     <link rel="stylesheet" href="/style/partials/swiper.min.css">
-  </head>
+    <link rel="stylesheet" href="/node_modules/outdated-browser/outdatedbrowser/outdatedbrowser.min.css">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/site.webmanifest">
+    <link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#333333">
+    <link rel="shortcut icon" href="/favicon/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Josh Moxey">
+    <meta name="application-name" content="Josh Moxey">
+    <meta name="msapplication-TileColor" content="#333333">
+    <meta name="msapplication-config" content="/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">  </head>
+    <style>
+
+    </style>
   <body>
     <div class="container"></div>
+    <div id="outdated"></div>
   </body>
+  <script src="/node_modules/outdated-browser/outdatedbrowser/outdatedbrowser.min.js"></script>
+  <script>
+    //event listener form DOM ready
+    function addLoadEvent(func) {
+      var oldonload = window.onload;
+      if (typeof window.onload != 'function') {
+        window.onload = func;
+      } else {
+        window.onload = function() {
+          if (oldonload) {
+            oldonload();
+          }
+          func();
+        }
+      }
+    }
+    //call function after DOM ready
+    addLoadEvent(function(){
+      outdatedBrowser({
+        bgColor: '#f26f62',
+        color: '#ffffff',
+        lowerThan: 'pointer-events',
+//        lowerThan: 'transform',
+        languagePath: '/node_modules/outdated-browser/outdatedbrowser/lang/en.html'
+      })
+    });
+  </script>
   <script src="/bundle.js"></script>
 </html>

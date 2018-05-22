@@ -22,9 +22,13 @@ class Home extends Component {
     const banner = {
       active: true,
       color: false,
-      gradient: "45deg, #6559f6,#f68a5c",
-      img: false
+      gradient: {
+        color: "#6559f6, #f68a5c",
+      },
+      img: "jeremy-thomas-98201-unsplash.jpg"
+      // img: imgPathify("quino-al-95074-unsplash.jpg")
     }
+    console.log(imgPathify("test"))
 
     const title = "Josh Moxey: Creator, Entrepreneur, Designer"
     this.props.updateTitle("Home")

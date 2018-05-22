@@ -29,32 +29,24 @@ class PageList extends Component {
   }
 
   componentDidMount() {
-    let {ids, sectionId} = this.props
+    let {ids, sectionId, featured, skip, limit, sort} = this.props
 
-    //todo conditional creates bug of no extra pages being loaded if there's already some pages there
+    const options = {
+      featured: this.props.featured || false,
+      limit: this.props.limit || 0,
+      skip: this.props.skip || 0,
+      sort: this.props.sort || false
+    }
 
-    // if (Object.keys(this.props.pages.pages).length === 0) {
-    //   return true
-    // }
-    // return JSON.stringify(this.props.pages.pages) === JSON.stringify(nextProps.pages)
-
-
-    // SET FETCHING/FETCHED STATUS IN REDUCER.
-
-
-    // if (!this.props.filteredPages.length) {
     switch (this.props.id) {
       case "recent":
       case "most_viewed":
-        this.props.fetchPagesBySection(sectionId)
-        this.setState({fetched: true})
+        this.props.fetchPagesBySection(sectionId, options)
         break;
       case "related":
         this.props.fetchPagesByIds(ids)
         break;
     }
-    // }
-
     //if it's a related component (ie. ids), fetchbyids
     //if it's a section component, fetchbysection w/ limit
     //if it's a section focused component, fetchbysection w/ limit & sort included
@@ -125,8 +117,11 @@ class PageList extends Component {
       <span styleName="test">See All</span>
     </Link>
 
-    if (this.props.focused || this.props.href === undefined || limit === filteredPages.length) {
-      seeAll = ""
+    // console.log("seeAll", this.props.seeAll)
+    if (!this.props.seeAll) {
+      if (this.props.focused || this.props.href === undefined || limit === filteredPages.length) {
+        seeAll = ""
+      }
     }
 
     const pages = filteredPages.map(function (link, i) {
@@ -197,7 +192,7 @@ const returnPagesBySection = createSelector(
   (state, props) => state.pages,
   (state, props) => props.sectionId,
   (state, props) => props.id,
-  (obj, sectionId, filterId) => {
+  (pages, sectionId, filterId) => {
 
     const filters = {
       recent: {
@@ -208,22 +203,25 @@ const returnPagesBySection = createSelector(
         property: "views",
         reverse: false,
       },
+      featured: {
+        property: "featured",
+        reverse: true,
+      },
     }
 
-    if (!filters[filterId]) return []
-    let {property, reverse} = filters[filterId]
-
-    if (!Object.values(obj))
+    if (!filters[filterId] || !Object.values(pages))
       return []
 
-    const arr = Object.keys(obj).reduce((array, id, i) => {
-      console.log(id)
-      if (id.startsWith(sectionId))
-      array[i] = obj[id]
-      return array
-    }, [])
+    let {property, reverse} = filters[filterId]
 
-    return Object.values(arr)
+    return Object.values(pages)
+      .filter(page => {
+        if (!page.id.startsWith(sectionId))
+          return false
+        if (filterId === "featured" && !page.details.featured)
+          return false
+        return true
+      })
       .sort(function (x, y) {
         //define a & b w/ access to a property in details
         //property is dynamically selected w/ props

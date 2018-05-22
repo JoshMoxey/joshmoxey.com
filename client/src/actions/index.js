@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {production} from "../global/global";
+import queryString from "query-string"
 
 export const ROOT_URL = production() ? "https://joshmoxey.com/data" : "http://localhost:1001/data"
 
@@ -15,6 +16,8 @@ export const RESET_SECTION_STATUS = 'reset_section_status'
 
 export const LOG_REQUEST_HISTORY = "log_request_history"
 export const CHECK_REQUEST_HISTORY = "check_request_history"
+export const LOG_SECTION_VIEW = "log_section_view"
+export const LOG_PAGE_VIEW = "log_page_view"
 
 export const TOGGLE_SIDEBAR = 'toggle_sidebar'
 export const UPDATE_TITLE = 'update_title'
@@ -30,15 +33,15 @@ export function fetchPage(section, page) {
 
 export function fetchPagesByIds(ids) {
   const request = axios.post(`${ROOT_URL}/pages-by-ids`, {ids})
-
   return {
     type: FETCH_PAGES_BY_IDS,
     payload: request
   }
 }
 
-export function fetchPagesBySection(section) {
-  const url = `${ROOT_URL}/pages-by-section/${section}`
+export function fetchPagesBySection(section, options) {
+  const query = queryString.stringify(options)
+  const url = `${ROOT_URL}/pages-by-section/${section}?${query}`
   return (dispatch, getState) => {
     if (!checkRequestHistory(getState, url)) {
       dispatch({
@@ -48,7 +51,6 @@ export function fetchPagesBySection(section) {
         dispatch(logRequestHistory(url)),
       )
     } else {
-      console.log("sim nope")
       return {}
     }
   }
@@ -80,6 +82,38 @@ export function logRequestHistory(data) {
   return {
     type: LOG_REQUEST_HISTORY,
     payload: data
+  }
+}
+
+export function getLastView(getState, id) {
+  const {views} = getState()
+  return views[views.length -1]
+}
+
+export function logPageView(section, page) {
+  if (!production())
+    return
+  console.log(section, page)
+
+  return {
+    type: LOG_PAGE_VIEW,
+    payload: {
+      section,
+      page
+    }
+  }
+}
+
+export function logSectionView(section) {
+  // if (!production())
+  //   return
+  console.log(section)
+
+  return {
+    type: LOG_SECTION_VIEW,
+    payload: {
+      section,
+    }
   }
 }
 

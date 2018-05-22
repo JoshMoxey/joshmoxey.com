@@ -35,11 +35,12 @@ router
   })
   .get("/data/pages-by-section/:section", function (req, res, next) {
     // ?:filter/:current/:limit/reverse
+    console.log(req.params)
     console.log(req.query)
 
-    // if (!req.params.section) {
-    //   return res.send(false)
-    // }
+    if (!req.params.section) {
+      return res.send(false)
+    }
 
     let sort = {}
     if (req.params.filter) {
@@ -53,15 +54,27 @@ router
       }
     }
 
+    req.query.featured = false
+
+    const featured = req.query.featured ? {featured: true} : {}
     const limit = parseInt(req.params.limit) || 0
-    const skip = parseInt(req.params.current) || 0
-    //if filter, switch statement for type of filter: default, string or empty
+    const skip = parseInt(req.params.skip) || 0
+    const query = {
+      sectionIds: {
+        $elemMatch: {"id": req.params.section}
+      },
+      active: true,
+      ...featured
+    }
+
+    // if (req.query.featured) {
+    //   query.featured = true
+    // }
+
+    console.log(query)
 
     mongo.db.collection("pages")
-      .find({
-        sectionIds: {$elemMatch: {"id": req.params.section}},
-        active: true
-      })
+      .find(query)
       .sort(sort)
       .limit(limit)
       .skip(skip)
@@ -127,6 +140,21 @@ router
               })
             })
       })
+  })
+  .post("/action/update-page-view", function (req, res, next) {
+    mongo.db.collection("pages")
+      .updateOne({
+        "sectionIds": {$elemMatch: {"id": req.params.section}},
+        "pageIds": req.params.page,
+      }, {
+        $inc: {"data.viewCount": 1}
+      })
+    // mongo.db.collection("events")
+    //   .insertOne({
+    //     "sectionIds": {$elemMatch: {"id": req.params.section}},
+    //     "pageIds": req.params.page,
+    //   })
+    res.send(200)
   })
   .get("/jsdisabled", function (req, res, next) {
     res.render("body/error/jsdisabled", {

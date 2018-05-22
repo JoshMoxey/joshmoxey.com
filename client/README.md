@@ -1,25 +1,9 @@
-# ReduxSimpleStarter
+#Josh Moxey's Personal Site (v2.0)
 
-Interested in learning [Redux](https://www.udemy.com/react-redux/)?
-
-### Getting Started
-
-There are two methods for getting started with this repo.
-
-#### Familiar with Git?
-Checkout this repo, install dependencies, then start the gulp process with the following:
-
+Holy fuck. My personal website is finally ready! This took such a long time to make[this website.](https://joshmoxey.com)
 ```
-> git clone https://github.com/StephenGrider/ReduxSimpleStarter.git
-> cd ReduxSimpleStarter
-> npm install
-> npm start
+while (JoshMoxey.care === "the mission") {
+  keepFuckingGoing()
+}
 ```
-
-#### Not Familiar with Git?
-Click [here](https://github.com/StephenGrider/ReactStarter/releases) then download the .zip file.  Extract the contents of the zip file, then open your terminal, change to the project directory, and:
-
-```
-> npm install
-> npm start
-```
+"Back with that new shit." -Tisoki

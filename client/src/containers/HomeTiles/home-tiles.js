@@ -8,9 +8,10 @@ import {fetchPagesByIds, fetchPagesBySection} from "../../actions/index";
 
 import LinkPlus from "../../components/LinkPlus/link-plus"
 import {Link} from "react-router-dom"
-import {imgPath, backgroundStyling} from "../../global/global"
+import {imgPath, backgroundStyler} from "../../global/global"
 import LinesEllipsis from 'react-lines-ellipsis'
 import responsiveHOC from 'react-lines-ellipsis/lib/responsiveHOC'
+import Overlay from "../../components/Overlay/overlay";
 
 const ResponsiveEllipsis = responsiveHOC()(LinesEllipsis)
 
@@ -30,39 +31,38 @@ class HomeTiles extends Component {
         title: "The Josh Moxey Journey",
         href: "/podcast",
         background: {
-          img: "http://dannykennedyfitness.com/wp-content/uploads/2017/05/151204-DailyVee_Episode_001_02_1920x1080.jpg",
-          gradient: false,
-          color: "#4b965a"
+          img: false,
+          gradient: {
+            color: "rgb(60, 63, 99), rgb(148, 159, 189)",
+            angle: 30
+          },
+          color: false,
+          overlay: true,
         },
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium amet, architecto atque aut beatae, doloremque, eum ex perferendis perspiciatis porro quam repellat sapiente sint sit sunt veniam voluptatibus? Magni, sunt?"
+        description: "Follow along as I share lessons, hacks, mindsets, etc. along my entrepreneurial and life journey"
       },
       {
         title: "Josh Moxey Radio",
         href: "/radio",
         background: {
-          img: "http://dannykennedyfitness.com/wp-content/uploads/2017/05/151204-DailyVee_Episode_001_02_1920x1080.jpg",
-          gradient: false,
-          color: "#e26245"
-        },
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium amet, architecto atque aut beatae, doloremque, eum ex perferendis perspiciatis porro quam repellat sapiente sint sit sunt veniam voluptatibus? Magni, sunt?"
-      },
-      {
-        title: "The Josh Moxey Journey",
-        href: "/podcast",
-        background: {
           img: false,
-          gradient: false,
-          color: "#ece72f"
+          gradient: {
+            angle: -70,
+            color: "#6559f6, #f68a5c",
+            // color: "#49b0ff, #ff4324, #b446d0"
+          },
+          color: false
+
         },
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium amet, architecto atque aut beatae, doloremque, eum ex perferendis perspiciatis porro quam repellat sapiente sint sit sunt veniam voluptatibus? Magni, sunt?"
-      }
+        description: "Playlists of my favourites songs, organized from softest to hardest"
+      },
     ]
 
     const tiles = this.props.tiles.map((tile, i) =>
       <div styleName="tile" key={i}>
         <Link
           to={tile.href}
-          style={backgroundStyling(tile.background)}
+          style={backgroundStyler(tile.background)}
           styleName="category">
           <div styleName="text">
             <h1>{tile.title}</h1>
