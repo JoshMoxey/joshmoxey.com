@@ -125,7 +125,7 @@ class PageList extends Component {
     }
 
     const pages = filteredPages.map(function (link, i) {
-      let href = `/${link.sectionIds[0].id}/${link.pageIds[0]}`
+      let href = `/${link.sectionIds[0].id}/${link.pageId}`
       let detail = {
         title: link.sectionIds[0].title,
         href: `/${link.sectionIds[0].id}`

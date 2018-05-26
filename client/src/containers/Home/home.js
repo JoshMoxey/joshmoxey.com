@@ -25,10 +25,11 @@ class Home extends Component {
       gradient: {
         color: "#6559f6, #f68a5c",
       },
-      img: "jeremy-thomas-98201-unsplash.jpg"
-      // img: imgPathify("quino-al-95074-unsplash.jpg")
+      img: "jeremy-thomas-98201-unsplash.jpg",
+      overlay: {
+        opacity: .3
+      }
     }
-    console.log(imgPathify("test"))
 
     const title = "Josh Moxey: Creator, Entrepreneur, Designer"
     this.props.updateTitle("Home")

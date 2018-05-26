@@ -9,7 +9,7 @@ import {
   fetchPage,
   updateTitle,
   resetPageStatus,
-  logPageView
+  increaseViewCount
 } from "../../actions/index";
 import PageHero from "../../components/PageHero/page-hero"
 import PageBody from "../../components/PageBody/page-body"
@@ -17,7 +17,7 @@ import Status from "../Status/status"
 import Loading from "../../components/Loading/loading"
 import Footer from "../../components/Footer/footer"
 
-import {togglePopUp, titlify} from "../../global/global";
+import {titlify} from "../../global/global";
 
 class Page extends Component {
   constructor(props) {
@@ -34,25 +34,12 @@ class Page extends Component {
       this.props.resetPageStatus()
       this.props.fetchPage(section, page);
     }
-    this.props.resetPageStatus()
-
-    console.log("mount")
-    console.log(this.props)
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log(this.props)
-    const sectionId = this.props.match.params.section
-    const pageId = this.props.match.params.page
+    const {section, page} = this.props.match.params
     if (this.props.page) {
       this.props.updateTitle(this.props.page.title)
-    }
-    console.log("componentDidUpdate")
-    // console.log(sectionId, prevProps.match.params.section)
-    // console.log(pageId, prevProps.match.params.page)
-    if (sectionId !== prevProps.match.params.section ||
-      pageId !== prevProps.match.params.page) {
-      this.props.logPageView(sectionId, pageId)
     }
   }
 
@@ -67,7 +54,6 @@ class Page extends Component {
   }
 
   render() {
-    console.log("render")
     const page = this.props.page
 
     if (!page) {
@@ -101,11 +87,11 @@ class Page extends Component {
 }
 
 function mapStateToProps({pages}, ownProps) {
+  const {section, page} = ownProps.match.params
+
   return {
-    page: pages.pages[`${ownProps.match.params.section}_${ownProps.match.params.page}`],
+    page: pages.pages[`${section}_${page}`],
     status: pages.status,
-    sectionId: ownProps.match.params.section,
-    pageId: ownProps.match.params.page
   };
 }
 
@@ -114,5 +100,5 @@ export default connect(mapStateToProps, {
   fetchPage,
   updateTitle,
   resetPageStatus,
-  logPageView
+  increaseViewCount
 })(ComponentWithCSS);

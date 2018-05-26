@@ -11,7 +11,6 @@ import {Link} from "react-router-dom"
 import {imgPath, backgroundStyler} from "../../global/global"
 import LinesEllipsis from 'react-lines-ellipsis'
 import responsiveHOC from 'react-lines-ellipsis/lib/responsiveHOC'
-import Overlay from "../../components/Overlay/overlay";
 
 const ResponsiveEllipsis = responsiveHOC()(LinesEllipsis)
 

@@ -1,40 +1,33 @@
 import {
   LOG_REQUEST_HISTORY,
-  CHECK_REQUEST_HISTORY,
-  LOG_PAGE_HISTORY,
-  LOG_SECTION_HISTORY
+  LOG_VIEW_HISTORY,
 } from "../actions/index";
 
-export default function (state = {}, action) {
+export default function (state = {
+  requests: {},
+  views: []
+  }, action) {
   switch (action.type) {
     case LOG_REQUEST_HISTORY:
-      //move to object in the future w/ extra details
       return {
         ...state,
         requests: {
           ...state.requests,
+          //add extra details to the obj in the future
           [action.payload]: action.payload
         }
       }
       break;
-    case LOG_PAGE_HISTORY:
-      //move to object in the future w/ extra details
+    case LOG_VIEW_HISTORY:
       return {
         ...state,
-        requests: {
+        views: [
           ...state.requests,
-          [action.payload]: action.payload
-        }
-      }
-      break;
-    case LOG_SECTION_HISTORY:
-      //move to object in the future w/ extra details
-      return {
-        ...state,
-        requests: {
-          ...state.requests,
-          [action.payload]: action.payload
-        }
+          {
+            id: action.payload.id,
+            type: action.payload.type
+          }
+        ]
       }
       break;
     default:

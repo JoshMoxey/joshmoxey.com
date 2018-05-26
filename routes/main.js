@@ -6,26 +6,20 @@ const bodyParser = require('body-parser')
 const flash = require("connect-flash")
 
 router
-  .get("/profile", function (req, res) {
-    res.render("body/profile", {
-      title: "Profile",
-      route: "profile"
-    })
-  })
-  .get("/data/page/:section/:page", function (req, res, next) {
+  .get("/api/page/:section/:page", function (req, res, next) {
     if (!req.params.section || !req.params.page) {
       return res.send(false)
     }
-
     mongo.db.collection("pages")
       .findOne({
         "sectionIds": {$elemMatch: {"id": req.params.section}},
-        "pageIds": req.params.page,
+        "pageId": req.params.page,
         "active": true
       }, (err, result) => {
         //checks if it's inside of the array
         if (err) {
-          return res.send({status: 500}) //server error
+          //server error
+          return res.send({status: 500})
         }
         if (!result) {
           return res.send({status: 404})
@@ -33,14 +27,11 @@ router
         res.send({...result, ...{status: 200}})
       })
   })
-  .get("/data/pages-by-section/:section", function (req, res, next) {
-    // ?:filter/:current/:limit/reverse
-    console.log(req.params)
-    console.log(req.query)
-
+  .get("/api/pages-by-section/:section", function (req, res, next) {
     if (!req.params.section) {
       return res.send(false)
     }
+
 
     let sort = {}
     if (req.params.filter) {
@@ -54,9 +45,7 @@ router
       }
     }
 
-    req.query.featured = false
-
-    const featured = req.query.featured ? {featured: true} : {}
+    const featured = req.query.featured === "true" ? {featured: true} : {}
     const limit = parseInt(req.params.limit) || 0
     const skip = parseInt(req.params.skip) || 0
     const query = {
@@ -66,12 +55,6 @@ router
       active: true,
       ...featured
     }
-
-    // if (req.query.featured) {
-    //   query.featured = true
-    // }
-
-    console.log(query)
 
     mongo.db.collection("pages")
       .find(query)
@@ -89,7 +72,7 @@ router
         res.send(result)
       })
   })
-  .post("/data/pages-by-ids", function (req, res, next) {
+  .post("/api/pages-by-ids", function (req, res, next) {
     if (!req.body.ids) {
       return res.send(false)
     }
@@ -112,13 +95,13 @@ router
       res.send(result)
     })
   })
-  .get("/data/wild-card/:id", function (req, res, next) {
+  .get("/api/wild-card/:id", function (req, res, next) {
     if (!req.params.id) {
       return res.send(false)
     }
     mongo.db.collection("sections")
       .findOne({
-        "sectionIds": req.params.id,
+        "sectionId": req.params.id,
         "active": true
       }, (err, section) => {
         mongo.db.collection("redirects")
@@ -131,7 +114,6 @@ router
                 return res.send({status: 404})
               }
               const type = section ? "section" : "redirect"
-              // const data = section ? section : redirect
               return res.send({
                 status: 200,
                 type,
@@ -141,31 +123,35 @@ router
             })
       })
   })
-  .post("/action/update-page-view", function (req, res, next) {
-    mongo.db.collection("pages")
-      .updateOne({
-        "sectionIds": {$elemMatch: {"id": req.params.section}},
-        "pageIds": req.params.page,
-      }, {
-        $inc: {"data.viewCount": 1}
-      })
-    // mongo.db.collection("events")
-    //   .insertOne({
-    //     "sectionIds": {$elemMatch: {"id": req.params.section}},
-    //     "pageIds": req.params.page,
-    //   })
-    res.send(200)
+  .post("/api/increase-view-count/:id", function (req, res, next) {
+    const id = req.params.id.split("_")
+    const sectionId = id[0]
+    const pageId = id[1]
+    if (req.query.type === "page") {
+      mongo.db.collection("pages")
+        .updateOne({
+          "sectionIds": {$elemMatch: {"id": sectionId}},
+          "pageId": pageId,
+        },{
+          $inc: {"details.views": 1}
+        })
+      res.send(200)
+    }
+    if (req.query.type === "section") {
+      mongo.db.collection("sections")
+        .updateOne({
+          "sectionId.id": sectionId
+        },{
+          $inc: {"details.views": 1}
+        })
+      res.send(200)
+    }
+      // mongo.db.collection("events")
+      //   .insertOne({
+      //     "sectionIds": {$elemMatch: {"id": req.params.section}},
+      //     "pageId": req.params.page,
+      //   })
   })
-  .get("/jsdisabled", function (req, res, next) {
-    res.render("body/error/jsdisabled", {
-      //todo make this an actual page
-      title: 'Error: Javascript disabled | Internalize',
-      route: "error"
-    })
-  })
-  // .options("/data/pages-by-ids", (req, res) => {
-  //   res.status(200)
-  // })
   .use(function (req, res, next) {
     res.status(404).send("error four o four")
   })

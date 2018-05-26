@@ -7,8 +7,15 @@ export const globals = {
 
 export const sectionId = {
   podcast: "The Josh Moxey Show",
+  reflections: "Reflections",
   gems: "Josh Moxey's Gems",
   articles: "Articles",
+}
+
+export const sectionFilters = {
+  recent: "recent",
+  most_viewed: "most-viewed",
+  featured: "featured"
 }
 
 export const imgPath = "/img"
@@ -114,6 +121,7 @@ export const untitlify = (title) => {
 }
 
 export const idify = (id) => {
+  if (!id) return
   return id.toLowerCase().split(" ").join("_")
 }
 
@@ -132,20 +140,13 @@ function camelCaseify(str) {
 export const backgroundStyler = (style) => {
   if (style.active === false) return {}
 
-  let backgroundColor = style.color
-  let gradient = style.gradient || false
-  let img = style.img ? imgPathify(style.img) : false
-  let overlay = ""
-  let backgroundImage = ""
+  // gradientSchema = {
+  //   effect: null,
+  //   angle: 45,
+  //   color: ""
+  // }
 
-  console.log("grad", gradient)
-  if (style.color === globals.random) {
-    backgroundColor = generateRandomRGB()
-  } else if (style.color === globals.select) {
-    backgroundColor = getRandom(colors)
-  } else if (!style.color) {
-    backgroundColor = "#666"
-  }
+  let backgroundColor, backgroundImage, overlay, gradient, gradient2, img
 
   if (style.overlay) {
     let color = overlay.color || "34, 34, 34"
@@ -154,34 +155,42 @@ export const backgroundStyler = (style) => {
     overlay = `linear-gradient(${rgba}, ${rgba})`
   }
 
-  // gradientSchema = {
-  //   effect: null,
-  //   angle: 45,
-  //   color: ""
-  // }
+  img = style.img ? `url(${imgPathify(style.img)})` : false
 
-  let {effect, angle, color} = style.gradient
-  let filter = color
-
-  if (style.gradient === globals.random || style.gradient === globals.select) {
-    gradient = randomGradient(style.gradient)
-  } else if (filter === globals.random || filter === globals.select) {
-    gradient = randomGradient(filter, angle, effect)
-  } else if (style.gradient) {
-    gradient = transformToGradientSyntax(color, angle, effect)
-  } else if (style.gradient === undefined) {
-    gradient = "linear-gradient(-45deg, #444, #888)"
+  const gradientFilter = (gradient) => {
+    if (!gradient) return false
+    let {effect, angle, color} = gradient
+    if (gradient === globals.random || gradient === globals.select) {
+      return randomGradient(gradient)
+    } else if (color === globals.random || color === globals.select) {
+      return randomGradient(color, angle, effect)
+    } else if (gradient) {
+      return transformToGradientSyntax(color, angle, effect)
+    } else if (gradient === undefined) {
+      return "linear-gradient(-45deg, #444, #888)"
+    } else {
+      return false
+    }
   }
 
-  if (!gradient && img) {
-    backgroundImage = `${overlay}, url(${img})`
-  } else if (gradient && !img) {
-    backgroundImage = `${overlay}, ${gradient}`
-  } else if (gradient && img) {
-    backgroundImage = `${overlay}, url(${img}), ${gradient}`
+  gradient = gradientFilter(style.gradient)
+  gradient2 = gradientFilter(style.gradient2)
+
+  if (style.color === globals.random) {
+    backgroundColor = generateRandomRGB()
+  } else if (style.color === globals.select) {
+    backgroundColor = getRandom(colors)
+  } else if (!style.color) {
+    backgroundColor = "#666"
   }
 
-  console.log({backgroundColor, backgroundImage})
+  overlay = overlay ? `${gradient} ,` : ""
+  gradient = gradient ? `${gradient} ,` : ""
+  gradient2 = gradient2 ? `${gradient2} ,` : ""
+  img = img ? `${img} ,` : ""
+
+  //combine all and remove comma at end that would cancel it all out
+  backgroundImage = `${overlay}${img}${gradient}${gradient2}`.slice(0, -1)
 
   return {
     backgroundColor,
@@ -193,12 +202,6 @@ export const overlayStyler = (overlay) => {
   if (!overlay) return ""
   let color = overlay.color || "#222"
   let opacity = overlay.opacity || .5
-
-  console.log(color)
-  console.log({
-    backgroundColor: color,
-    opacity
-  })
 
   return {
     backgroundColor: color,
@@ -235,7 +238,6 @@ export const transformToGradientSyntax = (gradient, angle, effect = "linear-grad
   } else {
     angle = -45
   }
-  console.log(gradient, angle, effect)
 
   return `${effect}(${angle}deg, ${gradient})`
 }
@@ -246,4 +248,42 @@ export const production = () => {
   }
   return process.env.NODE_ENV.toLowerCase() === "production"
     && !window.location.host.startsWith("localhost")
+}
+
+export const urlToIds = (url) => {
+  if (!url) throw Error("no value passed to urlToIds")
+  url = url.split("/").filter(v => v !== '')
+
+  const filters = Object.values(sectionFilters)
+  const section = url[0]
+  let page = filters.includes(url[1]) ? undefined : url[1]
+  let type
+
+  if (page && section) {
+    type = "page"
+  } else if (section) {
+    type = "section"
+  } else {
+    type = null
+  }
+
+  return {
+    section,
+    page,
+    type
+  }
+}
+
+export const returnPageType = (url) => {
+  const {page, section} = urlToIds(url)
+  if (page && section) {
+    return "page"
+  }
+  if (section) {
+    return "section"
+  }
+}
+
+export const parseBoolean = (str) => {
+  return (str === "true")
 }

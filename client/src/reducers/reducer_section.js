@@ -8,11 +8,6 @@ export default function (state = {
   status: null,
   redirect: false,
 }, action) {
-  const arrayToObject = (array, key1, key2) =>
-    array.reduce((obj, item, i) => {
-      obj[`${item[key1][0].id}_${item[key2][0]}`] = item
-      return obj
-    }, {})
   switch (action.type) {
     case FETCH_SECTION:
 
@@ -23,13 +18,15 @@ export default function (state = {
       //or, map through for each section id in there
       // return {...state, status: action.payload.data.status}
 
-      const sectionIds = action.payload.data.sectionIds
-      const id = sectionIds ? sectionIds[0] : ""
-      const sections = sectionIds ? {...state.sections, [id]: action.payload.data} : state.sections
+      // const sections = sectionIds ? {...state.sections, [id]: action.payload.data} : state.sections
+      const id = action.payload.data.sectionId
 
       return {
         ...state,
-        sections,
+        sections: {
+          ...state.sections,
+          [id]: action.payload.data
+        },
         status: action.payload.data.status,
         redirect: action.payload.data.to,
       }

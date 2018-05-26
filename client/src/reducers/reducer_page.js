@@ -17,7 +17,7 @@ export default function (state = {
     //create a page entry for each sectionId
     array.reduce((obj, page) => {
       page.sectionIds.forEach((id, i) => {
-        let key = `${page[key1][i].id}_${page[key2][0]}`
+        let key = `${page[key1][i].id}_${page[key2]}`
         page.id = key
         obj[key] = page
         return obj
@@ -28,7 +28,7 @@ export default function (state = {
   switch (action.type) {
     case FETCH_PAGE:
       if (action.payload.data.status === 200) {
-        let pages = arrayToObject([action.payload.data], "sectionIds", "pageIds")
+        let pages = arrayToObject([action.payload.data], "sectionIds", "pageId")
         return {
           ...state,
           pages: {
@@ -41,7 +41,7 @@ export default function (state = {
       return {...state, status: action.payload.data.status}
       break
     case FETCH_PAGES_BY_SECTION:
-      let pagesBySection = arrayToObject(action.payload.data, "sectionIds", "pageIds")
+      let pagesBySection = arrayToObject(action.payload.data, "sectionIds", "pageId")
       return {
         ...state,
         pages: {
@@ -51,7 +51,7 @@ export default function (state = {
       }
       break
     case FETCH_PAGES_BY_IDS:
-      let pagesByIds = arrayToObject(action.payload.data, "sectionIds", "pageIds")
+      let pagesByIds = arrayToObject(action.payload.data, "sectionIds", "pageId")
       return {
         ...state,
         pages: {
@@ -61,7 +61,7 @@ export default function (state = {
       }
       break
     case FETCH_PAGES:
-      let pages = arrayToObject(action.payload.data, "sectionIds", "pageIds")
+      let pages = arrayToObject(action.payload.data, "sectionIds", "pageId")
       return {
         ...state,
         pages: {

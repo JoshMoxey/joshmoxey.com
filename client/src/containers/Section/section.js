@@ -42,6 +42,7 @@ class Section extends Component {
   componentDidUpdate() {
     if (this.props.section) {
       this.props.updateTitle(this.props.section.title)
+      console.log("updateTitle")
     }
     if (!this.props.section) {
       this.props.fetchSection(this.props.match.params.section);

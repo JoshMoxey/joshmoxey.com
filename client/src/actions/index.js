@@ -2,7 +2,7 @@ import axios from 'axios';
 import {production} from "../global/global";
 import queryString from "query-string"
 
-export const ROOT_URL = production() ? "https://joshmoxey.com/data" : "http://localhost:1001/data"
+export const ROOT_URL = production() ? "https://joshmoxey.com/api" : "http://localhost:1001/api"
 
 export const FETCH_PAGE = 'fetch_page';
 export const FETCH_PAGES = 'fetch_pages';
@@ -15,9 +15,8 @@ export const FETCH_SECTIONS_BY_IDS = 'fetch_section_by_ids';
 export const RESET_SECTION_STATUS = 'reset_section_status'
 
 export const LOG_REQUEST_HISTORY = "log_request_history"
-export const CHECK_REQUEST_HISTORY = "check_request_history"
-export const LOG_SECTION_VIEW = "log_section_view"
-export const LOG_PAGE_VIEW = "log_page_view"
+export const LOG_VIEW_HISTORY = "log_view_history"
+export const SEND_VIEW_INCREASE = "send_view_increase"
 
 export const TOGGLE_SIDEBAR = 'toggle_sidebar'
 export const UPDATE_TITLE = 'update_title'
@@ -75,7 +74,7 @@ export function fetchSectionsByIds(section) {
 }
 
 export function checkRequestHistory(getState, id) {
-  return getState().requests[id]
+  return getState().history.requests[id]
 }
 
 export function logRequestHistory(data) {
@@ -85,34 +84,48 @@ export function logRequestHistory(data) {
   }
 }
 
-export function getLastView(getState, id) {
-  const {views} = getState()
-  return views[views.length -1]
-}
-
-export function logPageView(section, page) {
-  if (!production())
-    return
-  console.log(section, page)
-
-  return {
-    type: LOG_PAGE_VIEW,
-    payload: {
-      section,
-      page
+export function increaseViewCount(id, type) {
+  return (dispatch, getState) => {
+    if (getLastView(getState) === id) {
+      console.log("duplicate. Aborting")
+      return
     }
+
+    dispatch(
+      sendViewIncrease(id, type),
+      console.log(type)
+    ).then(() =>
+      dispatch(logViewHistory(id, type)),
+    )
   }
 }
 
-export function logSectionView(section) {
-  // if (!production())
-  //   return
-  console.log(section)
+export function getLastView(getState) {
+  const {views} = getState().history
+  const lastView = views[views.length - 1]
+  if (!lastView) {
+    return ""
+  }
+  return lastView.id
+}
 
+export function sendViewIncrease(id, type) {
+  let str = queryString.stringify({type})
+  const request = axios.post(`${ROOT_URL}/increase-view-count/${id}?${str}`)
+
+  console.log(str)
   return {
-    type: LOG_SECTION_VIEW,
+    payload: request,
+    type: SEND_VIEW_INCREASE
+  }
+}
+
+export function logViewHistory(id, type) {
+  return {
+    type: LOG_VIEW_HISTORY,
     payload: {
-      section,
+      id,
+      type
     }
   }
 }
