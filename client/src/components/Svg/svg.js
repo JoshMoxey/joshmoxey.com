@@ -2,14 +2,13 @@ import React from "react";
 import {idify} from "../../global/global";
 
 export default (props) => {
-
   const redirects = {
-
+    apple_podcast: "podcast",
+    apple_music: "itunes"
   }
 
-  if (redirects[props.icon]) {
-    props.icon = redirects[props.icon]
-  }
+  const redirect = redirects[props.icon]
+  const icon = redirect ? redirect : props.icon
 
   const icons = {
     facebook: "M30.234 0h-28.468c-0.976 0-1.766 0.79-1.766 1.766v28.468c0 0.976 0.79 1.766 1.766 1.766h15.326v-12.392h-4.172v-4.828h4.172v-3.566c0-4.132 2.524-6.38 6.212-6.38 1.766 0 3.284 0.128 3.726 0.188v4.32h-2.56c-2 0-2.39 0.96-2.39 2.36v3.080h4.78l-0.62 4.84h-4.16v12.378h8.154c0.976 0 1.766-0.79 1.766-1.766v-28.468c0-0.976-0.79-1.766-1.766-1.766z",
@@ -73,7 +72,7 @@ export default (props) => {
       className={classId}
     >
       <path
-        d={icons[idify(props.icon)]}
+        d={icons[icon]}
         style={{color: "inherit"}}
       ></path>
     </svg>

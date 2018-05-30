@@ -12,7 +12,7 @@ router
     }
     mongo.db.collection("pages")
       .findOne({
-        "sectionIds": {$elemMatch: {"id": req.params.section}},
+        "sectionIds": req.params.section,
         "pageId": req.params.page,
         "active": true
       }, (err, result) => {
@@ -49,9 +49,7 @@ router
     const limit = parseInt(req.params.limit) || 0
     const skip = parseInt(req.params.skip) || 0
     const query = {
-      sectionIds: {
-        $elemMatch: {"id": req.params.section}
-      },
+      sectionIds: req.params.section,
       active: true,
       ...featured
     }
@@ -72,7 +70,7 @@ router
         res.send(result)
       })
   })
-  .post("/api/pages-by-ids", function (req, res, next) {
+  .get("/api/pages-by-ids", function (req, res, next) {
     if (!req.body.ids) {
       return res.send(false)
     }
@@ -84,7 +82,6 @@ router
         _id: {$in: objectIds},
         active: true
       }).toArray((err, result) => {
-      //
       if (err) {
         return res.send({status: 500}) //server error
       }
@@ -94,6 +91,49 @@ router
       // res.send({...result, ...{status: 200}})
       res.send(result)
     })
+  })
+  .get("/api/pages-by-more", function (req, res, next) {
+    if (!req.query) {
+      return res.send(false)
+    }
+    const {sectionId} = req.query
+    //in the future, get multiple section pages like:
+    // sectionIds: { $in: sectionIds }
+
+    //add check to remove duplicates
+
+    mongo.db.collection("pages")
+      .find({
+        sectionIds: sectionId,
+        active: true
+      })
+      .sort({"details.date_published": 1})
+      .limit(1)
+      .toArray((err, recent) => {
+        mongo.db.collection("pages")
+          .find({
+            sectionIds: sectionId,
+            active: true
+          })
+          .sort({"details.views": 1})
+          .limit(1)
+          .toArray((err, most_viewed) => {
+            mongo.db.collection("pages")
+              .find({
+                sectionIds: sectionId,
+                active: true,
+              })
+              .sort({"details.featured": 1})
+              .limit(1)
+              .toArray((err, featured) => {
+                res.send({
+                  featured,
+                  recent,
+                  most_viewed
+                })
+              })
+          })
+      })
   })
   .get("/api/wild-card/:id", function (req, res, next) {
     if (!req.params.id) {
@@ -127,12 +167,13 @@ router
     const id = req.params.id.split("_")
     const sectionId = id[0]
     const pageId = id[1]
+
     if (req.query.type === "page") {
       mongo.db.collection("pages")
         .updateOne({
-          "sectionIds": {$elemMatch: {"id": sectionId}},
+          "sectionIds": sectionId,
           "pageId": pageId,
-        },{
+        }, {
           $inc: {"details.views": 1}
         })
       res.send(200)
@@ -141,16 +182,16 @@ router
       mongo.db.collection("sections")
         .updateOne({
           "sectionId.id": sectionId
-        },{
+        }, {
           $inc: {"details.views": 1}
         })
       res.send(200)
     }
-      // mongo.db.collection("events")
-      //   .insertOne({
-      //     "sectionIds": {$elemMatch: {"id": req.params.section}},
-      //     "pageId": req.params.page,
-      //   })
+    // mongo.db.collection("events")
+    //   .insertOne({
+    //     "sectionIds": {$elemMatch: {"id": req.params.section}},
+    //     "pageId": req.params.page,
+    //   })
   })
   .use(function (req, res, next) {
     res.status(404).send("error four o four")

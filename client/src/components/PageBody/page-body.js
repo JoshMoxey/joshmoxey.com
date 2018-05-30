@@ -14,7 +14,6 @@ const PageBody = (props) => {
       return <Article {...props} />
     default:
       return <div>Error, no page specified</div>
-      //
       break;
   }
 }

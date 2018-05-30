@@ -4,6 +4,7 @@ import {Link} from "react-router-dom"
 import CSSModules from "react-css-modules"
 import styles from "./action-list.css"
 import LinkPlus from "../LinkPlus/link-plus"
+import {linkTitles} from "../../global/global";
 
 class ActionList extends Component {
   constructor(props) {
@@ -15,10 +16,10 @@ class ActionList extends Component {
 
     let actions = this.props.links.links.map((item, i) =>
       <li key={i} styleName={`${this.props.main ? "main" : "" }`}>
-        <LinkPlus external={item.external} href={item.href}>
-          <Svg icon={item.name}/>
+        <LinkPlus href={item.href}>
+          <Svg icon={item.id}/>
           <span styleName="text">
-            {item.name}
+            {linkTitles[item.id]}
           </span>
         </LinkPlus>
       </li>
@@ -41,7 +42,7 @@ class ActionList extends Component {
     return (
       this.props.static || this.props.static === "true" ?
         <section styleName="action-list-static">
-          <h2>{this.props.links.shortText}</h2>
+          <h2>{this.props.links.title}</h2>
           <ul className="unstyled" styleName="">
             {actions}
           </ul>

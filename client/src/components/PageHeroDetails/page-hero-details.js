@@ -5,13 +5,12 @@ import Swiper from "react-id-swiper"
 import {dateFormatter, durationFormatter, episodeNumberFormatter} from "../../global/global";
 
 const PageHeroDetails = (props) => {
-
   const idTitles = {
     date_published: "Date Published",
     date_recorded: "Date Recorded",
     dates_modified: "Dates Modified",
     date_last_modified: "Last Modified",
-    episode_number: "Episode",
+    episode: "Episode",
     duration: "Duration",
     age: "Age",
     location: "Location",
@@ -32,11 +31,20 @@ const PageHeroDetails = (props) => {
       detail = durationFormatter(detail)
     }
 
-    if (key === "episode_number") {
+    if (key === "episode") {
       detail = episodeNumberFormatter(detail)
     }
 
-    if (key === "dates_modified" || key === "views") return
+    if (key === "featured") {
+      detail = "Featured"
+      title = "Status"
+    }
+
+    if (
+      key === "dates_modified" ||
+      key === "views" ||
+      !title
+    ) return
 
     return (
       <div styleName="detail" key={i}>

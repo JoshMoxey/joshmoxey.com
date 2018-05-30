@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import { connect } from "react-redux"
-import { createSelector } from 'reselect'
+import {connect} from "react-redux"
+import {createSelector} from 'reselect'
 import {fetchSection, fetchPagesBySection, updateTitle, resetSectionStatus} from "../../actions/index";
 
 import CSSModules from "react-css-modules"
@@ -111,43 +111,43 @@ class Section extends Component {
     )
 
     return (
-        <div styleName="body">
-          <Helmet>
-            <title>{titlify(section.title)}</title>
-          </Helmet>
-          <SectionHero
-            {... section}
-            focused={false}
-          />
-          <NavSlider
-            location={this.props.location}
-            url={this.props.match.url}
-            sectionId={this.props.match.params.section}
-            filters={section.filters}
-          />
-          <div styleName="contents">
-            <div styleName="primary">
-              <Switch>
-                <Route
-                  path={`/${this.props.match.params.section}/recent`}
-                  component={Recent}
-                />
-                <Route
-                  path={`/${this.props.match.params.section}/most-viewed`}
-                  component={MostViewed}
-                />
-                <Route
-                  path={`/${this.props.match.params.section}`}
-                  component={Default}
-                />
-              </Switch>
-            </div>
-            <div styleName="secondary">
-              {actionLists}
-            </div>
+      <div styleName="body">
+        <Helmet>
+          <title>{titlify(section.title)}</title>
+        </Helmet>
+        <SectionHero
+          {...section}
+          focused={false}
+        />
+        <NavSlider
+          location={this.props.location}
+          url={this.props.match.url}
+          sectionId={this.props.match.params.section}
+          hiddenFilters={section.hiddenFilters}
+        />
+        <div styleName="contents">
+          <div styleName="primary">
+            <Switch>
+              <Route
+                path={`/${this.props.match.params.section}/recent`}
+                component={Recent}
+              />
+              <Route
+                path={`/${this.props.match.params.section}/most-viewed`}
+                component={MostViewed}
+              />
+              <Route
+                path={`/${this.props.match.params.section}`}
+                component={Default}
+              />
+            </Switch>
           </div>
-          <Footer/>
+          <div styleName="secondary">
+            {actionLists}
+          </div>
         </div>
+        <Footer/>
+      </div>
     )
   }
 }
@@ -162,4 +162,9 @@ function mapStateToProps({sections}, ownProps) {
 }
 
 const ComponentWithCSS = CSSModules(Section, styles, {allowMultiple: true, handleNotFoundStyleName: "log"});
-export default connect(mapStateToProps, {fetchSection, fetchPagesBySection, updateTitle, resetSectionStatus})(ComponentWithCSS)
+export default connect(mapStateToProps, {
+  fetchSection,
+  fetchPagesBySection,
+  updateTitle,
+  resetSectionStatus
+})(ComponentWithCSS)

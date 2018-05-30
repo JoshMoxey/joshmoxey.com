@@ -5,8 +5,7 @@ import Swiper from "react-id-swiper"
 import {NavLink} from "react-router-dom"
 
 const NavSlider = (props) => {
-  const filtersArray = props.filters
-  const sectionDefaultFilters = [
+  const sectionFilters = [
     {
       title: "Home",
       id: "home",
@@ -23,10 +22,12 @@ const NavSlider = (props) => {
       id: "most_viewed",
       href: "/most-viewed"
     },
-  ]
-
-  const sectionFilters = sectionDefaultFilters
-    .filter(filter => filtersArray.includes(filter.id) || filter.important)
+    {
+      title: "Featured",
+      id: "featured",
+      href: "/featured"
+    },
+  ].filter(filter => !props.hiddenFilters.includes(filter.id) || filter.important)
     .map((detail, i) =>
       <NavLink
         exact

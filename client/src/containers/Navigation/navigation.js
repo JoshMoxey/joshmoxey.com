@@ -76,10 +76,10 @@ class Navigation extends Component {
       console.log("!this.state.init", !this.state.init)
       if (!this.state.init || JSON.stringify(thisIds) !== JSON.stringify(this.state.prevIds)) {
         console.log("startTimeout, didupdate")
+        console.log("UPDATE TO /PAGE/SECTION?TYPE?")
         this.startTimeout()
       }
     }
-
   }
 
   render() {

@@ -6,7 +6,7 @@ import Banner from "../Banner/banner"
 import ActionList from "../ActionList/action-list"
 import PageHeroDetails from "../PageHeroDetails/page-hero-details"
 import HeroButtons from "../HeroButtons/hero-buttons"
-import {imgPath} from "../../global/global"
+import {imgPath, sectionTitles} from "../../global/global"
 
 class PageHero extends Component {
   constructor(props) {
@@ -46,7 +46,8 @@ class PageHero extends Component {
     const sectionIds = this.props.sectionIds.map((section, i) =>
       <span key={i}>
         {i !== 0 ? ", " : ""}
-        <Link to={`/${section.id}`}>{section.title}</Link>
+        {console.log(section)}
+        <Link to={`/${section}`}>{sectionTitles[section]}</Link>
       </span>
     )
 

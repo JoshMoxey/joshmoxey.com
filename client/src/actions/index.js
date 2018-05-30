@@ -7,6 +7,7 @@ export const ROOT_URL = production() ? "https://joshmoxey.com/api" : "http://loc
 export const FETCH_PAGE = 'fetch_page';
 export const FETCH_PAGES = 'fetch_pages';
 export const FETCH_PAGES_BY_IDS = 'fetch_pages_by_ids';
+export const FETCH_PAGES_BY_MORE = 'fetch_pages_by_more';
 export const FETCH_PAGES_BY_SECTION = 'fetch_pages_by_section';
 export const RESET_PAGE_STATUS = 'reset_page_status'
 
@@ -34,6 +35,17 @@ export function fetchPagesByIds(ids) {
   const request = axios.post(`${ROOT_URL}/pages-by-ids`, {ids})
   return {
     type: FETCH_PAGES_BY_IDS,
+    payload: request
+  }
+}
+
+export function fetchPagesByMore(query) {
+  query = queryString.stringify({sectionId: query})
+  const request = axios.get(`${ROOT_URL}/pages-by-more?${query}`)
+  console.log(request)
+
+  return {
+    type: FETCH_PAGES_BY_MORE,
     payload: request
   }
 }
@@ -113,7 +125,6 @@ export function sendViewIncrease(id, type) {
   let str = queryString.stringify({type})
   const request = axios.post(`${ROOT_URL}/increase-view-count/${id}?${str}`)
 
-  console.log(str)
   return {
     payload: request,
     type: SEND_VIEW_INCREASE

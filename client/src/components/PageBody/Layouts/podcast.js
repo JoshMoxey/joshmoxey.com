@@ -28,9 +28,9 @@ const Podcast = (props) => {
           {...props.embed}
         />
         <PageList
-          {...props.related}
-          id="related"
-          sectionId="podcast"
+          {...props.more}
+          currentIds={props.currentIds}
+          sectionIds={props.sectionIds}
         />
       </div>
       <div styleName="secondary">

@@ -5,11 +5,11 @@ import Helmet from "react-helmet"
 import ScrollMemory from 'react-router-scroll-memory';
 
 import styles from "./page.css";
+import {urlToIds} from "../../global/global";
 import {
   fetchPage,
   updateTitle,
   resetPageStatus,
-  increaseViewCount
 } from "../../actions/index";
 import PageHero from "../../components/PageHero/page-hero"
 import PageBody from "../../components/PageBody/page-body"
@@ -73,8 +73,10 @@ class Page extends Component {
         <PageHero
           {...page}
         />
-
         <PageBody
+          currentIds={urlToIds(this.props.location.pathname)}
+          sectionIds={page.sectionIds}
+          more={page.more}
           {...page.body}
           type={page.type}
           links={page.links}
@@ -100,5 +102,4 @@ export default connect(mapStateToProps, {
   fetchPage,
   updateTitle,
   resetPageStatus,
-  increaseViewCount
 })(ComponentWithCSS);

@@ -7,7 +7,7 @@ const Sorter = (props) => {
   //if there's no additional, send section
   //else, send page
 
-  const sectionTabs = ["home", "recent", "most-viewed"]
+  const sectionTabs = ["home", "recent", "most-viewed", "featured"]
   if (sectionTabs.includes(props.match.params.page)) {
     return <Section {...props}></Section>
   }

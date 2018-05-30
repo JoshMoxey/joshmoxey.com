@@ -29,27 +29,15 @@ class HeroButtons extends Component {
   render() {
     const white = this.props.white ? "white" : ""
     const buttons = this.props.links.map(function (button, i) {
-      if (button.shortText.toLowerCase() === "share") {
+      const title = button.title.toLowerCase()
+      if (title === "share" || title === "more") {
         return (
           <button
             key={i}
-            name={i}
             onClick={this.onActionClick.bind(this)}
-            styleName="icon share"
+            styleName={`icon ${title}`}
           >
             <Svg icon="ios share"></Svg>
-          </button>
-        )
-      }
-      if (button.shortText.toLowerCase() === "more") {
-        return (
-          <button
-            key={i}
-            name={i}
-            onClick={this.onActionClick.bind(this)}
-            styleName="icon more"
-          >
-            <Svg icon="triple dots"></Svg>
           </button>
         )
       }
@@ -57,10 +45,8 @@ class HeroButtons extends Component {
         return (
           <LinkPlus
             key={i}
-            external={button.links[0].external}
-            href={button.links[0].href}
-          >
-            {button.shortText}
+            href={button.links[0].href}>
+            {button.title}
           </LinkPlus>
         )
       }
@@ -68,9 +54,8 @@ class HeroButtons extends Component {
         <button
           key={i}
           name={i}
-          onClick={this.onActionClick.bind(this)}
-        >
-          {button.shortText}
+          onClick={this.onActionClick.bind(this)}>
+          {button.title}
         </button>
       )
       //sort in priority order
@@ -82,7 +67,6 @@ class HeroButtons extends Component {
       //else, LinkPlus
       //if external = true, a
       //else Link tag
-
     }, this)
 
     const actionLists = this.props.links.map((list, i) =>

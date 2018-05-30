@@ -6,8 +6,7 @@ const ActionLists = (props) => {
 
   //define a blank schema that with the title "actions"
   const actionsData = {
-    shortText: "Actions",
-    longerText: false,
+    title: "Actions",
     priority: 1,
     links: []
   }

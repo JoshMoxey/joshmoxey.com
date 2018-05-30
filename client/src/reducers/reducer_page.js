@@ -2,6 +2,7 @@ import {
   FETCH_PAGE,
   FETCH_PAGES,
   FETCH_PAGES_BY_IDS,
+  FETCH_PAGES_BY_MORE,
   FETCH_PAGES_BY_SECTION,
   RESET_PAGE_STATUS
 } from "../actions/index";
@@ -9,7 +10,11 @@ import {
 export default function (state = {
   pages: {},
   status: null,
-  requests: {}
+  more: {
+    featured: [],
+    recent: [],
+    most_viewed: []
+  }
 }, action) {
   const arrayToObject = (array, key1, key2) =>
     //loop through array on pages
@@ -17,7 +22,7 @@ export default function (state = {
     //create a page entry for each sectionId
     array.reduce((obj, page) => {
       page.sectionIds.forEach((id, i) => {
-        let key = `${page[key1][i].id}_${page[key2]}`
+        let key = `${page[key1][i]}_${page[key2]}`
         page.id = key
         obj[key] = page
         return obj
@@ -57,6 +62,50 @@ export default function (state = {
         pages: {
           ...state.pages,
           ...pagesByIds
+        }
+      }
+      break
+    case FETCH_PAGES_BY_MORE:
+      const {recent, featured, most_viewed} = action.payload.data
+      const combinedPages = [...recent, ...featured, ...most_viewed]
+      let pagesByMore = arrayToObject(combinedPages, "sectionIds", "pageId")
+      console.log(featured[0].sectionIds[0])
+
+      const pageReference = (array) =>
+        array.reduce((obj, page) => {
+          let key = `${page.sectionIds[0]}_${page.pageId}`
+          obj[key] = page._id
+          return obj
+        }, {})
+
+      const returnIds = (array) =>
+        array.reduce((arr, page) => {
+          let key = `${page.sectionIds[0]}_${page.pageId}`
+          arr = [...arr, key]
+          return arr
+        }, [])
+
+
+      return {
+        ...state,
+        pages: {
+          ...state.pages,
+          ...pagesByMore
+        },
+        more: {
+          ...state.more,
+          featured: [
+            ...returnIds(featured),
+            ...state.more.featured,
+          ],
+          recent: [
+            ...returnIds(recent),
+            ...state.more.recent,
+          ],
+          most_viewed: [
+            ...returnIds(most_viewed),
+            ...state.more.most_viewed,
+          ],
         }
       }
       break

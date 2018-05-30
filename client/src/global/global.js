@@ -5,11 +5,23 @@ export const globals = {
   select: "select"
 }
 
-export const sectionId = {
+export const sectionTitles = {
   podcast: "The Josh Moxey Show",
   reflections: "Reflections",
   gems: "Josh Moxey's Gems",
   articles: "Articles",
+}
+
+export const linkTitles = {
+  google_play: "Google Play",
+  soundcloud: "Soundcloud",
+  youtube: "YouTube",
+  apple_music: "Apple Music",
+  apple_podcast: "Apple",
+  spotify: "Spotify",
+  stitcher: "Stitcher",
+  facebook: "Facebook",
+  twitter: "Twitter",
 }
 
 export const sectionFilters = {
@@ -22,39 +34,51 @@ export const imgPath = "/img"
 
 export const gradients = [
   "rgba(248,80,50,1), rgba(255,231,110,1)",
-
   "#b18080, #53639e",
   "rgba(124,87,142,1), rgba(58,136,105,1))",
   "rgba(187,163,199,1), rgba(116,195,164,1)",
   "rgba(255,255,181,1) 0%, rgba(255,222,186,1) 100%",
   "rgba(194,194,255,1) 0%, rgba(199,242,255,1) 100%",
-
   "rgba(255,236,194,1) 0%, rgba(255,199,204,1) 100%",
   "rgba(199,255,194,1) 0%, rgba(247,255,199,1) 100%",
   "rgba(255,194,255,1) 0%, rgba(212,199,255,1) 100",
   "rgba(235,148,148,1) 0%, rgba(138,94,94,1) 100%",
   "rgba(147,235,215,1) 0%, rgba(93,137,126,1) 100%",
-
   "rgba(147,190,235,1) 0%, rgba(93,114,137,1) 100%",
   "rgba(166,147,235,1) 0%, rgba(102,93,137,1) 100%",
   "rgba(224,69,61,1) 0%, rgba(245,147,144,1) 100%",
   "rgba(170,62,224,1) 0%, rgba(209,143,245,1) 100%",
   "rgba(119,212,119,1) 0%, rgba(170,182,240,1) 100%",
   "rgba(119,170,212,1) 0%, rgba(240,168,219,1) 100%",
-
 ]
 
 export const colors = [
-  "royalblue"
+  "royalblue",
+  "grey",
 ]
 
+export const defaultMoreSchema = (sectionId, count = 1) => {
+  return {
+    most_viewed: {
+      count,
+      sectionId
+    },
+    recent: {
+      count,
+      sectionId
+    },
+    featured: {
+      count,
+      sectionId
+    }
+  }
+}
+
 export function durationFormatter(value) {
-  if (value.h === 0 && value.m === 0) {
-    return `${value.m}s`
-  } else if (value.h === 0) {
-    return `${value.m}m ${value.m}s`
+  if (value.h === 0) {
+    return `${value.m}m`
   } else {
-    return `${value.h}h ${value.m}m ${value.m}s`
+    return `${value.h}h ${value.m}m`
   }
 }
 
@@ -66,11 +90,13 @@ export function episodeNumberFormatter(value) {
   }
 }
 
-export function dateFormatter(date, short = false, divider = "/") {
+export function dateFormatter(date, divider = "/") {
+
   let year, month, day, monthName, ordinal
   date = new Date(date);
 
-  if (short) {
+  let number = false
+  if (number) {
     year = date.getFullYear().toString().substring(2, 4)
     month = date.getMonth() + 1
     day = date.getDate()
@@ -81,6 +107,11 @@ export function dateFormatter(date, short = false, divider = "/") {
     monthName = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
     month = monthName[date.getMonth()]
     day = date.getDate();
+
+    //add "type" conditional here
+    if (!["May, June, July"].includes(month)) {
+      month = month.substring(0, 3)
+    }
 
     //ordinal
     switch (day % 10) {
@@ -257,20 +288,21 @@ export const urlToIds = (url) => {
   const filters = Object.values(sectionFilters)
   const section = url[0]
   let page = filters.includes(url[1]) ? undefined : url[1]
-  let type
+  let type, id
 
   if (page && section) {
     type = "page"
+    id = `${section}_${page}`
   } else if (section) {
     type = "section"
-  } else {
-    type = null
+    id = section
   }
 
   return {
     section,
     page,
-    type
+    type,
+    id
   }
 }
 
