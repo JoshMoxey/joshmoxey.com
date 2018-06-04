@@ -6,6 +6,7 @@ import Banner from "../Banner/banner"
 import ActionList from "../ActionList/action-list"
 import LinkPlus from "../LinkPlus/link-plus";
 import Svg from "../Svg/svg"
+import { linkMiddleware } from "../../global/global";
 
 class HeroButtons extends Component {
   constructor(props) {
@@ -45,7 +46,7 @@ class HeroButtons extends Component {
         return (
           <LinkPlus
             key={i}
-            href={button.links[0].href}>
+            url={linkMiddleware(button.links[0])}>
             {button.title}
           </LinkPlus>
         )

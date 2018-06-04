@@ -10,18 +10,25 @@ export const sectionTitles = {
   reflections: "Reflections",
   gems: "Josh Moxey's Gems",
   articles: "Articles",
+  radio: "Josh Moxey Radio"
 }
 
 export const linkTitles = {
   google_play: "Google Play",
-  soundcloud: "Soundcloud",
+  soundcloud: "SoundCloud",
   youtube: "YouTube",
   apple_music: "Apple Music",
-  apple_podcast: "Apple",
+  apple_podcasts: "Apple",
   spotify: "Spotify",
   stitcher: "Stitcher",
   facebook: "Facebook",
+  facebook_v: "Facebook",
   twitter: "Twitter",
+  instagram: "Instagram",
+  podcast: "Podcast",
+  simplecast: "Simplecast",
+  tunein: "TuneIn",
+  soundcloud_set: "SoundCloud"
 }
 
 export const sectionFilters = {
@@ -50,6 +57,7 @@ export const gradients = [
   "rgba(170,62,224,1) 0%, rgba(209,143,245,1) 100%",
   "rgba(119,212,119,1) 0%, rgba(170,182,240,1) 100%",
   "rgba(119,170,212,1) 0%, rgba(240,168,219,1) 100%",
+  "rgb(150, 83, 195), rgb(236, 127, 47)"
 ]
 
 export const colors = [
@@ -177,16 +185,17 @@ export const backgroundStyler = (style) => {
   //   color: ""
   // }
 
-  let backgroundColor, backgroundImage, overlay, gradient, gradient2, img
+  let backgroundColor, backgroundImage, overlay, gradient, gradient2, gradientOverlay, gradientOverlay2, img, img2
 
   if (style.overlay) {
-    let color = overlay.color || "34, 34, 34"
-    let opacity = overlay.opacity || .5
+    let color = style.overlay.color || "34, 34, 34"
+    let opacity = style.overlay.opacity || .5
     let rgba = `rgba(${color}, ${opacity})`
     overlay = `linear-gradient(${rgba}, ${rgba})`
   }
 
-  img = style.img ? `url(${imgPathify(style.img)})` : false
+  img = style.img ? `url(${imgMiddleware(style.img)})` : false
+  img2 = style.img2 ? `url(${imgMiddleware(style.img2)})` : false
 
   const gradientFilter = (gradient) => {
     if (!gradient) return false
@@ -205,38 +214,37 @@ export const backgroundStyler = (style) => {
   }
 
   gradient = gradientFilter(style.gradient)
-  gradient2 = gradientFilter(style.gradient2)
+  if (style.gradient2)
+    gradient2 = gradientFilter(style.gradient2)
+  if (style.gradientOverlay)
+    gradientOverlay = gradientFilter(style.gradientOverlay)
+  if (style.gradientOverlay2)
+    gradientOverlay2 = gradientFilter(style.gradientOverlay2)
 
   if (style.color === globals.random) {
     backgroundColor = generateRandomRGB()
   } else if (style.color === globals.select) {
     backgroundColor = getRandom(colors)
-  } else if (!style.color) {
+  } else if (style.color) {
+    backgroundColor = style.color
+  } else {
     backgroundColor = "#666"
   }
 
-  overlay = overlay ? `${gradient} ,` : ""
-  gradient = gradient ? `${gradient} ,` : ""
-  gradient2 = gradient2 ? `${gradient2} ,` : ""
-  img = img ? `${img} ,` : ""
+  overlay = overlay ? `${overlay}, ` : ""
+  gradientOverlay = gradientOverlay ? `${gradientOverlay}, ` : ""
+  gradientOverlay2 = gradientOverlay2 ? `${gradientOverlay2}, ` : ""
+  gradient = gradient ? `${gradient}, ` : ""
+  gradient2 = gradient2 ? `${gradient2}, ` : ""
+  img = img ? `${img}, ` : ""
+  img2 = img2 ? `${img2}, ` : ""
 
-  //combine all and remove comma at end that would cancel it all out
-  backgroundImage = `${overlay}${img}${gradient}${gradient2}`.slice(0, -1)
+  //combine all to the proper stacking order and remove comma at end that would cancel it all out
+  backgroundImage = `${overlay}${gradientOverlay}${gradientOverlay2}${img}${img2}${gradient}${gradient2}`.slice(0, -2)
 
   return {
     backgroundColor,
     backgroundImage
-  }
-}
-
-export const overlayStyler = (overlay) => {
-  if (!overlay) return ""
-  let color = overlay.color || "#222"
-  let opacity = overlay.opacity || .5
-
-  return {
-    backgroundColor: color,
-    opacity
   }
 }
 
@@ -264,7 +272,7 @@ export const transformToGradientSyntax = (gradient, angle, effect = "linear-grad
 
   if (angle === globals.random) {
     angle = Math.floor(Math.random() * 360)
-  } else if (angle) {
+  } else if (angle || angle === "0" || angle === 0) {
     angle = parseInt(angle)
   } else {
     angle = -45
@@ -306,16 +314,60 @@ export const urlToIds = (url) => {
   }
 }
 
-export const returnPageType = (url) => {
-  const {page, section} = urlToIds(url)
-  if (page && section) {
-    return "page"
+export const parseBoolean = (str) => {
+  return (str === "true")
+}
+
+export const linkMiddleware = (data) => {
+  let {id, urlId, url} = data
+  if (url) {
+    return url
   }
-  if (section) {
-    return "section"
+  switch (id) {
+    case "apple_podcasts":
+      if (!urlId) return "https://itunes.apple.com/ca/podcast/the-josh-moxey-journey/id1305500400?mt=2"
+      return `https://itunes.apple.com/ca/podcast/the-josh-moxey-journey/id1305500400?mt=2&i=${urlId}`
+    case "google_play":
+      if (!urlId) return "https://play.google.com/music/m/I5n3a2frujlcypze4b4fh5v2jdi?t=The_Josh_Moxey_Journey"
+      return `https://play.google.com/music/m/${urlId}`
+    case "stitcher":
+      if (!urlId) return `https://www.stitcher.com/podcast/josh-moxey/the-josh-moxey-journey`
+      return `https://www.stitcher.com/podcast/josh-moxey/the-josh-moxey-journeE/e/${urlId}`
+    case "tunein":
+      if (!urlId) return `https://tunein.com/podcasts/Business--Economics-Podcasts/The-Josh-Moxey-Show-p1056867`
+      return `https://tunein.com/podcasts/Business--Economics-Podcasts/The-Josh-Moxey-Show-p1056867/?topicId=${urlId}`
+    case "facebook_v":
+      if (!urlId) return `https://www.facebook.com/joshmoxey/videos`
+      return `https://www.facebook.com/joshmoxey/videos/${urlId}/`
+    case "facebook":
+      if (!urlId) return `https://www.facebook.com/joshmoxey`
+    case "youtube":
+      return `https://www.youtube.com/channel/UCJl0a8GmK6yX6gB5QHTkZiw`
+    case "apple_music":
+      if (!urlId) return `https://itunes.apple.com/profile/joshmoxey`
+      return `https://itunes.apple.com/ca/playlist/pl.u-${urlId}`
+    case "spotify":
+      if (!urlId) return `https://open.spotify.com/user/joshmoxey`
+      return `https://open.spotify.com/user/joshmoxey/playlist/${urlId}`
+    case "soundcloud":
+      return `https://soundcloud.com/joshmoxey`
+    case "soundcloud_set":
+      if (!urlId) return `https://soundcloud.com/joshmoxey`
+      return `https://soundcloud.com/joshmoxey/sets/${urlId}`
+    default:
+      return false
   }
 }
 
-export const parseBoolean = (str) => {
-  return (str === "true")
+export const imgPathRedirect = (src) => {
+  //create loop here for going until there's no more redirects
+  const redirects = {
+    "jmj": "josh-moxey-journey-logo-500-may-2018.png",
+    "jmr": "josh-moxey-radio-music-logo.png",
+  }
+  return redirects[src] || src
+}
+
+export const imgMiddleware = (src) => {
+  return imgPathify(imgPathRedirect(src))
 }

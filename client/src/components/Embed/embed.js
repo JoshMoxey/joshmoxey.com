@@ -1,8 +1,9 @@
 import React from "react"
 
 const Embed = (props) => {
+  console.log(props)
   if (!props.embedId) return ""
-  if (!props.src && !props.srcId) return ""
+  if (!props.url && !props.urlId) return ""
   //add function to access id from url
   //ie. detect type ie. starts with tools.applemusic...
   //based on that, select the substring amount
@@ -12,22 +13,27 @@ const Embed = (props) => {
   // applemusicid = "zPyLA2vudW4ePJ"
   // simplecastid = "b6b044af"
 
-  const linkConverter = (embedId, srcId) => {
+  const embedLinkConverter = (embedId, urlId) => {
     switch (embedId) {
       case "simplecast":
-        return `https://embed.simplecast.com/${srcId}?color=444444`
+        return `https://embed.simplecast.com/${urlId}?color=444444`
       case "apple_music":
-        return `https://tools.applemusic.com/embed/v1/playlist/pl.u-${srcId}?country=ca`
+        return `https://tools.applemusic.com/embed/v1/playlist/pl.u-${urlId}?country=ca`
     }
   }
 
-  const src = props.srcId ? linkConverter(props.srcId) : props.src
+  let {url} = props
+  if (props.urlId) {
+    url = embedLinkConverter(props.embedId, props.urlId)
+  }
+
+  console.log(props.embedId, props.urlId)
 
   const iframe = (embedId) => {
     switch (embedId) {
       case "simplecast":
         return <iframe
-          src={src}
+          src={url}
           frameBorder="0"
           height="200px"
           width="100%"
@@ -36,8 +42,8 @@ const Embed = (props) => {
         </iframe>
       case "apple_music":
         return <iframe
-          src={src}
-          frameborder="0"
+          src={url}
+          frameBorder="0"
           height="500px"
           width="100%">
         </iframe>

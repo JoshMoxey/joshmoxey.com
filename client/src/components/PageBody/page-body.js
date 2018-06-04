@@ -1,13 +1,13 @@
 import React from "react"
 import Podcast from "./Layouts/podcast"
-import Radio from "./Layouts/radio"
+import Music from "./Layouts/music"
 
 const PageBody = (props) => {
   switch (props.type) {
     case "podcast":
       return <Podcast {...props}/>
-    case "radio":
-      return <Radio {...props} />
+    case "music":
+      return <Music {...props} />
     case "gems":
       return <Gems {...props} />
     case "article":

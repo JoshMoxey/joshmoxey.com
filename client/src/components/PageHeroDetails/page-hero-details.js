@@ -15,6 +15,8 @@ const PageHeroDetails = (props) => {
     age: "Age",
     location: "Location",
     birthday: "Birthday",
+    songs: "Songs",
+    views: "Views"
   }
 
   const detailsKeys = Object.keys(props.details)
@@ -22,6 +24,13 @@ const PageHeroDetails = (props) => {
   const details = Object.values(props.details).map(function (detail, i) {
     let key = detailsKeys[i]
     let title = idTitles[key]
+
+    if (
+      key === "dates_modified" ||
+      key === "views" ||
+      !title ||
+      !detail
+    ) return
 
     if (key.startsWith("date")) {
       detail = dateFormatter(detail)
@@ -39,12 +48,6 @@ const PageHeroDetails = (props) => {
       detail = "Featured"
       title = "Status"
     }
-
-    if (
-      key === "dates_modified" ||
-      key === "views" ||
-      !title
-    ) return
 
     return (
       <div styleName="detail" key={i}>

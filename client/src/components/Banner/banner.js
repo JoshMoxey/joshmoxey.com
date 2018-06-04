@@ -10,13 +10,24 @@ class Banner extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.props === nextProps && this.state === nextState
+    if (this.props.children !== nextProps.children) {
+      return true
+    }
+    if (this.props.title !== nextProps.title) {
+      return true
+    }
+    if (this.props.title !== nextProps.title) {
+      return true
+    }
+    return false
   }
 
   render() {
     //todo
     //add dynamic height
 
+    const alt = this.props.alt || ""
+    const role = alt ? "img" : ""
     const height = this.props.height || ""
     return (
       <div styleName={`hero-banner ${this.props.banner.active ? "has-banner" : "no-banner"}`}>
@@ -25,14 +36,15 @@ class Banner extends Component {
             styleName="sizing"
             style={{
               minHeight: `${height}px`
-            }}
-          >
+            }}>
             {this.props.children}
           </div>
           <Background>
             <div
               styleName="banner"
               style={backgroundStyler(this.props.banner)}
+              role={role}
+              aria-label={alt}
             >
             </div>
           </Background>

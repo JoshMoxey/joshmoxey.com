@@ -6,7 +6,7 @@ import Banner from "../Banner/banner"
 import ActionList from "../ActionList/action-list"
 import PageHeroDetails from "../PageHeroDetails/page-hero-details"
 import HeroButtons from "../HeroButtons/hero-buttons"
-import {imgPath, sectionTitles} from "../../global/global"
+import {imgMiddleware, sectionTitles} from "../../global/global"
 
 class PageHero extends Component {
   constructor(props) {
@@ -31,7 +31,6 @@ class PageHero extends Component {
   }
 
   render() {
-    const img = `${imgPath}/${this.props.style.img}`;
     const title = this.props.title
     const titleClass = (titleText) => {
       if (titleText.length > 60) {
@@ -53,11 +52,14 @@ class PageHero extends Component {
 
     return (
       <div styleName="hero">
-        <Banner banner={this.props.style.banner} height={200}/>
+        <Banner
+          banner={this.props.style.banner}
+          height={200}
+          title={title}
+        />
         <div styleName="heading">
           <div styleName="logo-container">
-            {/*<div styleName="img-sim"></div>*/}
-            <img src={img}/>
+            <img src={imgMiddleware(this.props.style.img)}/>
           </div>
           <div styleName="right">
             <h1 styleName={titleClass(title)}>{title}</h1>

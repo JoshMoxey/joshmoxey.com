@@ -2,28 +2,29 @@ import React from "react"
 import CSSModules from "react-css-modules"
 import styles from "./socials-grid.css"
 import Svg from "../Svg/svg"
+import {idify} from "../../global/global";
 
 const SocialsGrid = (props) => {
   const data = [
     {
-      title: "Facebook",
-      href: "https://facebook.com/joshmoxey",
+      id: "instagram",
+      url: "https://instagram.com/joshmoxey",
     },
     {
-      title: "Instagram",
-      href: "https://facebook.com/joshmoxey",
+      id: "facebook",
+      url: "https://facebook.com/joshmoxey",
     },
     {
-      title: "YouTube",
-      href: "https://youtube.com/",
+      id: "youtube",
+      url: "https://www.youtube.com/channel/UCJl0a8GmK6yX6gB5QHTkZiw",
     },
     {
-      title: "Twitter",
-      href: "https://twitter.com/joshmoxey",
+      id: "twitter",
+      url: "https://twitter.com/joshmoxey",
     },
     {
-      title: "Podcast",
-      href: "https://twitter.com/joshmoxey",
+      id: "podcast",
+      url: "/podcast",
     },
   ]
 
@@ -31,9 +32,9 @@ const SocialsGrid = (props) => {
     <div
       key={i}
       styleName="link">
-      <a href={link.href}>
+      <a href={link.url}>
         <div styleName="icon">
-          <Svg icon={link.title}/>
+          <Svg icon={link.id}/>
         </div>
       </a>
     </div>

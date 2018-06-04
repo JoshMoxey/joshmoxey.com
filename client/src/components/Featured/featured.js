@@ -11,8 +11,7 @@ const Featured = (props) => {
 
   props.slides = [
     {
-      href: "/enuijokeene",
-      external: false,
+      url: "/enuijokeene",
       background: {
         image: "",
         gradient: "45deg, orange, yellow",
@@ -22,8 +21,7 @@ const Featured = (props) => {
       context: ""
     },
     {
-      href: "/enuijokeene",
-      external: false,
+      url: "/enuijokeene",
       // background: "url(https://s3.amazonaws.com/gv2016wp/wp-content/uploads/20160114151754/The_AskGaryVee_Show_EP176.jpg)"
       background: {
         image: "http://dannykennedyfitness.com/wp-content/uploads/2017/05/151204-DailyVee_Episode_001_02_1920x1080.jpg",
@@ -34,8 +32,7 @@ const Featured = (props) => {
       context: "The Josh Moxey Show, Episode 0"
     },
     {
-      href: "/enuijokeene",
-      external: false,
+      url: "/enuijokeene",
       background: {
         image: "",
         gradient: "",
@@ -69,8 +66,7 @@ const Featured = (props) => {
       key={i}
       styleName="featured-slide">
       <Link
-        to={slide.href}
-        external={slide.external}
+        url={slide.url}
         style={additionalStyling(slide.background)}
       >
         <div styleName="text">

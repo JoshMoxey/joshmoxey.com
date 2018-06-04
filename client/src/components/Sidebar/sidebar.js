@@ -38,7 +38,7 @@ class Sidebar extends Component {
             exact={exact}
             styleName="detail"
             key={i}
-            to={detail.href}
+            to={detail.url}
             activeStyle={{
               color: "#FFF",
               fontWeight: 500

@@ -9,9 +9,9 @@ import {fetchPagesByIds, fetchPagesByMore, fetchPagesBySection} from "../../acti
 import LinkPlus from "../../components/LinkPlus/link-plus"
 import {Link} from "react-router-dom"
 import {
-  imgPath,
   sectionTitles,
-  defaultMoreSchema
+  defaultMoreSchema,
+  imgMiddleware
 } from "../../global/global"
 import LinesEllipsis from 'react-lines-ellipsis'
 import responsiveHOC from 'react-lines-ellipsis/lib/responsiveHOC'
@@ -29,12 +29,18 @@ class PageList extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return this.props === nextProps || this.state === nextState
+    if (JSON.stringify(this.props) !== JSON.stringify(nextProps)) {
+      return true;
+    }
+    if (JSON.stringify(this.state) !== JSON.stringify(nextState)) {
+      return true;
+    }
+    return false
   }
 
   componentDidMount() {
-    let {ids, sectionIds, featured, skip, limit, sort} = this.props
-    const sectionId = sectionIds[0]
+    let {ids, sectionIds, sectionId, featured, skip, limit, sort} = this.props
+    sectionId = sectionIds ? sectionIds[0] : sectionId
 
     const options = {
       featured: this.props.featured || false,
@@ -67,19 +73,19 @@ class PageList extends Component {
     const idObject = {
       recent: {
         title: "Recent",
-        href: "/recent",
+        url: "/recent",
       },
       most_viewed: {
         title: "Most Viewed",
-        href: "most-viewed",
+        url: "most-viewed",
       },
       related: {
         title: "More",
-        href: "related",
+        url: "related",
       },
       more: {
         title: "More",
-        href: "related",
+        url: "related",
       }
     }
 
@@ -104,7 +110,7 @@ class PageList extends Component {
       || !limit
       || limit === undefined
       || limit > filteredPages.length
-      || !this.props.href
+      || !this.props.url
     ) {
       if (this.props.title === false) {
         titleElement = ""
@@ -117,49 +123,46 @@ class PageList extends Component {
       if (this.props.title === false) {
         titleElement = ""
       } else if (this.props.title) {
-        titleElement = <Link to={`/${this.props.href}`}><h2>{this.props.title}</h2></Link>
+        titleElement = <Link to={`/${this.props.url}`}><h2>{this.props.title}</h2></Link>
       } else {
-        titleElement = <Link to={`/${this.props.href}`}><h2>{title}</h2></Link>
+        titleElement = <Link to={`/${this.props.url}`}><h2>{title}</h2></Link>
       }
     }
 
-    let seeAll = <Link to={`${this.props.href}`}>
+    let seeAll = <Link to={`${this.props.url}`}>
       <span styleName="test">See All</span>
     </Link>
 
     // console.log("seeAll", this.props.seeAll)
     if (!this.props.seeAll) {
-      if (this.props.focused || this.props.href === undefined || limit === filteredPages.length) {
+      if (this.props.focused || this.props.url === undefined || limit === filteredPages.length) {
         seeAll = ""
       }
     }
-    console.log(filteredPages)
 
     const pages = filteredPages.map(function (link, i) {
-      let href = `/${link.sectionIds[0]}/${link.pageId}`
+      let url = `/${link.sectionIds[0]}/${link.pageId}`
       let detail = {
         title: sectionTitles[link.sectionIds[0]],
-        href: `/${link.sectionIds[0]}`
+        url: `/${link.sectionIds[0]}`
       }
-      const img = `${imgPath}/${link.style.img}`;
 
       if (i < limit) return (
         <div styleName="page" key={i}>
           <Link
-            to={href}
+            to={url}
             styleName="img-container">
-            <img src={img} alt={link.title}/>
+            <img src={imgMiddleware(link.style.img)} alt={link.title}/>
           </Link>
           <div styleName="text">
-            {console.log(href)}
-            <Link to={href} styleName="title">
+            <Link to={url} styleName="title">
               <ResponsiveEllipsis
                 text={link.title}
                 maxLine={2}
                 ellipsis={"..."}
               />
             </Link>
-            <Link to={detail.href} styleName="category">
+            <Link to={detail.url} styleName="category">
               {detail.title}
             </Link>
           </div>
@@ -206,66 +209,15 @@ const returnPagesByMore = createSelector(
             if (id === currentIds.id) return
             return id.startsWith(sectionId)
           })
+        //add results to macro array
         arr = [...arr, ...pageRefs]
         return [ ...new Set(arr) ]
       }, [])
+      //create a new array with the pages
       .reduce((arr, key) => {
         arr = [...arr, pages[key]]
         return arr
       }, [])
-
-
-
-    // const keys = Object.keys(schema)
-    // //featured, most viewed, recent, etc.
-    //   .reduce((arr, key) => {
-    //     let a = Object.keys(more[key])
-    //       //check for pages w/ sections === to the request
-    //       .filter((key2) => {
-    //         return key2.startsWith(sectionId)
-    //       })
-    //     arr = [...arr, ...a]
-    //     return [ ...new Set(arr) ]
-    //   }, [])
-    //   .reduce((arr, key) => {
-    //     arr = [...arr, more[key]]
-    //   }, [])
-
-    //filter here in future to remove duplicate of sections
-    //JSON.stringify and check all values that aren't sectionIds
-
-      // .reduce((arr, key) => {
-      //   let a = Object.keys(more[key])
-      //     .filter((key2) => {
-      //       return key2.startsWith(sectionId)
-      //     })
-      //     .reduce((arr2, key2) => {
-      //       arr2 = [...arr2, more[key][key2]]
-      //       return arr2
-      //     }, [])
-      //   arr = [...arr, ...a]
-      //   return arr
-      // }, [])
-    return keys
-    // .filter((key) => {
-    //   Object.keys(more[key]).filter((key2) => {
-    //     if (key2.startsWith(sectionId))
-    //       return more[key][key2].includes(more[key]._id)
-    //     return
-    //   })
-    //   return more[key][sectionId].includes(more[key]._id)
-    // })
-    // .reduce((arr, key) => {
-    //   return [...arr, ...more[key][sectionId]]
-    // }, [])
-
-    //old code
-    // return Object.keys(schema).reduce((arr, key) => {
-    //   // const count = schema[key].count - 1
-    //   if (Object.keys(more[key]).length === 0)
-    //     return [...arr]
-    //   return [...arr, ...more[key][sectionId]]
-    // }, [])
   }
 )
 

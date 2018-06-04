@@ -28,30 +28,31 @@ class HomeTiles extends Component {
     this.props.tiles = [
       {
         title: "The Josh Moxey Journey",
-        href: "/podcast",
+        url: "/podcast",
         background: {
-          img: false,
+          // img: "josh-moxey-journey-banner-june-2018.png",
           gradient: {
-            color: "rgb(60, 63, 99), rgb(148, 159, 189)",
+            color: "rgb(50, 59, 121), rgb(148, 159, 189)",
             angle: 30
           },
-          color: false,
-          overlay: true,
+          // overlay: true,
         },
-        description: "Follow along as I share lessons, hacks, mindsets, etc. along my entrepreneurial and life journey"
+        description: "Stories, lessons, hacks, mindsets, etc. along my entrepreneurial and life journey"
       },
       {
         title: "Josh Moxey Radio",
-        href: "/radio",
+        url: "/radio",
         background: {
-          img: false,
+          // "img" : "josh-moxey-radio-music-banner.png",
           gradient: {
-            angle: -70,
-            color: "#6559f6, #f68a5c",
-            // color: "#49b0ff, #ff4324, #b446d0"
+            angle: 170,
+            color: "rgba(255,90,78, 1), rgba(255,90,78, 0) 90%"
+          },
+          gradient2: {
+            angle: 80,
+            color: "rgb(149,77,253), rgb(32,185,255)"
           },
           color: false
-
         },
         description: "Playlists of my favourites songs, organized from softest to hardest"
       },
@@ -60,16 +61,17 @@ class HomeTiles extends Component {
     const tiles = this.props.tiles.map((tile, i) =>
       <div styleName="tile" key={i}>
         <Link
-          to={tile.href}
+          to={tile.url}
           style={backgroundStyler(tile.background)}
           styleName="category">
           <div styleName="text">
             <h1>{tile.title}</h1>
-            <ResponsiveEllipsis
-              text={tile.description}
-              maxLine={2}
-              ellipsis={"..."}
-            />
+            <div>{tile.description}</div>
+            {/*<ResponsiveEllipsis*/}
+              {/*text={tile.description}*/}
+              {/*maxLine={2}*/}
+              {/*ellipsis={"..."}*/}
+            {/*/>*/}
           </div>
         </Link>
       </div>

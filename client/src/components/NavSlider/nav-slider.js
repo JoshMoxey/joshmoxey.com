@@ -9,23 +9,23 @@ const NavSlider = (props) => {
     {
       title: "Home",
       id: "home",
-      href: "",
+      url: "",
       important: true
     },
     {
       title: "Recent",
       id: "recent",
-      href: "/recent"
+      url: "/recent"
     },
     {
       title: "Most Viewed",
       id: "most_viewed",
-      href: "/most-viewed"
+      url: "/most-viewed"
     },
     {
       title: "Featured",
       id: "featured",
-      href: "/featured"
+      url: "/featured"
     },
   ].filter(filter => !props.hiddenFilters.includes(filter.id) || filter.important)
     .map((detail, i) =>
@@ -33,7 +33,7 @@ const NavSlider = (props) => {
         exact
         key={i}
         styleName="link"
-        to={i === 0 ? `/${props.sectionId}` : `/${props.sectionId}${detail.href}`}
+        to={i === 0 ? `/${props.sectionId}` : `/${props.sectionId}${detail.url}`}
         activeStyle={{
           color: "#4a4a4a",
           fontWeight: 500,

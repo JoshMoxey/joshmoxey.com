@@ -10,19 +10,20 @@ const Footer = () => {
       title: "Socials",
       links: [
         {
+          title: "Instagram",
+          url: "https://instagram.com/joshmoxey",
+        },
+        {
           title: "Facebook",
-          href: "https://facebook.com/joshmoxey",
-          external: true
+          url: "https://facebook.com/joshmoxey",
         },
         {
-          title: "Instagram",
-          href: "https://facebook.com/joshmoxey",
-          external: true
+          title: "YouTube",
+          url: "https://www.youtube.com/channel/UCJl0a8GmK6yX6gB5QHTkZiw",
         },
         {
-          title: "Instagram",
-          href: "https://facebook.com/joshmoxey",
-          external: true
+          title: "Twitter",
+          url: "https://twitter.com/joshmoxey",
         },
       ],
     },
@@ -31,13 +32,11 @@ const Footer = () => {
       links: [
         {
           title: "Podcast",
-          href: "/podcast",
-          external: false
+          url: "/podcast",
         },
         {
           title: "Radio",
-          href: "/radio",
-          external: false
+          url: "/radio",
         },
       ],
     },
@@ -46,14 +45,12 @@ const Footer = () => {
       links: [
         {
           title: "Profile",
-          href: "/profile",
-          external: false
+          url: "/profile",
         },
-        {
-          title: "Socials",
-          href: "/socials",
-          external: false
-        },
+        // {
+        //   title: "Socials",
+        //   url: "/socials",
+        // },
       ],
     },
   ]
@@ -61,8 +58,7 @@ const Footer = () => {
   const link = (link, i) =>
     <li key={i}>
       <LinkPlus
-        to={link.href}
-        external={link.external}
+        url={link.url}
       >
         {link.title}
       </LinkPlus>

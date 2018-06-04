@@ -8,12 +8,10 @@ const Sorter = (props) => {
   //else, send page
 
   const sectionTabs = ["home", "recent", "most-viewed", "featured"]
-  if (sectionTabs.includes(props.match.params.page)) {
+  if (sectionTabs.includes(props.match.params.page) || !props.match.params.page) {
     return <Section {...props}></Section>
   }
-  return (
-    <Page {...props}></Page>
-  )
+  return <Page {...props}></Page>
 }
 
 export default Sorter

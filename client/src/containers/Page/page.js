@@ -61,7 +61,6 @@ class Page extends Component {
         return <Status status={this.props.status}/>
       return <Loading/>
     }
-
     this.props.updateTitle(this.props.page.title)
 
     return (

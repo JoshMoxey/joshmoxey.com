@@ -4,7 +4,7 @@ import {Link} from "react-router-dom"
 import CSSModules from "react-css-modules"
 import styles from "./action-list.css"
 import LinkPlus from "../LinkPlus/link-plus"
-import {linkTitles} from "../../global/global";
+import {linkTitles, linkMiddleware} from "../../global/global";
 
 class ActionList extends Component {
   constructor(props) {
@@ -16,7 +16,7 @@ class ActionList extends Component {
 
     let actions = this.props.links.links.map((item, i) =>
       <li key={i} styleName={`${this.props.main ? "main" : "" }`}>
-        <LinkPlus href={item.href}>
+        <LinkPlus url={linkMiddleware(item)}>
           <Svg icon={item.id}/>
           <span styleName="text">
             {linkTitles[item.id]}

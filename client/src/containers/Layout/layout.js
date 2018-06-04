@@ -71,9 +71,8 @@ class Layout extends Component {
             <Route path="/" component={Home} exact/>
             <Route path="/profile" render={() =>
               <Profile togglePopUp={this.togglePopUp}/>}/>
-            <Route path="/:section/:page" render={(props) =>
+            <Route path="/:section/:page?" render={(props) =>
               <Sorter active {...props} togglePopUp={this.togglePopUp}/>}/>
-            <Route path="/:section" component={Section}/>
           </Switch>
         </div>
       </BrowserRouter>

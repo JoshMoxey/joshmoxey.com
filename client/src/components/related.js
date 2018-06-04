@@ -8,69 +8,69 @@ import {Link} from "react-router-dom"
 const Related = (props) => {
   props.links = [
     {
-      href: "https://google.com",
+      url: "https://google.com",
       img: "https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/02/10/104275412-Gary_Vaynerchuk.1910x1000.jpg",
       title: "Title goes here and it's long as fuck ojaohibujijehibe enuije ejnei",
       detail: {
         text: "Category",
-        href: "cat"
+        url: "cat"
       }
     },
     {
-      href: "https://google.com",
+      url: "https://google.com",
       img: "https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/02/10/104275412-Gary_Vaynerchuk.1910x1000.jpg",
       title: "Title goes here and it's long as fuck ojaohibujijehibe enuije ejnei",
       detail: {
         text: "Category",
-        href: "cat"
+        url: "cat"
       }
     },
     {
-      href: "https://google.com",
+      url: "https://google.com",
       img: "https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/02/10/104275412-Gary_Vaynerchuk.1910x1000.jpg",
       title: "Title goes here and it's long as fuck ojaohibujijehibe enuije ejnei",
       detail: {
         text: "Category",
-        href: "cat"
+        url: "cat"
       }
     },
     {
-      href: "https://google.com",
+      url: "https://google.com",
       img: "https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/02/10/104275412-Gary_Vaynerchuk.1910x1000.jpg",
       title: "Title goes here and it's long as fuck ojaohibujijehibe enuije ejnei",
       detail: {
         text: "Category",
-        href: "cat"
+        url: "cat"
       }
     },
     {
-      href: "https://google.com",
+      url: "https://google.com",
       img: "https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/02/10/104275412-Gary_Vaynerchuk.1910x1000.jpg",
       title: "Title goes here and it's long as fuck ojaohibujijehibe enuije ejnei",
       detail: {
         text: "Category",
-        href: "cat"
+        url: "cat"
       }
     },
     {
-      href: "https://google.com",
+      url: "https://google.com",
       img: "https://fm.cnbc.com/applications/cnbc.com/resources/img/editorial/2017/02/10/104275412-Gary_Vaynerchuk.1910x1000.jpg",
       title: "Title goes here and it's long as fuck ojaohibujijehibe enuije ejnei",
       detail: {
         text: "Category",
-        href: "cat"
+        url: "cat"
       }
     }
   ]
 
   const links = props.links.map((link, i) =>
     <div styleName="related-link" key={i}>
-      <Link to={link.href} styleName="img-container">
+      <Link to={link.url} styleName="img-container">
         <img src={link.img} alt={link.title}/>
       </Link>
       <div styleName="text">
-        <Link to={link.href} styleName="title">{link.title}</Link>
-        <Link to={link.detail.href} styleName="category">{link.detail.text}</Link>
+        <Link to={link.url} styleName="title">{link.title}</Link>
+        <Link to={link.detail.url} styleName="category">{link.detail.text}</Link>
       </div>
     </div>
   )

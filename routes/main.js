@@ -107,7 +107,7 @@ router
         sectionIds: sectionId,
         active: true
       })
-      .sort({"details.date_published": 1})
+      .sort({"details.date_published": -1})
       .limit(1)
       .toArray((err, recent) => {
         mongo.db.collection("pages")
@@ -115,13 +115,14 @@ router
             sectionIds: sectionId,
             active: true
           })
-          .sort({"details.views": 1})
+          .sort({"details.views": -1})
           .limit(1)
           .toArray((err, most_viewed) => {
             mongo.db.collection("pages")
               .find({
                 sectionIds: sectionId,
                 active: true,
+                "details.featured": { $exists: true }
               })
               .sort({"details.featured": 1})
               .limit(1)
@@ -169,6 +170,7 @@ router
     const pageId = id[1]
 
     if (req.query.type === "page") {
+      console.log("page")
       mongo.db.collection("pages")
         .updateOne({
           "sectionIds": sectionId,
@@ -179,9 +181,10 @@ router
       res.send(200)
     }
     if (req.query.type === "section") {
+      console.log("section")
       mongo.db.collection("sections")
         .updateOne({
-          "sectionId.id": sectionId
+          "sectionId": sectionId
         }, {
           $inc: {"details.views": 1}
         })

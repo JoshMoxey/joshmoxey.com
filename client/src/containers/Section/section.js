@@ -37,30 +37,34 @@ class Section extends Component {
       this.props.resetSectionStatus()
       this.props.fetchSection(section);
     }
+    console.log("mount")
   }
 
   componentDidUpdate() {
     if (this.props.section) {
       this.props.updateTitle(this.props.section.title)
-      console.log("updateTitle")
     }
     if (!this.props.section) {
       this.props.fetchSection(this.props.match.params.section);
     }
+    // console.log(this.props.section)
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    if (JSON.stringify(this.props) !== JSON.stringify(nextProps)) {
-      return true;
-    }
-    if (JSON.stringify(this.state) !== JSON.stringify(nextState)) {
-      return true;
-    }
-    return false
+    console.log("should update")
+    return true
+    // if (JSON.stringify(this.props) !== JSON.stringify(nextProps)) {
+    //   return true;
+    // }
+    // if (JSON.stringify(this.state) !== JSON.stringify(nextState)) {
+    //   return true;
+    // }
+    // return false
   }
 
   render() {
     const section = this.props.section
+    console.log(section)
 
     if (!section) {
       if (this.props.status && this.props.status !== 200)
@@ -78,14 +82,14 @@ class Section extends Component {
         />
         <PageList
           seeAll={true}
-          href={`/${this.props.match.params.section}/recent`}
+          url={`/${this.props.match.params.section}/recent`}
           id="recent"
           sectionId={this.props.match.params.section}
           limit={3}
         />
         <PageList
           seeAll={true}
-          href={`/${this.props.match.params.section}/most-viewed`}
+          url={`/${this.props.match.params.section}/most-viewed`}
           id="most_viewed"
           sectionId={this.props.match.params.section}
           limit={3}
@@ -97,6 +101,7 @@ class Section extends Component {
         id="recent"
         sectionId={this.props.match.params.section}
         focused={true}
+        limit={false}
       />
 
     const MostViewed = () =>
@@ -104,6 +109,7 @@ class Section extends Component {
         id="most_viewed"
         sectionId={this.props.match.params.section}
         focused={true}
+        limit={false}
       />
 
     const actionLists = section.links.map((link, i) =>
@@ -115,9 +121,10 @@ class Section extends Component {
         <Helmet>
           <title>{titlify(section.title)}</title>
         </Helmet>
+        {/*{console.log("sectionId", this.props.match.params.section)}*/}
         <SectionHero
           {...section}
-          focused={false}
+          sectionId={this.props.match.params.section}
         />
         <NavSlider
           location={this.props.location}

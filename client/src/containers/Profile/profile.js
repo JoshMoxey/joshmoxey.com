@@ -33,7 +33,9 @@ class Profile extends Component {
 
     const banner = {
       active: true,
-      gradient: "45deg, #222, #888"
+      gradient: {
+        color: "select"
+      }
     }
 
     const details = {
@@ -54,14 +56,26 @@ class Profile extends Component {
     }
 
     const previewData = {
-      title: false,
+      title: "Photos",
       slides: [
         {
-          img: "http://via.placeholder.com/350x150",
+          img: "josh-moxey-toronto-ontario-canada.jpg",
           caption: [
-            "caption here"
+            "Josh Moxey in Toronto, Ontario, Canada"
           ]
-        }
+        },
+        {
+          img: "josh-moxey-entrepreneur-creator.jpg",
+          caption: [
+            "Josh Moxey, an entrepreneur and creator, working on his laptop"
+          ]
+        },
+        {
+          img: "josh-moxey-entrepreneur-creator-business.png",
+          caption: [
+            "Josh Moxey in a rare suit at a wedding"
+          ]
+        },
       ]
     }
 
@@ -72,34 +86,24 @@ class Profile extends Component {
         "priority": 1,
         "links": [
           {
-            "name": "Instagram",
-            "href": "https://instagram.com/instagram",
-            "external": true
+            "id": "instagram",
+            "url": "https://instagram.com/instagram",
           },
           {
-            "name": "Facebook",
-            "href": "https://facebook.com/joshmoxey.com",
-            "external": true
+            "id": "facebook",
+            "url": "https://facebook.com/joshmoxey.com",
           },
           {
-            "name": "YouTube",
-            "href": "https://www.youtube.com/channel/UCJl0a8GmK6yX6gB5QHTkZiw",
-            "external": true
+            "id": "youtube",
+            "url": "https://www.youtube.com/channel/UCJl0a8GmK6yX6gB5QHTkZiw",
           },
           {
-            "name": "Twitter",
-            "href": "https://twitter.com/joshmoxey",
-            "external": true
+            "id": "twitter",
+            "url": "https://twitter.com/joshmoxey",
           },
           {
-            "name": "Snapchat",
-            "href": "https://snapchat.com/add/moxeyjosh",
-            "external": true
-          },
-          {
-            "name": "Soundcloud",
-            "href": "https://soundcloud.com/joshmoxey",
-            "external": true
+            "id": "podcast",
+            "url": "/podcast",
           },
         ]
       }
@@ -114,7 +118,7 @@ class Profile extends Component {
         <div styleName="header">
           <div styleName="img">
             <img
-              src="http://www.comingsoon.net/assets/uploads/2017/07/spider-man-homecoming-df-24018-1.jpg"
+              src={imgPathify("josh-moxey.png")}
               alt="Josh Moxey"
               onClick={(e) => this.props.togglePopUp(e)}
             />

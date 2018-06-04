@@ -8,22 +8,22 @@ const Socials = (props) => {
   const data = [
     {
       title: "Facebook",
-      href: "https://facebook.com/joshmoxey",
+      url: "https://facebook.com/joshmoxey",
       text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa dolore dolorum eligendi et, eum hic maiores obcaecati optio tempora voluptatem!",
     },
     {
       title: "Instagram",
-      href: "https://facebook.com/joshmoxey",
+      url: "https://facebook.com/joshmoxey",
       text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium amet aperiam debitis deleniti ducimus eius est eum facilis hic, impedit laboriosam",
     },
     {
       title: "YouTube",
-      href: "https://youtube.com",
+      url: "https://youtube.com",
       text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda corporis dolorem dolores velit voluptatum!"
     },
     {
       title: "",
-      href: "",
+      url: "",
       text: "",
     },
   ]

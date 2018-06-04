@@ -69,14 +69,6 @@ export default function (state = {
       const {recent, featured, most_viewed} = action.payload.data
       const combinedPages = [...recent, ...featured, ...most_viewed]
       let pagesByMore = arrayToObject(combinedPages, "sectionIds", "pageId")
-      console.log(featured[0].sectionIds[0])
-
-      const pageReference = (array) =>
-        array.reduce((obj, page) => {
-          let key = `${page.sectionIds[0]}_${page.pageId}`
-          obj[key] = page._id
-          return obj
-        }, {})
 
       const returnIds = (array) =>
         array.reduce((arr, page) => {
@@ -84,7 +76,6 @@ export default function (state = {
           arr = [...arr, key]
           return arr
         }, [])
-
 
       return {
         ...state,

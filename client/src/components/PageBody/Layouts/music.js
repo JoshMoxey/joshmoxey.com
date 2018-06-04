@@ -9,7 +9,7 @@ import Quote from "../../../components/Quote/quote"
 import ActionLists from "../../../components/ActionLists/action-lists"
 import Embed from "../../../components/Embed/embed"
 
-const Radio = (props) => {
+const Music = (props) => {
   if (!props) return <div></div>
   return (
     <div styleName="contents">
@@ -21,10 +21,10 @@ const Radio = (props) => {
           {...props.embed}
         />
         <PageList
-          {...props.related}
-          // id="related"
-          id="related"
-          sectionId="podcast"
+          {...props.more}
+          currentIds={props.currentIds}
+          sectionIds={props.sectionIds}
+          id={"more"}
         />
       </div>
       <div styleName="secondary">
@@ -36,4 +36,4 @@ const Radio = (props) => {
   )
 }
 
-export default CSSModules(Radio, styles, {allowMultiple: true, handleNotFoundStyleName: "log"});
+export default CSSModules(Music, styles, {allowMultiple: true, handleNotFoundStyleName: "log"});

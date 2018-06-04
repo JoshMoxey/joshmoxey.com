@@ -105,7 +105,7 @@ export function increaseViewCount(id, type) {
 
     dispatch(
       sendViewIncrease(id, type),
-      console.log(type)
+      console.log("sentViewInc")
     ).then(() =>
       dispatch(logViewHistory(id, type)),
     )

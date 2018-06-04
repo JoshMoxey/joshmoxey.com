@@ -27,7 +27,7 @@ const Nav = (props) => {
         <NavLink
           exact
           key={i}
-          to={icon.href}
+          to={icon.url}
           activeStyle={{
             color: "#444"
           }}
@@ -46,7 +46,7 @@ const Nav = (props) => {
       <NavLink
         exact={i === 0}
         key={i}
-        to={icon.href}
+        to={icon.url}
         activeStyle={{
           color: "#FFF"
         }}>
@@ -60,7 +60,7 @@ const Nav = (props) => {
 
   //   <NavIconLink
   // key={i}
-  // to={icon.href}
+  // to={icon.url}
   // activeStyle={{color: "#FFF"}}
   // icon={icon.icon}
   // title={icon.title}

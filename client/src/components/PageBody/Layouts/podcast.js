@@ -20,10 +20,6 @@ const Podcast = (props) => {
         <TextClamp
           {...props.description}
         />
-        <Preview
-          {...props.preview}
-          togglePopUp={props.togglePopUp}
-        />
         <Embed
           {...props.embed}
         />
@@ -31,6 +27,7 @@ const Podcast = (props) => {
           {...props.more}
           currentIds={props.currentIds}
           sectionIds={props.sectionIds}
+          id={"more"}
         />
       </div>
       <div styleName="secondary">
@@ -41,10 +38,5 @@ const Podcast = (props) => {
     </div>
   )
 }
-
-/*<Preview
-  {...props.preview}
-  togglePopUp={this.togglePopUp.bind(this)}
-/>*/
 
 export default CSSModules(Podcast, styles, {allowMultiple: true, handleNotFoundStyleName: "log"});

@@ -11,7 +11,7 @@ class Swiper extends Component {
     }
     
     const slides = this.props.slides.map((slide, i) =>
-      <Link key={i} to={slide.href} styleName="swiper-slide">
+      <Link key={i} to={slide.url} styleName="swiper-slide">
         {/*<img src={slide.img}/>*/}
         <div styleName="img-sim"></div>
         <div styleName="title">{slide.title}</div>

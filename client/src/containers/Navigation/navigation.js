@@ -3,7 +3,7 @@ import {connect} from "react-redux"
 import CSSModules from "react-css-modules"
 import styles from "./navigation.css"
 import {Route} from "react-router-dom"
-import {toggleSidebar} from "../../actions"
+import {toggleSidebar, increaseViewCount} from "../../actions"
 import {urlToIds} from "../../global/global"
 import Sidebar from "../../components/Sidebar/sidebar"
 import NavBar from "../../components/NavBar/nav"
@@ -60,23 +60,23 @@ class Navigation extends Component {
     const idsAtInit = urlToIds(this.props.location.pathname)
     this.timeout = setTimeout(function () {
       const idsAtCall = urlToIds(this.props.location.pathname)
+      //if main route hasn't changed since timeout
       if (JSON.stringify(idsAtInit) === JSON.stringify(idsAtCall)) {
-        console.log("equal, send simulation for", idsAtInit.type)
+        const {id, type} = idsAtInit
+        this.props.increaseViewCount(id, type)
         this.setState({prevIds: idsAtInit})
       }
     }.bind(this), 5000)
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log("update")
+    //if there's a page or section with the currentIds
     if (this.props.page || this.props.section) {
-      console.log("page or section exists")
       const thisIds = urlToIds(this.props.location.pathname)
       const prevIds = urlToIds(prevProps.location.pathname)
-      console.log("!this.state.init", !this.state.init)
+      //if the ids are new (except for the first time)
+      //basically, is there's a new page
       if (!this.state.init || JSON.stringify(thisIds) !== JSON.stringify(this.state.prevIds)) {
-        console.log("startTimeout, didupdate")
-        console.log("UPDATE TO /PAGE/SECTION?TYPE?")
         this.startTimeout()
       }
     }
@@ -87,46 +87,45 @@ class Navigation extends Component {
       {
         title: "Home",
         icon: "home",
-        href: "/",
+        url: "/",
         priority: 1,
         children: []
       },
       {
         title: "Profile",
         icon: "profile",
-        href: "/profile",
+        url: "/profile",
         priority: 1,
         children: []
       },
-
       // {
       //   title: "Work",
       //   icon: "work",
-      //   href: "/work",
+      //   url: "/work",
       //   priority: 1,
       //   children: [
       //     {
       //       title: "Services",
       //       icon: "users",
-      //       href: "/services",
+      //       url: "/services",
       //       children: []
       //     },
       //     {
       //       title: "Code",
       //       icon: "code",
-      //       href: "/websites",
+      //       url: "/websites",
       //       children: []
       //     },
       //     {
       //       title: "Designs",
       //       icon: "art",
-      //       href: "/designs",
+      //       url: "/designs",
       //       children: []
       //     },
       //     {
       //       title: "Video edits",
       //       icon: "film",
-      //       href: "/edits",
+      //       url: "/edits",
       //       children: []
       //     },
       //   ]
@@ -134,54 +133,54 @@ class Navigation extends Component {
       // {
       //   title: "Content",
       //   icon: "play",
-      //   href: "/content",
+      //   url: "/content",
       //   priority: 1,
       //   children: [
       {
         title: "Podcast",
         icon: "podcast",
-        href: "/podcast",
+        url: "/podcast",
+        children: []
+      },
+      {
+        title: "Josh Moxey Radio",
+        icon: "music",
+        url: "/radio",
         children: []
       },
       // {
       //   title: "Films",
       //   icon: "play",
-      //   href: "/films",
+      //   url: "/films",
       //   children: []
       // },
-      {
-        title: "Josh Moxey Radio",
-        icon: "music",
-        href: "/radio",
-        children: []
-      },
       // {
       //   title: "Gems",
       //   icon: "gem2",
-      //   href: "/gems",
+      //   url: "/gems",
       //   children: []
       // },
       // {
       //   title: "Articles",
       //   icon: "note",
-      //   href: "/articles",
+      //   url: "/articles",
       //   children: []
       // },
       // {
       //   title: "Photography",
       //   icon: "photography",
-      //   href: "/photography",
+      //   url: "/photography",
       //   children: []
       // }
       //   ]
       // },
-      {
-        title: "Socials",
-        icon: "link2",
-        href: "/social",
-        priority: 2,
-        children: []
-      },
+      // {
+      //   title: "Socials",
+      //   icon: "link2",
+      //   url: "/social",
+      //   priority: 2,
+      //   children: []
+      // },
     ]
 
     return (
@@ -218,4 +217,4 @@ function mapStateToProps({title, pages, sections}, ownProps) {
 }
 
 const ComponentWithCSS = CSSModules(Navigation, styles, {allowMultiple: true, handleNotFoundStyleName: "log"});
-export default connect(mapStateToProps)(ComponentWithCSS)
+export default connect(mapStateToProps, {increaseViewCount})(ComponentWithCSS)

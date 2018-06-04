@@ -2,16 +2,16 @@ import React from "react"
 import {Link} from "react-router-dom"
 
 const LinkPlus = props => {
-  const href = props.href
+  const url = props.url
   const style = props.style || {}
   const omit = props.omit || props.ignore
 
-  if (!href || omit) return ""
+  if (!url || omit) return ""
 
-  if (href.startsWith("http") || href.startsWith("www") || props.external) {
+  if (url.startsWith("http") || url.startsWith("www") || props.external) {
     return (
       <a
-        href={href}
+        href={url}
         target="_blank"
         style={style}
       >
@@ -21,7 +21,7 @@ const LinkPlus = props => {
   } else {
     return (
       <Link
-        to={href}
+        to={url}
         style={style}>
         {props.children}
       </Link>
