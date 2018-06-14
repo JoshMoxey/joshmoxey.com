@@ -1,7 +1,6 @@
 import React from "react"
 
 const Embed = (props) => {
-  console.log(props)
   if (!props.embedId) return ""
   if (!props.url && !props.urlId) return ""
   //add function to access id from url

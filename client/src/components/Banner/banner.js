@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import CSSModules from "react-css-modules"
 import styles from "./banner.css"
 import {Parallax, Background} from 'react-parallax';
-import {backgroundStyler} from "../../global/global";
+import {backgroundStyler, isMobile} from "../../global/global";
 
 class Banner extends Component {
   constructor(props) {
@@ -31,13 +31,20 @@ class Banner extends Component {
     const height = this.props.height || ""
     return (
       <div styleName={`hero-banner ${this.props.banner.active ? "has-banner" : "no-banner"}`}>
-        <Parallax strength={350}>
+        <Parallax strength={350} disabled={isMobile()}>
           <div
             styleName="sizing"
             style={{
               minHeight: `${height}px`
             }}>
             {this.props.children}
+            {/*<div*/}
+              {/*styleName="banner"*/}
+              {/*style={backgroundStyler(this.props.banner)}*/}
+              {/*role={role}*/}
+              {/*aria-label={alt}*/}
+            {/*>*/}
+            {/*</div>*/}
           </div>
           <Background>
             <div

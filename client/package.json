@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack.dev.js  --mode development",
     "build": "cross-env NODE_ENV=production webpack --config webpack.prod.js --mode production",
-    "start": "cross-env NODE_ENV=production node server.js"
+    "start": "cross-env NODE_ENV=production node server.js",
+    "forever": "cross-env NODE_ENV=production forever start server.js"
   },
   "author": "",
   "license": "ISC",

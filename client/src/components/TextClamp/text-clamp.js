@@ -18,7 +18,12 @@ class TextClamp extends Component {
 
   componentDidMount(props) {
     window.addEventListener("resize", this.calculateClamp)
+    // this.calculateClamp()
     this.calculateClamp()
+    // this.calculateClamp()
+    setTimeout(() => {
+      this.calculateClamp()
+    }, 110)
 
     //delay init so there's no transition speed on render while it calculates heigts
     setTimeout(() => {
@@ -38,10 +43,13 @@ class TextClamp extends Component {
       + parseInt(style.paddingBottom)
     let maxHeightOfP = lineHeight * 3
       + parseInt(style.paddingTop)
+    console.log(style.height)
     let actualHeightOfP = style.height === "auto"
-      ? maxHeightOfP + .1
+      // ? maxHeightOfP + .1
+      ? "auto"
       : parseFloat(style.height) + parseInt(style.paddingTop)
 
+    console.log(actualHeightOfP)
     //for lines less than 3 with only one p, remove expand option
     if (actualHeightOfP < maxHeightOfP && this.props.text.length === 1) {
       this.setState({clampable: false})
@@ -55,7 +63,8 @@ class TextClamp extends Component {
         height: actualHeightOfP,
         fixed: false
       })
-    } else { //if p's lines are 3 or more cut it off there + show fixed
+    } else {
+      //if p's lines are 3 or more cut it off there + show fixed
       this.setState({
         height: maxHeightOfP,
         fixed: true,
@@ -64,11 +73,9 @@ class TextClamp extends Component {
   })
 
   toggleClamp() {
-    // setTimeout(() => {
     this.setState({
       clamped: !this.state.clamped
     })
-    // }, 500)
   }
 
   render() {
@@ -106,18 +113,21 @@ class TextClamp extends Component {
             {this.props.text[0] + " "}
             {!this.state.clampable ? "" :
               (<span>
-              <span ref={(a) => this.span = a}
-                    styleName={"open inline"}
-                    onClick={this.toggleClamp.bind(this)}>Show more</span>
-              <span styleName={"open fixed"}
-                    onClick={this.toggleClamp.bind(this)}>Show more</span>
+              <span
+                ref={(a) => this.span = a}
+                styleName={"open inline"}
+                onClick={this.toggleClamp.bind(this)}>Show more</span>
+              <span
+                styleName={"open fixed"}
+                onClick={this.toggleClamp.bind(this)}>Show more</span>
             </span>)
             }
           </p>
           {extraText}
           <span
-            styleName="close"
-            onClick={this.toggleClamp.bind(this)}>
+            styleName={this.state.clampable ? "close" : "close unclampable"}
+            onClick={this.toggleClamp.bind(this)}
+          >
         Show less</span>
         </AnimateHeight>
       </section>

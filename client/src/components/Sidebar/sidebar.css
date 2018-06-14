@@ -30,17 +30,20 @@
   align-items: center;
   padding-top: 8px;
 }
-.sidebar .header-1 .img-container .img {
+.sidebar .header-1 .img-container .img,
+.sidebar .header-1 .img-container img {
   height: 80px;
   width: 80px;
   border-radius: 50%;
   background: #494949;
+  cursor: pointer;
 }
 .sidebar .header-1 h2 {
   padding-top: 8px;
   font-size: 24px;
   text-align: center;
   color: #fafafa;
+  cursor: pointer;
 }
 .sidebar .header-2 {
   display: inline-flex;

@@ -1,9 +1,10 @@
-import React, { Component } from "react"
+import React, {Component} from "react"
 import CSSModules from "react-css-modules"
 import styles from "./sidebar.css"
 
 import {NavLink, Link} from "react-router-dom"
 import Svg from "../../components/Svg/svg"
+import {imgPathify} from "../../global/global";
 
 class Sidebar extends Component {
   constructor(props) {
@@ -71,10 +72,15 @@ class Sidebar extends Component {
     return (
       <div styleName={`sidebar ${this.props.sidebar.open ? "open" : ""}`}>
         <div styleName="header-1">
-          <div styleName="img-container">
-            <div styleName="img"></div>
-          </div>
-          <h2>Josh Moxey</h2>
+          <Link to={"/"}>
+            <div styleName="img-container">
+              <img src={imgPathify("josh-moxey.png")}/>
+              {/*<div styleName="img"></div>*/}
+            </div>
+          </Link>
+          <Link to={"/"}>
+            <h2>Josh Moxey</h2>
+          </Link>
         </div>
         <div styleName="header-2">
           <div styleName="img"></div>

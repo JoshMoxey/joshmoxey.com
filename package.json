@@ -4,12 +4,16 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "server": "nodemon --ignore client/ server.js",
+    "dev-server": "nodemon --ignore client/ server.js",
+    "server": "node server.js",
+    "forever-server": "forever start server.js",
     "client-dev": "npm run dev --prefix client",
     "client-start": "npm run start --prefix client",
+    "client-forever": "npm run forever --prefix client",
     "build": "cross-env NODE_ENV=production npm run build --prefix client",
-    "dev": "cross-env NODE_ENV=development concurrently --kill-others-on-fail \"npm run server\" \"npm run client-dev\"",
-    "start": "cross-env NODE_ENV=production concurrently --kill-others-on-fail \"npm run server\" \"npm run client-start\""
+    "dev": "cross-env NODE_ENV=development concurrently --kill-others-on-fail \"npm run dev-server\" \"npm run client-dev\"",
+    "node": "cross-env NODE_ENV=production concurrently --kill-others-on-fail \"npm run server\" \"npm run client-start\"",
+    "start": "cross-env NODE_ENV=production concurrently --kill-others-on-fail \"npm run forever-server\" \"npm run client-forever\""
   },
   "author": "Josh Moxey",
   "license": "ISC",
