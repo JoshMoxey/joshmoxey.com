@@ -373,7 +373,8 @@ export const imgMiddleware = (src) => {
 }
 
 export const isMobile = () => {
-  if (navigator.userAgent.match(/Android/i) ||
+  if (
+    navigator.userAgent.match(/Android/i) ||
     navigator.userAgent.match(/webOS/i) ||
     navigator.userAgent.match(/iPhone/i) ||
     navigator.userAgent.match(/iPad/i) ||
@@ -384,4 +385,17 @@ export const isMobile = () => {
     return true
   }
   return false
+}
+
+export const throttle = (callback, limit) => {
+  let wait = false;
+  return function () {
+    if (!wait) {
+      callback.call()
+      wait = true
+      setTimeout(function () {
+        wait = false
+      }, limit)
+    }
+  }
 }

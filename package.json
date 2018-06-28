@@ -29,13 +29,10 @@
     "express-handlebars": "^3.0.0",
     "express-messages": "*",
     "express-session": "^1.14.2",
-    "handlebars": "4.0.6",
     "jsonfile": "^3.0.1",
     "less": "^2.7.2",
     "mongodb": "^2.2.19",
     "path": "^0.12.7",
-    "postcss-loader": "^2.1.4",
-    "react-router-scroll-memory": "^1.0.1",
     "redis": "^2.7.1",
     "reselect": "^3.0.1",
     "serve-favicon": "^2.4.3",
@@ -43,7 +40,6 @@
     "webpack": "^4.6.0"
   },
   "devDependencies": {
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "livereload": "^0.6.0",
     "nodemon": "^1.11.0"
   }

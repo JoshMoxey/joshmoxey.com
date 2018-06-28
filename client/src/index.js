@@ -5,6 +5,7 @@ import {createStore, applyMiddleware} from 'redux';
 import {BrowserRouter, Router, Route, Switch} from 'react-router-dom';
 import promise from 'redux-promise';
 import thunk from 'redux-thunk';
+import 'babel-polyfill';
 
 import reducers from './reducers';
 import Home from "./containers/Home/home"

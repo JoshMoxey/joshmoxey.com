@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import CSSModules from "react-css-modules"
 import styles from "./banner.css"
 import {Parallax, Background} from 'react-parallax';
-import {backgroundStyler, isMobile} from "../../global/global";
+import {backgroundStyler, isMobile, throttle} from "../../global/global";
 
 class Banner extends Component {
   constructor(props) {

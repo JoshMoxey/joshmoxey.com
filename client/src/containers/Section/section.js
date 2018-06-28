@@ -64,7 +64,7 @@ class Section extends Component {
 
   render() {
     const section = this.props.section
-    console.log(section)
+    console.log(this.props)
 
     if (!section) {
       if (this.props.status && this.props.status !== 200)

@@ -1,14 +1,15 @@
 import React from "react";
 import {idify} from "../../global/global";
+import CSSModules from "react-css-modules"
+import styles from "./svg.css"
 
-export default (props) => {
+const Svg = (props) => {
   const redirects = {
     apple_podcast: "podcast",
     apple_podcasts: "podcast",
     apple_music: "music",
     facebook_v: "facebook",
     soundcloud_set: "soundcloud",
-
   }
 
   const redirect = redirects[props.icon]
@@ -69,12 +70,7 @@ export default (props) => {
     return (
     <svg
       viewBox={props.viewBox ? props.viewBox : '0 0 32 32'}
-      style={{
-        // color: "inherit",
-        strokeWidth: 0,
-        stroke: "currentColor",
-        fill: "currentColor"
-      }}
+      style={props.style}
       // width={`${size}px`}
       // height={`${size}px`}
       className={classId}
@@ -86,3 +82,5 @@ export default (props) => {
     </svg>
   )
 }
+
+export default CSSModules(Svg, styles, {allowMultiple: true, handleNotFoundStyleName: "log"})

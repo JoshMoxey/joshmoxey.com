@@ -54,7 +54,7 @@ class HomeTiles extends Component {
           },
           color: false
         },
-        description: "Playlists of my favourites songs, organized from softest to hardest"
+        description: "Playlists of my favourite songs, organized from softest to hardest"
       },
     ]
 

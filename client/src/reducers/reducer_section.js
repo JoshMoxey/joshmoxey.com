@@ -21,6 +21,9 @@ export default function (state = {
       // const sections = sectionIds ? {...state.sections, [id]: action.payload.data} : state.sections
       const id = action.payload.data.sectionId
 
+      let {redirect} = action.payload.data
+      redirect = redirect ? action.payload.data.redirect.to : false
+
       return {
         ...state,
         sections: {
@@ -28,7 +31,7 @@ export default function (state = {
           [id]: action.payload.data
         },
         status: action.payload.data.status,
-        redirect: action.payload.data.to,
+        redirect
       }
       break;
     case RESET_SECTION_STATUS:

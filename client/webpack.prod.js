@@ -4,6 +4,12 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = {
+  entry: {
+    app: [
+      "./src/index.js",
+      "babel-polyfill"
+    ],
+  },
   output: {
     path: __dirname,
     filename: 'bundle.js'
@@ -16,7 +22,7 @@ module.exports = {
         include: path.resolve(__dirname, './src'),
         exclude: /node_modules/,
         query: {
-          presets: ['react', 'es2015', 'stage-1']
+          presets: ['env', 'react', 'stage-0']
         }
       },
       {

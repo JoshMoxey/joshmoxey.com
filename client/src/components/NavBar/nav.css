@@ -129,7 +129,7 @@
 .nav .top .left .title {
   font-size: 14px;
   font-weight: 400;
-  padding-left: 16px;
+  padding: 16px;
   color: #9a9a9a;
   white-space: nowrap;
   overflow: hidden;
