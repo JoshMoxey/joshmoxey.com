@@ -69,8 +69,13 @@ class Section extends Component {
     if (!section) {
       if (this.props.status && this.props.status !== 200)
         return <Status status={this.props.status}/>
-      if (this.props.redirect)
+      if (this.props.redirect) {
+        if (this.props.redirect.startsWith("http") || this.props.redirect.startsWith("www")) {
+          window.location = this.props.redirect
+          return <Loading/>
+        }
         return <Redirect to={this.props.redirect}/>
+      }
       return <Loading/>
     }
 
