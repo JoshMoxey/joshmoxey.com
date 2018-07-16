@@ -16,63 +16,198 @@ export const FETCH_SECTIONS_BY_IDS = 'fetch_section_by_ids';
 export const RESET_SECTION_STATUS = 'reset_section_status'
 
 export const LOG_REQUEST_HISTORY = "log_request_history"
+export const REQUEST_FETCHING = "req_fetching"
+export const REQUEST_FETCHED = "req_fetched"
+export const REQUEST_ERRORED = "req_errored"
+
 export const LOG_VIEW_HISTORY = "log_view_history"
 export const SEND_VIEW_INCREASE = "send_view_increase"
 
 export const TOGGLE_SIDEBAR = 'toggle_sidebar'
 export const UPDATE_TITLE = 'update_title'
 
-export function fetchPage(section, page) {
-  const request = axios.get(`${ROOT_URL}/page/${section}/${page}`)
+export function isFetching(getState, url) {
+  const request = getState().requests[url]
+  if (request) {
+    return request.fetching
+  }
+  return false
+}
 
+export function hasFetched(getState, url) {
+  const request = getState().requests[url]
+  if (request) {
+    return request.fetched
+  }
+  return false
+}
+
+export function requestFetching(url) {
   return {
-    type: FETCH_PAGE,
-    payload: request
+    type: REQUEST_FETCHING,
+    payload: {
+      url
+    }
+  }
+}
+
+export function requestFetched(url, status) {
+  return {
+    type: REQUEST_FETCHED,
+    payload: {
+      url,
+      status
+    }
+  }
+}
+
+export function requestErrored(url, status, error) {
+  return {
+    type: REQUEST_ERRORED,
+    payload: {
+      url,
+      status,
+      error
+    }
+  }
+}
+
+export function fetchPage(section, page) {
+  let url = `${ROOT_URL}/page/${section}/${page}`
+  return (dispatch, getState) => {
+    if (isFetching(getState, url)) {
+      return
+    }
+    if (hasFetched(getState, url)) {
+      return
+    }
+
+    dispatch(
+      requestFetching(url),
+      axios.get(url)
+        .then((response) => {
+          dispatch(requestFetched(url, response.status))
+          dispatch({
+            type: FETCH_PAGE,
+            payload: response
+          })
+        }).catch(error => {
+        requestErrored(url, error)
+        //todo move to error.response.status
+      })
+    )
   }
 }
 
 export function fetchPagesByIds(ids) {
-  const request = axios.post(`${ROOT_URL}/pages-by-ids`, {ids})
-  return {
-    type: FETCH_PAGES_BY_IDS,
-    payload: request
+  let url = `${ROOT_URL}/pages-by-ids`
+  return (dispatch, getState) => {
+    if (isFetching(getState, url)) {
+      return
+    }
+    if (hasFetched(getState, url)) {
+      return
+    }
+
+    dispatch(
+      axios.post(url, {ids})
+        .then((response) => {
+          dispatch(requestFetched(url, response.status))
+          dispatch({
+            type: FETCH_PAGES_BY_IDS,
+            payload: request
+          })
+        }).catch(error => {
+        requestErrored(url, error)
+        //todo move to error.response.status
+      })
+    )
   }
 }
 
 export function fetchPagesByMore(query) {
-  query = queryString.stringify({sectionId: query})
-  const request = axios.get(`${ROOT_URL}/pages-by-more?${query}`)
-  console.log(request)
+  const qs = queryString.stringify({sectionId: query})
+  const url = `${ROOT_URL}/pages-by-more?${qs}`
 
-  return {
-    type: FETCH_PAGES_BY_MORE,
-    payload: request
+  return (dispatch, getState) => {
+    if (isFetching(getState, url)) {
+      return
+    }
+    if (hasFetched(getState, url)) {
+      return
+    }
+
+    dispatch(
+      requestFetching(url),
+      axios.get(url)
+        .then((response) => {
+          dispatch(requestFetched(url, response.status))
+          dispatch({
+            type: FETCH_PAGES_BY_MORE,
+            payload: response
+          })
+        }).catch(error => {
+        requestErrored(url, error)
+        //todo move to error.response.status
+      })
+    )
   }
 }
 
 export function fetchPagesBySection(section, options) {
   const query = queryString.stringify(options)
   const url = `${ROOT_URL}/pages-by-section/${section}?${query}`
+
   return (dispatch, getState) => {
-    if (!checkRequestHistory(getState, url)) {
-      dispatch({
-        type: FETCH_PAGES_BY_SECTION,
-        payload: axios.get(url)
-      }).then(() =>
-        dispatch(logRequestHistory(url)),
-      )
-    } else {
-      return {}
+    if (isFetching(getState, url)) {
+      return
     }
+    if (hasFetched(getState, url)) {
+      return
+    }
+
+    dispatch(
+      requestFetching(url),
+      axios.get(url)
+        .then((response) => {
+          dispatch(requestFetched(url, response.status))
+          dispatch({
+            type: FETCH_PAGES_BY_SECTION,
+            payload: response
+          })
+        }).catch(error => {
+        requestErrored(url, error)
+        //todo move to error.response.status
+      })
+    )
   }
 }
 
-export function fetchSection(id) {
-  const request = axios.get(`${ROOT_URL}/wild-card/${id}`)
 
-  return {
-    type: FETCH_SECTION,
-    payload: request
+export function fetchSection(id) {
+  const url = `${ROOT_URL}/wild-card/${id}`
+  return (dispatch, getState) => {
+    if (isFetching(getState, url)) {
+      return
+    }
+    if (hasFetched(getState, url)) {
+      return
+    }
+
+    dispatch(
+      requestFetching(url),
+      axios.get(url)
+        .then((response) => {
+          dispatch(requestFetched(url, response.status))
+          dispatch({
+            type: FETCH_SECTION,
+            payload: response
+          })
+        }).catch(error => {
+        requestErrored(url, error)
+        //todo move to error.response.status
+      })
+    )
   }
 }
 

@@ -180,6 +180,7 @@ router
         })
       res.send(200)
     }
+
     if (req.query.type === "section") {
       console.log("section")
       mongo.db.collection("sections")

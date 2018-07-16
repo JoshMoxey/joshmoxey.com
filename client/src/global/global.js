@@ -286,7 +286,8 @@ export const production = () => {
     throw new Error("NODE_ENV is not defined")
   }
   return process.env.NODE_ENV.toLowerCase() === "production"
-    && !window.location.host.startsWith("localhost")
+    //&& !window.location.host.startsWith("localhost")
+  //todo production isn't set properly for testing...
 }
 
 export const urlToIds = (url) => {
